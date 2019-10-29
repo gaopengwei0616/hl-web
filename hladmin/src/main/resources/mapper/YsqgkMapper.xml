@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yida.mapper.YsqgkMapper">
+    <select id="selectAllYsqgk_gm" resultType="com.yida.entity.Ysqgk_gm">
+        select * from sys_table_gm
+    </select>
+
+    <select id="selectAllYsqgk" resultType="com.yida.entity.Ysqgk">
+        select * from sys_table
+    </select>
+    <update id="updateStatus">
+        update sys_table
+        <set>
+        status ="已通过"
+        </set>
+        where id=#{id}
+    </update>
+    <update id="refuseStatus">
+        update sys_table
+        <set>
+            status ="未通过"
+        </set>
+        where id=#{id}
+    </update>
+    <update id="updateGmStatus">
+        update sys_table_gm
+        <set>
+            status ="已通过"
+        </set>
+        where id=#{id}
+    </update>
+    <update id="refuseGmStatus">
+        update sys_table_gm
+        <set>
+            status ="未通过"
+        </set>
+        where id=#{id}
+    </update>
+</mapper>

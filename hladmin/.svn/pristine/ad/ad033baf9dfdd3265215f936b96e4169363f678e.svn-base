@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" href="layer/theme/default/layer.css?v=3.1.1" type="text/css" id="layuicss-layer"/>
+    <script type="text/javascript" src="layer/layer.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">设置</a></li>
+        <li><a href="">相关设置</a></li>
+        <li><a href="">管理员管理</a></li>
+        <li>添加管理员</li>
+        <li>修改管理员</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+    <input type="hidden" id="type" th:value="${type}" />
+    <div style="margin-bottom: 5px">
+        <input type="button" value="添加管理员" class="stdbtn btn_black"
+               onclick="changUrl('/addEditAdmin?type=add');">
+        <input type="button" value="管理员管理" class="stdbtn btn_black"
+               onclick="changUrl('/AdminManagerList');">
+    </div>
+    <form th:if="${type} eq 'add'" class="stdform stdform2" action="/insertAdmin" method="post" id="forms">
+        <p>
+            <label>用户名:</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="username" id="username"  class="mediuminput"/>
+            </span>
+        </p>
+
+        <p>
+            <label>密码：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="password" name="password" id="password"  class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>确认密码：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="password" name="repassword" id="repassword"  class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>E-mail：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="email" id="email" class="mediuminput"/>
+            </span>
+        </p>
+
+        <p>
+            <label>真实姓名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="realname" id="realname" class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>所属角色：</label>
+            <span class="field"><select name="roleid" id="selection1">
+
+                            </select></span>
+        </p>
+
+
+        <p class="stdformbutton">
+            <button id="fromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+    <form th:if="${type} eq 'edit'" class="stdform stdform2" action="/updateAdmin" method="post" id="editForms">
+        <input th:if="${type} eq 'edit'" type="hidden" name="userid" id="userid"  class="mediuminput" th:value="${admin.userid}"/>
+        <p>
+            <label>用户名:</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="username" id="username"  class="mediuminput" th:value="${admin.username}"/>
+            </span>
+        </p>
+        <p>
+            <label>原密码：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="password" id="old_password"  class="mediuminput" />
+            </span>
+        </p>
+        <p>
+            <label>新密码：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="password" name="password" id="password"  class="mediuminput" />
+            </span>
+        </p>
+        <p>
+            <label>确认密码：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="password" name="repassword" id="repassword"  class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>E-mail：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="email" id="email" class="mediuminput" th:value="${admin.email}"/>
+            </span>
+        </p>
+
+        <p>
+            <label>真实姓名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="realname" id="realname" class="mediuminput" th:value="${admin.realname}"/>
+            </span>
+        </p>
+        <p>
+            <label>所属角色：</label>
+            <input th:if="${type} eq 'edit'" type="hidden" id="roleid" th:value="${admin.roleid}">
+            <span class="field"><select disabled="disabled" th:if="${type} eq 'edit'" name="roleid" id="selection2">
+
+                            </select></span>
+        </p>
+
+
+        <p class="stdformbutton">
+            <button id="editfromSubmit" class="">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+
+    <script type="text/javascript">
+
+        $.ajax({
+            url:"/roleList",
+            type:"get",
+            dataType:"json",
+            success:function (data) {
+                var html = "";
+                for(var i in data){
+                    html += "<option value="+data[i].roleid+">"+data[i].rolename+"</option>"
+                }
+                $("select[name='roleid']").html(html);
+                var roleid = $("#roleid").val();
+                if(roleid!=undefined){
+                    $("select[name='roleid']").val(roleid);
+                }
+            }
+        })
+
+        $("#fromSubmit").click(function () {
+            var add_password = $("#password").val();
+            var add_repassword = $("#repassword").val();
+
+
+            var username = $("#username").val();
+            var email = $("#email").val();
+            var realname = $("#realname").val();
+            if(username.length==0||username=="".trim()||username==null||username==undefined){
+                layer.msg("请输入用户名");
+                return false;
+            }
+            if(username.length>19){
+                layer.msg("用户名过长");
+                return false;
+            }
+
+            if(add_password!=add_repassword){
+                layer.msg("重复密码错误,请重新输入");
+                $("#add_repassword").val("");
+                return false;
+            }
+
+
+            if(email.length==0||email=="".trim()||email==null||email==undefined){
+                layer.msg("请输入邮箱");
+                return false;
+            }
+            if(/^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$/.test(email)){
+                layer.msg("邮箱格式不正确");
+                return false;
+            }
+            if(realname.length==0||realname=="".trim()||realname==null||realname==undefined){
+                layer.msg("请输入真实姓名");
+                return false;
+            }
+            if(realname.length>49){
+                layer.msg("真实姓名过长");
+                return false;
+            }
+
+            $("#forms").submit();
+        });
+
+        $("#editfromSubmit").click(function () {
+            var id = $("#userid").val();
+            var old_password = $("#old_password").val();
+            var edit_password = $("#password").val();
+            var edit_repassword = $("#repassword").val();
+
+            var username = $("#username").val();
+            var email = $("#email").val();
+            var realname = $("#realname").val();
+            if(username.length==0||username=="".trim()||username==null||username==undefined){
+                layer.msg("请输入用户名");
+                return false;
+            }
+            if(username.length>19){
+                layer.msg("用户名过长");
+                return false;
+            }
+
+            if(edit_password!=edit_repassword){
+                layer.msg("重复密码错误,请重新输入");
+                $("#add_repassword").val("");
+                return false;
+            }
+
+
+
+            if(email.length==0||email=="".trim()||email==null||email==undefined){
+                layer.msg("请输入邮箱");
+                return false;
+            }
+            if(/^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$/.test(email)){
+                layer.msg("邮箱格式不正确");
+                return false;
+            }
+            if(realname.length==0||realname=="".trim()||realname==null||realname==undefined){
+                layer.msg("请输入真实姓名");
+                return false;
+            }
+            if(realname.length>49){
+                layer.msg("真实姓名过长");
+                return false;
+            }
+
+
+            var flag = true;
+            $.ajax({
+               url:"/checkPasswordById",
+                dataType:"json",
+                type:"post",
+                data:{"id":id,"password":old_password},
+                async:false,
+                success:function (data) {
+                    if(data==1){
+                        layer.msg("密码错误！！");
+                        flag =  false;
+                    }
+
+                }
+            });
+
+            if(flag == false){
+                return false;
+            }
+
+            $("#editForms").submit();
+        });
+
+        $("#username").blur(function () {
+            var value = $(this).val();
+            var type = $("#type").val();
+           $.ajax({
+               url:"/checkUserName?username="+value+"&type="+type,
+               dataType:"json",
+               type:"get",
+               success: function (data) {
+                   if(data==1){
+                       layer.msg("改名字以被使用，请重新输入");
+                       $("#username").val("");
+                       $("#username").focus();
+                   }
+               }
+           })
+        });
+
+        $("#username").blur(function () {
+            var userid = $("#userid").val();
+            var value = $(this).val();
+            var type = $("#type").val();
+            $.ajax({
+                url:"/checkUserName?username="+value+"&type=edit&userid="+userid+"&type="+type,
+                dataType:"json",
+                type:"get",
+                success: function (data) {
+                    if(data==1){
+                        alert("改名字以被使用，请重新输入");
+                        $("#username").val("");
+                        $("#username").focus();
+                    }
+                }
+            })
+        });
+
+    </script>
+</div><!-- centercontent -->
+</body>
+</html>

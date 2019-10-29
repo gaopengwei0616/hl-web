@@ -1,0 +1,141 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>tree-table</title>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <link rel="stylesheet" href="assets/layui/css/layui.css">
+    <link rel="stylesheet" href="assets/common.css">
+    <link id="layuicss-layer" rel="stylesheet" href="assets/layui/css/modules/layer/default/layer.css?v=3.1.1"
+          media="all">
+    <link id="layuicss-moduletreetable-laytreetablecss" rel="stylesheet" href="module/treetable-lay/treetable.css"
+          media="all">
+</head>
+
+<script type="application/javascript" >
+
+    $(function () {
+        $.ajax({
+            url: "/showSites",
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                var html = "";
+                for (var i in data) {
+                    html += "<option value='" + data[i].siteid + "'>" + data[i].name + "</option>";
+                }
+                $("#siteSelect").append(html);
+            }
+        });
+    })
+
+</script>
+<body>
+<div class="layui-container layui-text">
+    <input type="hidden" id="siteid" th:value="${siteid}"/>
+    <br>
+    <h1 style="text-align: center">
+        <small>管理栏目</small>
+    </h1>
+    <div>
+        <label>站点</label>
+        <span class="field">
+        <select id="siteSelect" style="width:400px;padding: 8px;">
+            <option>请选择</option>
+        </select>
+        </span>
+    </div>
+    <br>
+    &nbsp;
+    &emsp;
+    <table id="table1" class="layui-table" lay-filter="table1"></table>
+</div>
+
+<!-- 操作列 -->
+<script type="text/html" id="oper-col">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="addsubtopic">添加子栏目</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="Batchmobile">批量移动</a>
+</script>
+
+<script src="/assets/layui/layui.js"></script>
+<script type="application/javascript" th:inline="none">
+    layui.config({
+        base: '/module'
+    }).extend({
+        treetable: '/treetable-lay/treetable'
+    }).use(['layer', 'table', 'treetable'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var layer = layui.layer;
+        var treetable = layui.treetable;
+        var siteid = $("#siteid").val();
+        // 渲染表格
+        $.ajax({
+            url: "ManagerProgramajax",
+            dataType: "json",
+            type: "post",
+            data: {"siteid": siteid},
+            success: function (data) {
+                var renderTable2 = function () {
+                    layer.load(2);
+                    treetable.render({
+                        treeColIndex: 1,
+                        treeSpid: 0,
+                        treeIdName: 'catid',
+                        treePidName: 'parentid',
+                        treeDefaultClose: true,
+                        treeLinkage: false,
+                        elem: '#table1',
+                        page: false,
+                        data: data.categorys,
+                        count: data.count,
+                        cols: [[
+                                {type: 'numbers'},
+                                {field: 'catid', title: 'caiId', align: 'center', width: 120},
+                                {field: 'name', title: '栏目名称', align: 'center', width: 156},
+                                {field: 'type', title: '栏目类型', align: 'center', width: 86},
+                                {field: 'modelid', title: '所属模型', align: 'center', width: 86},
+                                {field: 'items', title: '数据量', align: 'center', width: 86},
+                                {field: "url", title: '访问', align: 'center', width: 86},
+                                {templet: '#oper-col', title: '管理操作', align: 'center', width: 275}
+                            ]],
+
+                        done: function () {
+                            layer.closeAll('loading');
+                        }
+                    });
+                };
+                renderTable2();
+                $("#siteSelect").change(function () {
+                    var siteid = $(this).val();
+                    window.location.href = "ManagerProgramList?siteid=" + siteid;
+                });
+            }
+        });
+
+        //监听工具条
+        table.on('tool(table1)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+
+            if (layEvent === 'addsubtopic') {
+                window.location.href = "addEditCategory?type=add&parentid=" + data.parentid + "";
+            } else if (layEvent === 'edit') {
+                window.location.href = "addEditCategory?type=edit&catId=" + data.catid + "&parentid=" + data.parentid + "";
+            } else if (layEvent === 'del') {
+                if (confirm("确定删除吗")) {
+                    window.location.href = "deleCategory?catid=" + data.catid + "";
+                }
+            } else if (layEvent === 'Batchmobile') {
+                layer.msg('批量移动' + data.catId);
+            }
+        });
+
+    });
+
+
+</script>
+<div class="layui-layer-move"></div>
+</body>
+</html>

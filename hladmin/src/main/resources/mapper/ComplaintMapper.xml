@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.yida.mapper.ComplaintMapper">
+	<resultMap id="ComplaintResultMap" type="com.yida.entity.Complaint">
+
+		<id column="id" property="id" />
+
+		<result column="name" property="name" />
+
+		<result column="identity_card" property="identity_card" />
+		
+		<result column="unit" property="unit" />
+		
+		<result column="address" property="address" />
+		
+		<result column="postcode" property="postcode" />
+		
+		<result column="phone" property="phone" />
+		
+		<result column="email" property="email" />
+
+		<result column="title" property="title"/>
+		
+		<result column="content" property="content"/>
+		
+		<result column="status" property="status"/>
+		
+		<result column="inputtime" property="inputtime" />
+		
+		<result column="updatetime" property="updatetime"/>
+
+        <result column="yjstatus" property="yjstatus"/>
+	</resultMap>
+	
+	<select id="selectComplaint" resultType="com.yida.entity.Complaint">
+		SELECT * FROM complaint WHERE  status=1
+	</select>
+	<delete id="deleteComplaintById">
+		delete from complaint where id = #{id}
+	</delete>
+	<select id="selectOpinionList" resultType="com.yida.entity.Complaint">
+		SELECT * FROM complaint WHERE  status=0 and yjstatus=0
+	</select>
+	<delete id="deleteOpinionById">
+		delete from complaint where id = #{id}
+	</delete>
+
+    <update id="updateOpinionById">
+        update complaint set yjstatus=0 where id=#{id}
+    </update>
+</mapper>

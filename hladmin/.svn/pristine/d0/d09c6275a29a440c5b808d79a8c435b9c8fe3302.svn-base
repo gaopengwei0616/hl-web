@@ -1,0 +1,118 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>tree-table</title>
+    <link rel="stylesheet" href="assets/layui/css/layui.css">
+    <link rel="stylesheet" href="assets/common.css">
+    <link id="layuicss-layer" rel="stylesheet" href="assets/layui/css/modules/layer/default/layer.css?v=3.1.1"
+          media="all">
+    <link id="layuicss-moduletreetable-laytreetablecss" rel="stylesheet" href="module/treetable-lay/treetable.css"
+          media="all">
+</head>
+<body>
+<div class="layui-container layui-text">
+    <br>
+    <h1 style="text-align: center">
+        <small>菜单管理</small>
+    </h1>
+    <br>
+    <div class="layui-btn-group">
+        <button class="layui-btn" id="btn-expand">全部展开</button>
+        <button class="layui-btn" id="btn-fold">全部折叠</button>
+        <button class="layui-btn" id="btn-refresh">刷新表格</button>
+    </div>
+    &nbsp;
+    &emsp;
+    <table id="table1" class="layui-table" lay-filter="table1"></table>
+</div>
+</div>
+<!-- 操作列 -->
+<script type="text/html" id="oper-col">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="addsubtopic">添加子栏目</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script src="assets/layui/layui.js"></script>
+<script type="application/javascript" th:inline="none">
+    layui.config({
+        base: '/module'
+    }).extend({
+        treetable: '/treetable-lay/treetable'
+    }).use(['layer', 'table', 'treetable'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var layer = layui.layer;
+        var treetable = layui.treetable;
+
+        // 渲染表格
+        $.ajax({
+            url: "/menuListajax",
+            dataType: "json",
+            type: "Get",
+            success: function (data) {
+                var renderTable = function () {
+                    layer.load(2);
+                    treetable.render({
+                        treeColIndex: 1,
+                        treeSpid: 0,
+                        treeIdName: 'id',
+                        treePidName: 'parentid',
+                        treeDefaultClose: true,
+                        treeLinkage: false,
+                        elem: '#table1',
+                        page: false,
+                        data: data.menuList,
+                        count: data.count,
+                        cols: [[
+                            {type: 'numbers'},
+                            {field: 'id', title: 'id'},
+                            {field: 'c_name', title: '菜单中文名称'},
+                            {field: 'name', title: '菜单英文名称'},
+                            {templet: '#oper-col', title: '管理操作'},
+                        ]],
+
+                        done: function () {
+                            layer.closeAll('loading');
+                        }
+                    });
+                };
+                renderTable();
+                $('#btn-refresh').click(function () {
+                    renderTable();
+                });
+            }
+        });
+
+
+        $('#btn-expand').click(function () {
+            treetable.expandAll('#table1');
+        });
+
+        $('#btn-fold').click(function () {
+            treetable.foldAll('#table1');
+        });
+
+
+
+        //监听工具条
+        table.on('tool(table1)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+
+            if (layEvent === 'addsubtopic') {
+                window.location.href = "/AddorEditMenu?type=add&parentid=" + data.parentid + "";
+            } else if (layEvent === 'edit') {
+                window.location.href = "/AddorEditMenu?type=edit&id=" + data.id + "&parentid=" + data.parentid + "";
+            } else if (layEvent === 'del') {
+                if (confirm("确定删除吗")) {
+                    window.location.href = "/deleMenu?id=" + data.id + "";
+                }
+            } else if (layEvent === 'Batchmobile') {
+            }
+        });
+    });
+</script>
+<div class="layui-layer-move"></div>
+</body>
+</html>

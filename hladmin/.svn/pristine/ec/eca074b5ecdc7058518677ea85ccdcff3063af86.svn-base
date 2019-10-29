@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ueditor demo</title>
+    <link rel="stylesheet" type="text/css" href="ztree/css/zTreeStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/MyPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+
+</head>
+
+<body>
+<script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="ueditor/ueditor.all.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+    $(function () {
+        var content = $("#content").val();
+        ue.addListener("ready", function () {
+            // editor准备好之后才可以使用
+            ue.setContent(content);
+
+        });
+    });
+</script>
+<style>
+    html {
+        _overflow-y: scroll
+    }
+
+    html, body {
+        background: #e2e9ea
+    }
+</style>
+<div class="container">
+    <div style="height: 50px;"></div>
+    当前位置: 管理内容>xxxx>修改内容
+    <input type="hidden" th:value="${yw.content}" id="content">
+    <input type="hidden" th:value="${yw.catid}" id="catid">
+    <div class="row" style="background: white">
+        <div class="col-sm-9">
+            <table>
+                <tbody>
+                <tr>
+                    <td><input id="id" th:value="${yw.id}" type="hidden"></td>
+                </tr>
+                <tr>
+                    <td>栏目</td>
+                    <td th:text="${yw.catid}"></td>
+                </tr>
+                <tr>
+                    <td>标题</td>
+                    <td>
+                        <input id="tit00les"  th:value="${yw.title}" placeholder="请输入标题">
+                        <button>检查重复</button>
+                        还可输入200个字符
+                    </td>
+                </tr>
+                <tr>
+                    <td>关键词</td>
+                    <td><input  id="keywords" type="text" th:value="${yw.keywords}"> 多关键词之间用空格或者","隔开</td>
+                </tr>
+                <tr>
+                    <td>来源</td>
+                    <td><input type="text" id="copyfrom"  th:value="${yw.copyfrom}">
+                        <select name="">
+                            <option value="">请选择</option>
+                            <option value="">1</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>摘要</td>
+                    <td><textarea></textarea></td>
+                </tr>
+                <tr>
+                    <td class="col-sm-1">内容</td>
+                    <td class="col-sm-11">
+                        <script id="container" name="content" type="text/plain">
+                                这里写你的初始化内容
+
+                        </script>
+                        <input type="checkbox"/>是否截取内容<input type="text" size="4"/>字符至内容摘要
+                        <input type="checkbox"/>是否获取内容第<input type="text" size="2"/>张图片作为标题图片
+                    </td>
+                </tr>
+                <tr>
+                    <td>分页方式</td>
+                    <td>
+                        <select name="">
+                            <option value="">不分页</option>
+                            <option value="">自动分页</option>
+                            <option value="">手动分页</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>添加投票</td>
+                    <td>
+                        <input type="text" size="5">
+                        <button>选择已有投票</button>
+                        <button>添加投票</button>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+            <div style="height: 100px;"></div>
+        </div>
+        <div class="col-sm-3">
+            <div>
+                <h4>缩略图</h4>
+                <p style="width:100px;height:100px">
+                    <img src="" alt="">
+                </p>
+                <!--<button>截取图片</button>
+                <button>取消图片</button>-->
+                <form action="upload" method="post" enctype="multipart/form-data">
+                    <p><input type="text" name="fileinfo" value="">文件介绍</p>
+                    <p><input type="file" name="myfile" value="浏览文件"></p>
+                    <p><input type="submit" value="上 传"></p>
+                </form>
+
+            </div>
+            <div>
+                <h4>相关文章</h4>
+                <button>添加相关</button>
+                <button>显示已有</button>
+            </div>
+            <div>
+                <h4>上传时间</h4>
+                <input type="datetime"/>
+            </div>
+            <div>
+                <h4>转向链接</h4>
+                <input type="checkbox"/><span style="color: red;">转向链接</span>
+            </div>
+            <div>
+                <h4>内容页模板</h4>
+                <select name="">
+                    <option value="">请选择</option>
+                    <option value="">文章内容页</option>
+                    <option value="">下载内容页</option>
+                    <option value="">图片内容页</option>
+                </select>
+            </div>
+            <div>
+                <h4>允许评论</h4>
+                <input type="radio"/>允许
+                <input type="radio"/>不允许
+            </div>
+            <div>
+                <h4>阅读收费</h4>
+                <input type="text"/><input type="radio"/>点<input type="radio"/>元
+            </div>
+            <div class="footer">
+                <button class="savecloses" type="button">保存后自动关闭</button>
+                <button onclick="saveopen">保存后并继续发表</button>
+                <button onclick="closed()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(function(){
+        $(".savecloses").click(
+            function saveclose() {
+                var title=$("#titles").val();
+                var keywords=$("#keywords").val();
+                var content= ue.getContent(content);
+                var copyfrom=$("#copyfrom").val();
+                var id=$("#id").val();
+                var let=this;
+                $.ajax({
+                    type:'post',
+                    url:'/pw/ywbj',
+                    data:{
+                        'id':id,
+                        'title': title,
+                        'keywords':keywords,
+                        'content':content,
+                        'copyfrom':copyfrom
+                    },
+                    dataType:'json',
+                    success: function (data){
+                        if (data==2||data==1) {
+                            alert("修改成功");
+                        } else {
+                            alert("修改失败");
+                        }
+                    }, error: function () {
+                        alert("error");
+                    }
+                });
+            }
+        )
+    })
+</script>
+
+</body>
+
+</html>

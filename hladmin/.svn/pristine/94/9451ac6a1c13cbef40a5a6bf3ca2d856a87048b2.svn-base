@@ -1,0 +1,66 @@
+package com.yida.controller.content;
+
+import com.yida.entity.News;
+import com.yida.entity.News1;
+import com.yida.mapper.NewsMapper;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+
+@Controller
+public class NewController {
+
+    @Resource
+    NewsMapper newsMapper;
+
+    @RequestMapping(value = "yuanwen")
+    public ModelAndView yuanwen(Model model,
+                                @RequestParam("id")int id){
+
+        News1 yw= newsMapper.newsList1(id);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/ueditor/ywbj");
+        model.addAttribute("yw",yw);
+        return modelAndView;
+
+    }
+
+    @RequestMapping(value = "/pw/ywbj",method = RequestMethod.POST)
+    @ResponseBody
+    public int ywbj(@RequestParam("id")int id
+            ,@RequestParam("title")String title
+            ,@RequestParam("keywords")String keywords
+            ,@RequestParam(value = "content",required = false)Object content
+            ,@RequestParam("copyfrom")String copyfrom){
+
+        int result=newsMapper.updateYwbj(id,title,keywords);
+        int result2=newsMapper.updateYwbj1(id,content.toString(),copyfrom);
+        return result+result2;
+    }
+
+    @RequestMapping("/pw/oneData")
+    public ModelAndView xxgl(Model model,@RequestParam("id")int id){
+        News xx = newsMapper.xxgl(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/ueditor/xxgl");
+        model.addAttribute("xx",xx);
+        return modelAndView;
+    }
+
+    //修改信息
+    @RequestMapping("/xgxx")
+    @ResponseBody
+    public int xxgl(@RequestParam("id")int id,@RequestParam("title")String title,@RequestParam("thumb")String thumb,
+                    @RequestParam("description")String description,@RequestParam("updatetime")String updatetime){
+        int result = newsMapper.updatexxgl(id,title,thumb,description,updatetime);
+        return result;
+    }
+
+}

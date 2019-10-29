@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <link rel="stylesheet" href="layer/theme/default/layer.css?v=3.1.1" type="text/css" id="layuicss-layer"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">内容</a></li>
+        <li><a href="">内容相关设置</a></li>
+        <li><a href="">管理栏目</a></li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+    <div style="margin-bottom: 5px">
+        <input type="button" value="菜单管理" class="stdbtn btn_black"
+               onclick="changUrl('/menuList');">
+    </div>
+    <form th:if="${type} eq 'add'" class="stdform stdform2" action="/insertMenu" method="post" id="forms"onSubmit="return check();">
+
+        <p>
+            <label>上级栏目：</label>
+            <span class="field" >
+             <select th:if="${type} eq 'add'" name="parentid" id="parentid" style="width:500px;padding: 8px;">
+                 <option th:each="c:${menulist}" th:value="${c.id} " th:text="${c.c_name} "></option>
+             </select>
+            </span>
+        </p>
+        <p>
+            <label>菜单英文名称：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text"  name="name" class="mediuminput English"/>
+            </span>
+        </p>
+        <p>
+            <label>菜单中文名称：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="c_name" class="mediuminput menuname"/>
+            </span>
+        </p>
+        <p>
+            <label>模块名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="m" class="mediuminput" mdoelname/>
+            </span>
+        </p>
+        <p>
+            <label>文件名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'"type="text" name="c"  class="mediuminput file"/>
+            </span>
+        </p>
+        <p>
+            <label>方法名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="a"  class="mediuminput fanfa"/>
+            </span>
+        </p>
+        <p>
+            <label>附加参数：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="data" class="mediuminput fujia"/>
+            </span>
+        </p>
+        <p>
+            <label>是否显示菜单:</label>
+            <span class="field" >
+                <input name="Fruit" type="radio" value="" />是
+                <input name="Fruit" type="radio" value="" />否
+            </span>
+        </p>
+
+        <p class="stdformbutton">
+            <button id="fromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+    <form th:if="${type} eq 'edit'" class="stdform stdform2" action="/updateMenu" method="post" id="editForms">
+
+        <p>
+            <label>上级栏目：</label>
+            <span class="field" >
+             <select th:if="${type} eq 'edit'" name="parentid" id="parentid" style="width:500px;padding: 8px;">
+                 <option th:each="c:${menushangji}" th:value="${c.id} " th:text="${c.c_name} "></option>
+             </select>
+            </span>
+        </p>
+        <p>
+            <label>菜单英文名称：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'"   th:value="${menu.name}"type="text"  name="name" class="mediuminput English"/>
+                 <input th:if="${type} eq 'edit'"  style="display: none" th:value="${menu.id}"type="text" name="id" class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>菜单中文名称：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'"   th:value="${menu.c_name}"type="text" name="c_name" class="mediuminput menuname"/>
+            </span>
+        </p>
+        <p>
+            <label>模块名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'"   th:value="${menu.m}"type="text" name="m" class="mediuminput modelname"/>
+            </span>
+        </p>
+        <p>
+            <label>文件名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" th:value="${menu.c}"type="text" name="c" class="mediuminput file"/>
+            </span>
+        </p>
+        <p>
+            <label>方法名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" th:value="${menu.a}"type="text" name="a" class="mediuminput fanfa"/>
+            </span>
+        </p>
+        <p>
+            <label>附加参数：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" th:value="${menu.data}"type="text" name="data" class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>是否显示菜单:</label>
+            <span class="field" >
+                <input name="Fruit" type="radio" value="" checked="true" />是
+                <input name="Fruit" type="radio" value="" />否
+            </span>
+        </p>
+        <p class="stdformbutton">
+            <button id="editfromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+
+
+</div><!-- centercontent -->
+<script type="application/javascript">
+    $("#fromSubmit").click(function () {
+        var English=$(".English").val()
+        if(English.length=0||English==""||English==undefined){
+            layer.msg("请输入菜单英文名称！");
+            return false;
+        }
+        if(English.length>16){
+            layer.msg("设置菜单英文名称过长！");
+            return false;
+        }
+        var menuname=$(".menuname").val();
+        if(menuname==""){
+            layer.msg("请输入菜单中文名称！");
+            return false;
+        }
+        var modelname=$(".modelname").val();
+        if(modelname==""){
+            layer.msg("请输入模块名！");
+            return false;
+        }
+        var file=$(".file").val();
+        if(file==""){
+            layer.msg("请输入文件名！");
+            return false;
+        }
+        var fanfa=$(".fanfa").val();
+        if(fanfa==""){
+            layer.msg("请输入方法名！");
+            return false;
+        }
+
+        $("#forms").submit();
+    });
+
+    $("#editfromSubmit").click(function () {
+        var English=$(".English").val()
+        if(English.length==0||English==""||English==undefined){
+            layer.msg("请输入菜单英文名称！");
+            return false;
+        }
+        if(English.length>16){
+            layer.msg("设置菜单英文名称过长！");
+            return false;
+        }
+        var menuname=$(".menuname").val();
+        if(menuname==""||menuname.length==0||menuname==undefined){
+            layer.msg("请输入菜单中文名称！");
+            return false;
+        }
+        var modelname=$(".modelname").val();
+        if(modelname==""||modelname.length==0||modelname==undefined){
+            layer.msg("请输入模块名！");
+            return false;
+        }
+        var file=$(".file").val();
+        if(file==""||file.length==0||file==undefined){
+            layer.msg("请输入文件名！");
+            return false;
+        }
+        var fanfa=$(".fanfa").val();
+        if(fanfa==""||fanfa.length==0||fanfa==undefined){
+            layer.msg("请输入方法名！");
+            return false;
+        }
+        $("#editForms").submit();
+    });
+
+</script>
+</body>
+</html>

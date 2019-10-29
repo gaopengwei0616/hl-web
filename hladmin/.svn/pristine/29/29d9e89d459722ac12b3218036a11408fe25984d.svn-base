@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <link rel="stylesheet" href="layer/theme/default/layer.css?v=3.1.1" type="text/css" id="layuicss-layer"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">设置</a></li>
+        <li><a href="">相关设置</a></li>
+        <li><a href="">发布点管理</a></li>
+        <li>添加发布点</li>
+        <li>修改发布点</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+    <div style="margin-bottom: 5px">
+        <input type="button" value="添加发布点" class="stdbtn btn_black"
+               onclick="changUrl('/addEditRelePoint?type=add');">
+        <input type="button" value="发布点管理" class="stdbtn btn_black"
+               onclick="changUrl('/RelePointManagerList');">
+    </div>
+    <form th:if="${type} eq 'add'" class="stdform stdform2" action="/insertRelePoint" method="post" id="forms">
+        <p>
+            <label>发布点名称:</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="name"  class="mediuminput faname"/>
+            </span>
+        </p>
+
+        <p>
+            <label>服务器地址：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="host"  class="mediuminput fudizhi" />
+            </span>
+        </p>
+        <p>
+            <label>服务器端口：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="port"  class="mediuminput fuduankou"/>
+            </span>
+        </p>
+        <p>
+            <label>用户名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="username" class="mediuminput username"/>
+            </span>
+        </p>
+
+        <p>
+            <label>密码：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="password" class="mediuminput password"/>
+            </span>
+        </p>
+        <p>
+            <label>主目录：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="path"  value="/"class="mediuminput muru"/>
+            </span>
+        </p>
+
+
+        <p>
+            <label>被动模式：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="checkbox" name="pasv" class="mediuminput beidong"/>
+            </span>
+        </p>
+
+        <p>
+            <label>SSL连接：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="checkbox" name="ssl" class="mediuminput SSL"/>
+            </span>
+        </p>
+        <p>
+            <label>测试连接：</label>
+            <span class="field">
+                <input type="button" value="测试链接" class="stdbtn btn_black test">
+            </span>
+        </p>
+        <p class="stdformbutton">
+            <button id="fromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+    <form th:if="${type} eq 'edit'" class="stdform stdform2" action="/updateRelePoint" method="post" id="releFroms">
+        <input name="id" type="hidden" th:if="${type} eq 'edit'" th:value="${release.id}"/>
+        <p>
+            <label>发布点名称:</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="name"  class="mediuminput faname" th:value="${release.name}"/>
+            </span>
+        </p>
+
+        <p>
+            <label>服务器地址：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="host"  class="mediuminput fudizhi" th:value="${release.host}"/>
+            </span>
+        </p>
+        <p>
+            <label>服务器端口：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="port"  class="mediuminput fuduankou" th:value="${release.port}"/>
+            </span>
+        </p>
+        <p>
+            <label>用户名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="username" class="mediuminput username" th:value="${release.username}"/>
+            </span>
+        </p>
+
+        <p>
+            <label>密码：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="password" class="mediuminput password" th:value="${release.password}"/>
+            </span>
+        </p>
+        <p>
+            <label>主目录：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="path" class="mediuminput muru"  th:value="${release.path}"/>
+            </span>
+        </p>
+
+        <p>
+            <label>测试连接：</label>
+            <span class="field">
+                <input type="button" value="测试链接" class="stdbtn btn_black">
+            </span>
+        </p>
+        <p class="stdformbutton">
+            <button id="editfromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+    <script type="application/javascript">
+        $("#fromSubmit").click(function () {
+            var faname=$(".faname").val();
+
+            if(faname.length>16){
+                layer.msg("发布点名称过长！")
+                return false;
+            }
+            if(faname==""){
+                layer.msg("请输入发布点名称！")
+                return false;
+            }
+            var fudizhi=$(".fudizhi").val();
+            if(fudizhi==""){
+                layer.msg("请输入服务器地址！")
+                return false;
+            }
+            var fuduankou=$(".fuduankou").val();
+            if(fuduankou==""){
+                layer.msg("请输入服务器端口！")
+                return false;
+            }
+            var username=$(".username").val();
+            if(username==""){
+                layer.msg("请输入用户名！")
+                return false;
+            }
+            var password=$(".password").val();
+            if(password==""){
+                layer.msg("请输入密码！")
+                return false;
+            }
+            var muru=$(".muru").val();
+            if(muru==""){
+                layer.msg("请输入主目录！")
+                return false;
+            }
+
+
+            $("#forms").submit();
+        });
+        $("#editfromSubmit").click(function () {
+            var faname=$(".faname").val();
+            if(faname.length>16){
+                layer.msg("发布点名称过长！")
+                return false;
+            }
+            if(faname==""){
+                layer.msg("请输入发布点名称！")
+                return false;
+            }
+            var fudizhi=$(".fudizhi").val();
+            if(fudizhi==""){
+                layer.msg("请输入服务器地址！")
+                return false;
+            }
+            var fuduankou=$(".fuduankou").val();
+            if(fuduankou==""){
+                layer.msg("请输入服务器端口！")
+                return false;
+            }
+            var username=$(".username").val();
+            if(username==""){
+                layer.msg("请输入用户名！")
+                return false;
+            }
+            var password=$(".password").val();
+            if(password==""){
+                layer.msg("请输入密码！")
+                return false;
+            }
+            var muru=$(".muru").val();
+            if(muru==""){
+                layer.msg("请输入主目录！")
+                return false;
+            }
+
+
+            $("#releFroms").submit();
+        });
+    </script>
+</div><!-- centercontent -->
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <link rel="stylesheet" href="layer/theme/default/layer.css?v=3.1.1" type="text/css" id="layuicss-layer"/>
+    <script type="text/javascript" src="layer/layer.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+
+    <ul class="breadcrumbs">
+        <li><a href="">我的面板</a></li>
+        <li><a href="">个人信息</a></li>
+        <li>修改密码</li>
+    </ul>
+</div>
+<div id="contentwrapper" class="contentwrapper">
+    <form class="stdform stdform2" method="post" id="forms">
+        <p>
+            <label>用户名</label>
+            <span class="field">Admin</span>
+        </p>
+
+        <p>
+            <label>邮箱</label>
+            <span class="field">1392423232@qq.com</span>
+        </p>
+        <p>
+            <label>旧密码</label>
+            <span class="field"><input type="password"  id="password" class="mediuminput"/></span>
+        </p>
+        <p>
+            <label>新密码</label>
+            <span class="field"><input type="password" id="new_password" class="mediuminput"/></span>
+        </p>
+        <p>
+            <label>重复新密码</label>
+            <span class="field"><input type="password"  id="repeat_password" class="mediuminput"/></span>
+        </p>
+
+        <p class="stdformbutton">
+            <button id="fromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+</div>
+<script type="application/javascript">
+
+    $("#fromSubmit").click(function () {
+        var password = $("#password").val();
+        var new_password = $("#new_password").val();
+        var repeat_password = $("#repeat_password").val();
+        if(new_password!=repeat_password){
+            layer.msg("密码不一致，请重新输入");
+            return false;
+        }
+        $.ajax({
+            url:"/checkPassword",
+            dataType:"json",
+            type:"post",
+            data:{"password":password},
+            async:false,
+            success:function (data) {
+                if(data==1){
+                    alert("密码错误");
+                    return false;
+                }
+                $.ajax({
+                    url:"/updatePassword",
+                    dataType:"json",
+                    type:"post",
+                    data:{"new_password":new_password},
+                    async:false,
+                    success:function (data) {
+                        if(data==1){
+                            alert("修改成功");
+                        }
+                    }
+                });
+            }
+        });
+        $("#forms").submit();
+    })
+</script>
+</body>
+</html>

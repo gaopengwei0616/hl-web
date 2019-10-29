@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yida.mapper.NewsDataMapper">
+    <resultMap id="newsDataMap" type="com.yida.entity.NewsData">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+    </resultMap>
+
+    <select id="findNewsDataList" resultMap="newsDataMap">
+        select * from v9_news_data limit 0,10
+    </select>
+
+    <select id="findNewsDataByNewsId" resultMap="newsDataMap">
+        select * from v9_news_data where id = #{id}
+    </select>
+
+    <update id="updateNewsDataById">
+        UPDATE v9_news_data SET content = #{content} WHERE id = #{id}
+    </update>
+    <insert id="insertNewsData" parameterType="com.yida.entity.NewsData">
+        INSERT INTO v9_news_data(id,content) VALUES(#{news_data.id},#{news_data.content});
+    </insert>
+</mapper>

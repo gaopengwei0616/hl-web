@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/MyPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+</head>
+<body>
+<script>
+    $.ajax({
+        url:"/CateLocationList",
+        dataType:"json",
+        type:"get",
+        success:function (data) {
+            console.log(data);
+            var list = "";
+            for(var i in data){
+                list+="<tr><td>"+data[i].id+"</td><td>"+data[i].name+"</td><td>"+data[i].cat_code+"</td><td>"+data[i].description+"</td></tr>";
+            }
+            $("#catLocaltionList").html(list);
+        }
+    })
+</script>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">内容</a></li>
+        <li><a href="">栏目设置</a></li>
+        <li>栏目位置</li>
+    </ul>
+</div><!--pageheader-->
+<div id="contentwrapper" class="contentwrapper">
+    <table cellpadding="0" cellspacing="0" border="0" class="stdtable" id="dyntable2">
+        <thead>
+        <tr>
+            <th class="head0">ID</th>
+            <th class="head1">名称</th>
+            <th class="head0">Code</th>
+            <th class="head1">描述</th>
+        </tr>
+        </thead>
+        <tbody id="catLocaltionList">
+
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yida.mapper.AdminMapper">
+    <resultMap id="AdminMap" type="com.yida.entity.Admin">
+        <id property="userid" column="userid" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="roleid" column="roleid" />
+        <result property="email" column="email" />
+        <result property="realname" column="realname" />
+
+    </resultMap>
+    <sql id="BaseSelect">
+        userid,username,password,roleid,email,realname
+    </sql>
+    <select id="adminList" resultMap="AdminMap">
+        SELECT <include refid="BaseSelect"/> FROM sys_user
+    </select>
+
+    <select id="findAdminById" resultMap="AdminMap">
+        SELECT <include refid="BaseSelect"/> FROM sys_user WHERE userId = #{userId}
+    </select>
+
+    <delete id="deleteAdminById">
+        DELETE FROM sys_user WHERE userId=#{userId}
+    </delete>
+
+    <insert id="insertAdmin" parameterType="com.yida.entity.Admin">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="roleid != null">
+                roleid,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="realname != null">
+                realname,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="roleid != null">
+                #{roleid},
+            </if>
+
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="realname != null">
+                #{realname},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAdmin" parameterType="com.yida.entity.Admin">
+        update sys_user
+        <trim prefix="set" suffixOverrides="," suffix="where userid=#{userid}" >
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+            <if test="roleid!=null and roleid!=''">
+                roleid=#{roleid},
+            </if>
+
+            <if test="email!=null and email!=''">
+                email=#{email},
+            </if>
+            <if test="realname!=null and realname!=''">
+                realname=#{realname},
+            </if>
+        </trim>
+    </update>
+
+    <select id="searchAdminByUsername" resultMap="AdminMap">
+        SELECT <include refid="BaseSelect"/> FROM sys_user WHERE username = #{username}
+    </select>
+
+    <select id="findAdminByName" resultMap="AdminMap">
+        SELECT <include refid="BaseSelect"/> FROM sys_user WHERE username = #{username}
+    </select>
+</mapper>
+

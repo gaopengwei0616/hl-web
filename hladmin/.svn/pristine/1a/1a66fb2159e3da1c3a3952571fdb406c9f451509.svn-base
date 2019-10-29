@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <link rel="stylesheet" href="layer/theme/default/layer.css?v=3.1.1" type="text/css" id="layuicss-layer"/>
+    <script type="text/javascript" src="layer/layer.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+
+    <ul class="breadcrumbs">
+        <li><a href="">我的面板</a></li>
+        <li><a href="">个人信息</a></li>
+        <li>修改个人信息</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+    <form class="stdform stdform2" method="post" action="/updateUserInfo" id="forms">
+        <p>
+            <label>用户名</label>
+            <span class="field" id="username"> </span>
+        </p>
+        <p>
+            <label>真实姓名</label>
+            <span class="field"><input type="text" name="realname" id="realname" class="mediuminput"/></span>
+        </p>
+
+        <p>
+            <label>邮箱</label>
+            <span class="field"><input type="text" name="email" id="email" class="mediuminput"/></span>
+        </p>
+
+
+        <p class="stdformbutton">
+            <button id="fromSubmit" class=" radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+</div>
+<script type="application/javascript">
+
+    $("#fromSubmit").click(function () {
+        var realname = $("#realname").val();
+        if(realname.length==0||realname==null||realname==undefined||realname=="".trim()){
+            layer.msg("请输入真实姓名！");
+            return false;
+        }
+        if(realname.length>16){
+            layer.msg("真实姓名输入过长！");
+            return false;
+        }
+
+        var email = $('#email').val();
+        if(email.length==0||email==''.trim()||email==null||email==undefined){
+            layer.msg("请输入邮箱");
+            return false;
+        }
+        if(/^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$/.test(email)){
+            layer.msg("邮箱格式不正确");
+            return false;
+        }
+        $("#forms").submit();
+    });
+
+
+    $(function () {
+        $.ajax({
+            url:"/me/Authentication",
+            dataType:"json",
+            type:"get",
+            async:false,
+            success:function (data) {
+                var username = data.name;
+                /*for(var i in data.authorities){
+                 console.log(data.authorities[i].authority);
+                 }*/
+                $.ajax({
+                    url:"/searchUserInfo",
+                    dataType:"json",
+                    type:"post",
+                    data:{"username":username},
+                    async:false,
+                    success:function (data) {
+                        $("#username").text(data.username);
+                        $("#realname").val(data.realname);
+                        $("#email").val(data.email);
+
+                    }
+                })
+            }
+        })
+    })
+</script>
+</body>
+</html>

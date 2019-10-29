@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" href="layer/theme/default/layer.css?v=3.1.1" type="text/css" id="layuicss-layer"/>
+    <script type="text/javascript" src="layer/layer.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">设置</a></li>
+        <li><a href="">相关设置</a></li>
+        <li><a href="">站点管理</a></li>
+        <li>添加站点</li>
+        <li>修改站点</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+    <div style="margin-bottom: 5px">
+        <input type="button" value="添加站点" class="stdbtn btn_black"
+               onclick="changUrl('addEditSite?type=add');">
+        <input type="button" value="站点管理" class="stdbtn btn_black"
+               onclick="changUrl('SiteManagementList');">
+    </div>
+    <form th:if="${type} eq 'add'" class="stdform stdform2" action="insertSite" method="post" id="forms">
+        <p>
+            <label>站点名称</label>
+            <span class="field">
+                <input type="text" name="name" id="name" class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>关键词</label>
+            <span class="field">
+                <input type="text" name="keywords" id="keywords" class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>描述</label>
+            <span class="field">
+                <textarea name="description" maxlength="255" id="description" style="width: 50%; height: 48px; margin: 0px;"></textarea>
+            </span>
+        </p>
+        <p>
+            <label>站点类型</label>
+            <span class="field">
+                <input type="radio" name="siteType" value="2"/> 政府 &nbsp; &nbsp;
+                <input type="radio" name="siteType" value="1"/> 街道 &nbsp; &nbsp;
+                <input type="radio" name="siteType" value="0" checked="checked"/> 无 &nbsp; &nbsp;
+            </span>
+        </p>
+        <p class="stdformbutton">
+            <button id="fromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+    <form th:if="${type} eq 'edit'" class="stdform stdform2" action="updateSite" method="post" id="editforms">
+        <input name="siteid" type="hidden" th:if="${type} eq 'edit'" th:value="${site.siteid}"/>
+        <p>
+            <label>站点名称</label>
+            <span class="field">
+                <input type="text" name="name" id="name"  class="mediuminput" th:value="${site.name}"/>
+            </span>
+        </p>
+        <p>
+            <label>关键词</label>
+            <span class="field">
+                <input type="text" name="keywords" id="keywords" class="mediuminput" th:value="${site.keywords}"/>
+            </span>
+        </p>
+        <p>
+            <label>描述</label>
+            <span class="field">
+                <textarea name="description" maxlength="255" id="description" style="width: 50%; height: 48px; margin: 0px;" th:text="${site.description}"></textarea>
+            </span>
+        </p>
+        <p>
+            <label>站点类型</label>
+            <span class="field">
+                <input type="radio" name="siteType" value="2"/> 政府 &nbsp; &nbsp;
+                <input type="radio" name="siteType" value="1"/> 街道 &nbsp; &nbsp;
+                <input type="radio" name="siteType" value="0" checked="checked"/> 无 &nbsp; &nbsp;
+            </span>
+        </p>
+
+        <p class="stdformbutton">
+            <button id="editfromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+    <script type="text/javascript">
+        $("#fromSubmit").click(function () {
+            var name = $("#name").val();
+            var dirname = $("#dirname").val();
+            var domain = $("#domain").val();
+            var site_title = $("#site_title").val();
+
+            if(name.length==0||name=="".trim()||name==null||name==undefined){
+                layer.msg("请输入站点名称");
+                return false;
+            }
+            if(name.length>29){
+                layer.msg("站点名称过长");
+                return false;
+            }
+
+            $("#forms").submit();
+        });
+        $("#editfromSubmit").click(function () {
+            var name = $("#name").val();
+            var dirname = $("#dirname").val();
+            var domain = $("#domain").val();
+            var site_title = $("#site_title").val();
+
+            if(name.length==0||name=="".trim()||name==null||name==undefined){
+                layer.msg("请输入站点名称");
+                return false;
+            }
+            if(name.length>29){
+                layer.msg("站点名称过长");
+                return false;
+            }
+            $("#editforms").submit();
+        });
+    </script>
+</div><!-- centercontent -->
+</body>
+</html>

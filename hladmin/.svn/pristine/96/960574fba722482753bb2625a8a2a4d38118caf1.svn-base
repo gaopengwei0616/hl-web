@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yida.mapper.NewsMapper">
+    <resultMap id="newsMap" type="com.yida.entity.News">
+        <id column="id" property="id"/>
+        <result column="catid" property="catid"/>
+        <result column="typeid" property="typeid"/>
+        <result column="title" property="title"/>
+        <result column="style" property="style"/>
+        <result column="thumb" property="thumb"/>
+        <result column="keywords" property="keywords"/>
+        <result column="description" property="description"/>
+        <result column="posids" property="posids"/>
+        <result column="url" property="url"/>
+        <result column="listorder" property="listorder"/>
+        <result column="status" property="status"/>
+        <result column="sysadd" property="sysadd"/>
+        <result column="islink" property="islink"/>
+        <result column="inputtime" property="inputtime"/>
+        <result column="updatetime" property="updatetime"/>
+        <result column="username" property="username"/>
+    </resultMap>
+
+    <select id="newsList" resultMap="newsMap">
+        select id,catid,typeid,title,style,thumb,
+        keywords,description,posids,url,listorder,STATUS,sysadd,islink,username,inputtime,FROM_UNIXTIME(updatetime,'%Y-%m-%d %H:%i:%s' )as updatetime
+        from v9_news where catid=#{catid} AND status=99 order by inputtime desc
+    </select>
+    <select id="newsList1" resultType="com.yida.entity.News1">
+        select title,keywords,content,copyfrom,catid,n.id
+        from v9_news n left join v9_news_data m
+        on n.id=m.id
+        where n.id=#{id}
+    </select>
+    <select id="xxgl" resultType="com.yida.entity.News">
+        select id,title,thumb,description,FROM_UNIXTIME(updatetime,'%Y-%m-%d %H:%i:%s' )as updatetime
+        from v9_news
+        where id=#{id}
+    </select>
+
+
+    <select id="findNewsById" resultMap="newsMap">
+        select * from v9_news where id=#{newsId} AND status=99
+    </select>
+
+    <update id="updateNewsById" parameterType="com.yida.entity.News">
+        update v9_news
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}" >
+            <if test="title!=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="keywords!=null and keywords!=''">
+                keywords=#{keywords},
+            </if>
+            <if test="url!=null and url!=''">
+                url=#{url},
+            </if>
+            <if test="status!=null and status!=''">
+                status=#{status},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description},
+            </if>
+        </trim>
+    </update>
+    <update id="updateYwbj">
+        update v9_news set title=#{title},keywords=#{keywords} where id=#{id}
+    </update>
+    <update id="updateYwbj1">
+        update v9_news_data set content=#{content},copyfrom=#{copyfrom} where id=#{id}
+    </update>
+    <update id="updatexxgl">
+        update v9_news set title=#{title},thumb=#{thumb},description=#{description},updatetime=UNIX_TIMESTAMP(#{updatetime}) where id=#{id}
+    </update>
+
+
+    <insert id="insertNews" parameterType="com.yida.entity.News">
+        INSERT INTO v9_news(catid,typeid,url,description,title,username,status)
+        VALUES(#{news.catid},0,'','',#{news.title},#{news.username},99)
+        <selectKey resultType="Integer" order="AFTER" keyProperty="news.id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <update id="deleteNewsById">
+        UPDATE v9_news SET status = 1 WHERE id = #{id}
+    </update>
+
+    <select id="checkNewsByTitle" resultMap="newsMap">
+        select * from v9_news where title=#{title}
+    </select>
+</mapper>

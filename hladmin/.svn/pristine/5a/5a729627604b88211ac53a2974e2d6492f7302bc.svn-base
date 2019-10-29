@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yida.mapper.CategoryMapper">
+    <resultMap id="CategoryMap" type="com.yida.entity.Category">
+        <id column="catid" property="catid"/>
+        <result column="siteid" property="siteid"/>
+        <result column="module" property="module"/>
+        <result column="type" property="type"/>
+        <result column="modelid" property="modelid"/>
+        <result column="parentid" property="parentid"/>
+        <result column="arrparentid" property="arrparentid"/>
+        <result column="child" property="child"/>
+        <result column="arrchildid" property="arrchildid"/>
+        <result column="catname" property="name"/>
+        <result column="style" property="style"/>
+        <result column="image" property="image"/>
+        <result column="description" property="description"/>
+        <result column="parentdir" property="parentdir"/>
+        <result column="catdir" property="catdir"/>
+        <result column="url" property="url"/>
+        <result column="items" property="items"/>
+        <result column="hits" property="hits"/>
+        <result column="setting" property="setting"/>
+        <result column="listorder" property="listorder"/>
+        <result column="ismenu" property="ismenu"/>
+        <result column="sethtml" property="sethtml"/>
+        <result column="letter" property="letter"/>
+        <result column="usable_type" property="usable_type"/>
+        <result column="status" property="status"/>
+        <result column="cat_code" property="cat_code"/>
+    </resultMap>
+    <select id="categoryLists" resultMap="CategoryMap">
+        select *
+        from v9_category
+        where siteid = #{siteid}
+        AND status=1
+        ORDER BY  listorder
+    </select>
+    <select id="findCategoryById" resultMap="CategoryMap">
+        select *
+        from v9_category
+        WHERE  catid = #{catid}
+    </select>
+    <select id="CategorysByParentId" resultMap="CategoryMap">
+        SELECT * FROM v9_category  WHERE status=1  AND parentid=#{parentid} and siteid=1 ORDER BY  listorder
+    </select>
+    <insert id="insertSelective"  parameterType="com.yida.entity.Category" >
+        insert into v9_category
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="catid != null" >
+                catid,
+            </if>
+            <if test="siteid != null" >
+                siteid,
+            </if>
+            <if test="module != null" >
+                module,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="modelid != null" >
+                modelid,
+            </if>
+            <if test="parentid != null" >
+                parentid,
+            </if>
+            <if test="arrparentid != null" >
+                arrparentid,
+            </if>
+            <if test="child != null" >
+                child,
+            </if>
+            <if test="name != null" >
+                catname,
+            </if>
+            <if test="style != null" >
+                style,
+            </if>
+            <if test="image != null" >
+                image,
+            </if>
+            <if test="parentdir != null" >
+                parentdir,
+            </if>
+            <if test="catdir != null" >
+                catdir,
+            </if>
+            <if test="url != null" >
+                url,
+            </if>
+            <if test="items != null" >
+                items,
+            </if>
+            <if test="hits != null" >
+                hits,
+            </if>
+            <if test="listorder != null" >
+                listorder,
+            </if>
+            <if test="ismenu != null" >
+                ismenu,
+            </if>
+            <if test="sethtml != null" >
+                sethtml,
+            </if>
+            <if test="letter != null" >
+                letter,
+            </if>
+            <if test="usable_type != null" >
+                usable_type,
+            </if>
+            <if test="arrchildid != null" >
+                arrchildid,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="setting != null" >
+                setting,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="cat_code != null" >
+                cat_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="catid != null" >
+                #{catid,jdbcType=SMALLINT},
+            </if>
+            <if test="siteid != null" >
+                #{siteid,jdbcType=SMALLINT},
+            </if>
+            <if test="module != null" >
+                #{module,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=BIT},
+            </if>
+            <if test="modelid != null" >
+                #{modelid,jdbcType=SMALLINT},
+            </if>
+            <if test="parentid != null" >
+                #{parentid,jdbcType=SMALLINT},
+            </if>
+            <if test="arrparentid != null" >
+                #{arrparentid,jdbcType=VARCHAR},
+            </if>
+            <if test="child != null" >
+                #{child,jdbcType=BIT},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="style != null" >
+                #{style,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null" >
+                #{image,jdbcType=VARCHAR},
+            </if>
+            <if test="parentdir != null" >
+                #{parentdir,jdbcType=VARCHAR},
+            </if>
+            <if test="catdir != null" >
+                #{catdir,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null" >
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="items != null" >
+                #{items,jdbcType=INTEGER},
+            </if>
+            <if test="hits != null" >
+                #{hits,jdbcType=INTEGER},
+            </if>
+            <if test="listorder != null" >
+                #{listorder,jdbcType=SMALLINT},
+            </if>
+            <if test="ismenu != null" >
+                #{ismenu,jdbcType=BIT},
+            </if>
+            <if test="sethtml != null" >
+                #{sethtml,jdbcType=BIT},
+            </if>
+            <if test="letter != null" >
+                #{letter,jdbcType=VARCHAR},
+            </if>
+            <if test="usable_type != null" >
+                #{usable_type,jdbcType=VARCHAR},
+            </if>
+            <if test="arrchildid != null" >
+                #{arrchildid,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="setting != null" >
+                #{setting,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="cat_code != null" >
+                #{cat_code},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"  parameterType="com.yida.entity.Category" >
+        update v9_category
+        <set >
+            <if test="siteid != null" >
+                siteid = #{siteid},
+            </if>
+            <if test="module != null" >
+                module = #{module},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=BIT},
+            </if>
+            <if test="modelid != null" >
+                modelid = #{modelid,jdbcType=SMALLINT},
+            </if>
+            <if test="parentid != null" >
+                parentid = #{parentid,jdbcType=SMALLINT},
+            </if>
+            <if test="arrparentid != null" >
+                arrparentid = #{arrparentid,jdbcType=VARCHAR},
+            </if>
+            <if test="child != null" >
+                child = #{child,jdbcType=BIT},
+            </if>
+            <if test="name != null" >
+                catname = #{name},
+            </if>
+            <if test="style != null" >
+                style = #{style,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null" >
+                image = #{image,jdbcType=VARCHAR},
+            </if>
+            <if test="parentdir != null" >
+                parentdir = #{parentdir,jdbcType=VARCHAR},
+            </if>
+            <if test="catdir != null" >
+                catdir = #{catdir,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null" >
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="items != null" >
+                items = #{items,jdbcType=INTEGER},
+            </if>
+            <if test="hits != null" >
+                hits = #{hits,jdbcType=INTEGER},
+            </if>
+            <if test="listorder != null" >
+                listorder = #{listorder,jdbcType=SMALLINT},
+            </if>
+            <if test="ismenu != null" >
+                ismenu = #{ismenu,jdbcType=BIT},
+            </if>
+            <if test="sethtml != null" >
+                sethtml = #{sethtml,jdbcType=BIT},
+            </if>
+            <if test="letter != null" >
+                letter = #{letter,jdbcType=VARCHAR},
+            </if>
+            <if test="usable_type != null" >
+                usable_type = #{usable_type,jdbcType=VARCHAR},
+            </if>
+            <if test="arrchildid != null" >
+                arrchildid = #{arrchildid,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="setting != null" >
+                setting = #{setting,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="status != null" >
+                status = #{status},
+            </if>
+            <if test="cat_code != null" >
+                cat_code = #{cat_code},
+            </if>
+        </set>
+        where catid = #{catid,jdbcType=SMALLINT}
+    </update>
+
+    <select id="categoryListByModule" resultMap="CategoryMap    ">
+        SELECT * FROM v9_category WHERE module = #{module}
+    </select>
+</mapper>

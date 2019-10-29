@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>权限设置</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="ztree/css/zTreeStyle.css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/MyPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+    <link rel="stylesheet" href="assets/layui/css/layui.css">
+    <link rel="stylesheet" href="assets/common.css">
+    <link id="layuicss-layer" rel="stylesheet" href="assets/layui/css/modules/layer/default/layer.css?v=3.1.1" media="all">
+    <link id="layuicss-moduletreetable-laytreetablecss" rel="stylesheet" href="module/treetable-lay/treetable.css" media="all"></head>
+
+
+
+<!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<script src="assets/layui/layui.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $.ajax({
+            url: "/getSites",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                var zTree;
+                var setting = {
+                    view: {
+                        dblClickExpand: false,
+                        showLine: true,
+                        selectedMulti: false
+                    },
+                    data: {
+                        key: {
+                            url: ""
+                        },
+                        simpleData: {
+                            enable: true,
+                            idKey: "siteid",
+                            pIdKey: "",
+                            rootPId: ""
+                        }
+                    },
+                    callback: {
+                        beforeClick: function (treeId, treeNode) {
+                            var zTree = $.fn.zTree.getZTreeObj("tree");
+                            if (treeNode.isParent) {
+                                zTree.expandNode(treeNode);
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        },
+                        onClick: zTreeOnClick
+                    }
+                };
+                var zNodes = data;
+                var t = $("#tree");
+                t = $.fn.zTree.init(t, setting, zNodes);
+            }
+        });
+
+    })
+    function zTreeOnClick(event, treeId, treeNode) {
+        var siteid = treeNode.siteid;
+        $("#siteid").val(siteid);
+
+
+        $.ajax({
+            url:"/getMenuListAndBySiteId?siteid="+siteid,
+            dataType:"json",
+            type:"get",
+            success:function (data) {
+                console.log(data);
+            }
+        })
+
+    }
+
+</script>
+
+<body>
+<div id="contentwrapper" class="contentwrapper">
+    <input type="hidden" id="siteid" name="siteid"/>
+    <div class="one_fifth dashboard_left">
+        <ul id="tree" class="ztree" style="overflow-y:scroll;overflow-x: hidden;height: 550px;"></ul>
+    </div><!--two_third dashboard_left -->
+<div class="three_fourth last dashboard_right">
+
+    <input type="button" value="角色管理" class="stdbtn btn_black" onclick="changUrl('/RoleManagerList');">
+    <div>
+
+    </div>
+    &nbsp;
+    &emsp;<table id="table1" class="layui-table" style="width: 50px;" lay-filter="table1"></table>
+</div>
+</div>
+
+
+<script>
+
+</script>
+</body>
+</html>

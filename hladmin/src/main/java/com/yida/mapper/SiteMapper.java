@@ -1,0 +1,49 @@
+package com.yida.mapper;
+
+import com.yida.entity.Site;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * Created by rishun on 2019/7/10.
+ */
+@Repository
+public interface SiteMapper {
+    /**
+     * 获取区域数据列表
+     * @return
+     */
+    List<Site> GetSiteList();
+
+    /***
+     * 根据Siteid修改数据
+     * @param site
+     * @return
+     */
+    int updateBySite(Site site);
+
+    /***
+     * 根据siteId修改状态 1:未删除，要显示,0:已删除未显示
+     * @param siteId
+     * @return
+     */
+    int updateBysiteId(@Param("siteid") Integer siteId, @Param("status") Integer status);
+
+    /***
+     * \ 根据siteid查询site信息
+     * @param siteId
+     * @return
+     */
+    Site SiteBysiteId(@Param("siteid") Integer siteId);
+
+    /***
+     *  选择性添加site
+     * @param site
+     * @return
+     */
+    int insertSelective(Site site);
+
+   List<Site> SiteBysiteType(@Param("type") Integer type);
+}

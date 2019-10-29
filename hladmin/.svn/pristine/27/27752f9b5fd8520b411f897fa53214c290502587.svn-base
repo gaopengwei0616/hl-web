@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/plugins/colorpicker.js"></script>
+    <script type="text/javascript" src="js/custom/elements.js"></script>
+
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/MyPage.js"></script>
+
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<script type="text/javascript">
+    $(function () {
+        $('#all').click(function () {
+
+            if ($(this).prop('checked')) {
+                $('#datalist :checkbox').prop('checked', true);
+            } else {
+                $('#datalist :checkbox').prop('checked', false);
+            }
+        });
+    });
+</script>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">设置</a></li>
+        <li><a href="">相关设置</a></li>
+        <li>全部配置</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">基本设置</a></li>
+            <li><a href="#tabs-2">安全配置</a></li>
+            <li><a href="#tabs-3">PHPSSO</a></li>
+            <li><a href="#tabs-4">邮箱配置</a></li>
+            <li><a href="#tabs-5">connect</a></li>
+        </ul>
+        <div id="tabs-1">
+            <form class="stdform stdform2" method="post" action="">
+                <p>
+                    <label>管理员邮箱</label>
+                    <span class="field"><input type="text" name="firstname" id="firstname2"
+                                               class="mediuminput"/></span>
+                </p>
+
+                <p>
+                    <label>异步显示栏目层级</label>
+                    <span class="field"><input type="text" name="lastname" id="lastname2" class="smallinput"/>
+                     &nbsp; &nbsp;默认为0,即直接显示栏目列表。当栏目层级较多时，可设置首次加载层级，其余使用异步加载，一般设置为2-3</span>
+                </p>
+
+                <p>
+                    <label>启用页面Gzip压缩</label>
+                    <span class="field">
+                                        <input type="radio" name="radiofield1" checked="checked"/>是 &nbsp; &nbsp;
+                                        <input type="radio" name="radiofield1"/>否
+                                    </span>
+                </p>
+                <p>
+                    <label>开启附件状态统计</label>
+                    <span class="field">
+                                        <input type="radio" name="radiofield2" checked="checked"/>是 &nbsp; &nbsp;
+                                        <input type="radio" name="radiofield2"/>否 &nbsp; &nbsp;记录附件使用状态 ，删除文章时同步删除附件。注意: 本功能会加重服务器负担
+                                    </span>
+                </p>
+
+                <p>
+                    <label>JS路径</label>
+                    <span class="field"><input type="text" name="email" id="email2" class="mediuminput"/></span>
+                </p>
+                <p>
+                    <label>CSS路径</label>
+                    <span class="field"><input type="text" name="email" id="email2" class="mediuminput"/></span>
+                </p>
+                <p>
+                    <label>图片路径</label>
+                    <span class="field"><input type="text" name="email" id="email2" class="mediuminput"/></span>
+                </p>
+                <p>
+                    <label>附件URL访问路径</label>
+                    <span class="field"><input type="text" name="email" id="email2" class="mediuminput"/></span>
+                </p>
+
+
+                <p class="stdformbutton">
+                    <button class="submit radius2">提交</button>
+                    <input type="reset" class="reset radius2" value="清空"/>
+                </p>
+            </form>
+        </div>
+        <div id="tabs-2">
+            <form class="stdform stdform2" method="post" action="">
+
+                <p>
+                    <label>启用后台管理操作日志</label>
+                    <span class="field">
+                                        <input type="radio" name="radiofield1" checked="checked"/>是 &nbsp; &nbsp;
+                                        <input type="radio" name="radiofield1"/>否
+                                    </span>
+                </p>
+                <p>
+                    <label>保存错误日志</label>
+                    <span class="field">
+                                        <input type="radio" name="radiofield2" checked="checked"/>是 &nbsp; &nbsp;
+                                        <input type="radio" name="radiofield2"/>否 &nbsp; &nbsp;记录附件使用状态 ，删除文章时同步删除附件。注意: 本功能会加重服务器负担
+                                    </span>
+                </p>
+                <p>
+                    <label>错误日志预警大小</label>
+                    <span class="field"><input type="text" name="firstname" id="firstname2"
+                                               class="smallinput"/> MB</span>
+                </p>
+
+                <p>
+                    <label>后台最大登陆失败次数 </label>
+                    <span class="field"><input type="text" name="lastname" id="lastname2" class="smallinput"/></span>
+                </p>
+
+                <p>
+                    <label>连续两次刷新最短间隔</label>
+                    <span class="field"><input type="text" name="email" id="email2" class="smallinput"/></span>
+                </p>
+                <p>
+                    <label>后台访问域名 </label>
+                    <span class="field">
+                        http://<br/><input type="text" name="email" id="email2" class="mediuminput"/><br/>
+                    例如：admin.domain.com，绑定后，只能通过该域名登陆，配置保存在 /caches/configs/system.php中，修改参数admin_url可手动取消绑定</span>
+                </p>
+
+                <p class="stdformbutton">
+                    <button class="submit radius2">提交</button>
+                    <input type="reset" class="reset radius2" value="清空"/>
+                </p>
+            </form>
+        </div>
+        <div id="tabs-3">
+            <form class="stdform stdform2" method="post" action="">
+
+                <p>
+                    <label>启用PHPSSO</label>
+                    <span class="field">
+                                        <input type="radio" name="radiofield1" checked="checked"/>是 &nbsp; &nbsp;
+                                        <input type="radio" name="radiofield1"/>否
+                                    </span>
+                </p>
+                <p>
+                    <label>应用ID</label>
+                    <span class="field"><input type="text" name="firstname" id="firstname2"
+                                               class="smallinput"/></span>
+                </p>
+
+                <p>
+                    <label>接口地址 </label>
+                    <span class="field"><input type="text" name="lastname" id="lastname2" class="mediuminput"/></span>
+                </p>
+
+                <p>
+                    <label>加密密钥</label>
+                    <span class="field"><input type="text" name="email" id="email2" class="mediuminput"/></span>
+                </p>
+                <p>
+                    <label>版本号 </label>
+                    <span class="field">
+                        <input type="text" name="email" id="email2" class="smallinput"/></span>
+                </p>
+
+                <p class="stdformbutton">
+                    <button class="submit radius2">提交</button>
+                    <input type="reset" class="reset radius2" value="清空"/>
+                </p>
+            </form>
+        </div>
+        <div id="tabs-4">
+            <form class="stdform stdform2" method="post" action="">
+
+                <p>
+                    <label>邮件发送模式</label>
+                    <span class="field">
+                                        <input type="radio" name="radiofield1" checked="checked"/>SMTP 函数发送 &nbsp; &nbsp;
+                                        <input type="radio" name="radiofield1"/>mail 模块发送
+                                    </span>
+                </p>
+                <p>
+                    <label>邮件服务器</label>
+                    <span class="field"><input type="text" name="firstname" id="firstname2"
+                                               class="mediuminput"/></span>
+                </p>
+
+                <p>
+                    <label>邮件发送端口</label>
+                    <span class="field"><input type="text" name="lastname" id="lastname2" class="mediuminput"/></span>
+                </p>
+
+                <p>
+                    <label>发件人地址</label>
+                    <span class="field"><input type="text" name="email" id="email2" class="mediuminput"/></span>
+                </p>
+                <p>
+                    <label>AUTH LOGIN验证</label>
+                    <span class="field">
+                                        <input type="radio" name="radiofield1" checked="checked"/>开启 &nbsp; &nbsp;
+                                        <input type="radio" name="radiofield1"/>关闭
+                                    </span>
+                </p>
+                <p>
+                    <label>验证用户名</label>
+                    <span class="field">
+                        <input type="text" name="email" id="email2" class="mediuminput"/></span>
+                </p>
+                <p>
+                    <label>验证密码</label>
+                    <span class="field">
+                        <input type="text" name="email" id="email2" class="mediuminput"/></span>
+                </p>
+                <p>
+                    <label>邮件设置测试</label>
+                    <span class="field">
+                        <input type="text" name="email" id="email2" class="mediuminput"/>
+                        <input type="button" class="stdbtn btn_black" value="测试发送"></span>
+                    </span>
+                </p>
+
+                <p class="stdformbutton">
+                    <button class="submit radius2">提交</button>
+                    <input type="reset" class="reset radius2" value="清空"/>
+                </p>
+            </form>
+        </div>
+        <div id="tabs-5">
+            <form class="stdform stdform2" method="post" action="">
+
+                <p>
+                    <label>盛大连接</label>
+                    <span class="field"> APP key <input type="text" name="firstname" id="firstname2"
+                                                        class="twoinput"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    APP secret key
+                    <input type="text" name="firstname" id="firstname2"
+                           class="twoinput"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" class="stdbtn btn_black" value="点击注册"></span>
+                </p>
+                <p>
+                    <label>新浪微博</label>
+                    <span class="field"> APP key <input type="text" name="firstname" id="firstname2"
+                                                        class="twoinput"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    APP secret key
+                    <input type="text" name="firstname" id="firstname2"
+                           class="twoinput"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" class="stdbtn btn_black" value="点击注册"></span>
+                </p>
+                <p>
+                    <label>腾讯微博</label>
+                    <span class="field"> APP key <input type="text" name="firstname" id="firstname2"
+                                                        class="twoinput"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    APP secret key
+                    <input type="text" name="firstname" id="firstname2"
+                           class="twoinput"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" class="stdbtn btn_black" value="点击注册"></span>
+                </p>
+                <p>
+                    <label>QQ号码登录</label>
+                    <span class="field"> APP key <input type="text" name="firstname" id="firstname2"
+                                                        class="twoinput"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    APP secret key
+                    <input type="text" name="firstname" id="firstname2"
+                           class="twoinput"/><br/><br/>
+                        回调地址
+                        <input type="text" name="firstname" id="firstname2"
+                               class="twoinput"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" class="stdbtn btn_black" value="点击注册"></span>
+                </p>
+
+                <p class="stdformbutton">
+                    <button class="submit radius2">提交</button>
+                    <input type="reset" class="reset radius2" value="清空"/>
+                </p>
+            </form>
+        </div>
+    </div><!--#tabs-->
+
+    <br clear="all"/><br/>
+
+
+</div><!-- centercontent -->
+
+</body>
+</html>

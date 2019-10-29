@@ -1,0 +1,18 @@
+package com.yida.controller.setting;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * Created by yk on 2019/7/18.
+ * 基础设置
+ */
+@Controller
+public class BasicConfigController {
+
+    //跳转基础设置页面
+    @RequestMapping("/ShowBasicConfig")
+    public String showBasicSetting(){
+        return "/Setting/BasicConfig";
+    }
+}

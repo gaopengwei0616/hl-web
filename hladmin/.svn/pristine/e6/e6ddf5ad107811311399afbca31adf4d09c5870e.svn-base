@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="hladmin:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="hladmin-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="hladmin:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>控制台页面</title>
+    <link rel="stylesheet" href="css/style.default.css" type="text/css" />
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery.slimscroll.js"></script>
+    <script type="text/javascript" src="js/custom/general.js"></script>
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body class="withvernav">
+<div class="bodywrapper">
+    <div class="topheader">
+        <div class="left">
+            <h1 class="logo">Ama.<span>Admin</span></h1>
+            <span class="slogan">后台管理系统</span>
+
+            <div class="search">
+                <form action="" method="post">
+                    <input type="text" name="keyword" id="keyword" value="请输入" />
+                    <button class="submitbutton"></button>
+                </form>
+            </div><!--search-->
+
+            <br clear="all" />
+
+        </div><!--left-->
+
+        <div class="right">
+            <!--<div class="notification">
+                <a class="count" href="ajax/notifications.html"><span>9</span></a>
+            </div>-->
+            <div class="userinfo">
+                <img src="images/thumbs/avatar.png" alt="" />
+                <span>管理员</span>
+            </div><!--userinfo-->
+
+            <div class="userinfodrop">
+                <div class="avatar">
+                    <a href=""><img src="images/thumbs/avatarbig.png" alt="" /></a>
+                    <div class="changetheme">
+                        切换主题: <br />
+                        <a class="default"></a>
+                        <a class="blueline"></a>
+                        <a class="greenline"></a>
+                        <a class="contrast"></a>
+                        <a class="custombg"></a>
+                    </div>
+                </div><!--avatar-->
+                <div class="userdata">
+                    <h4>Juan</h4>
+                    <span class="email">youremail@yourdomain.com</span>
+                    <ul>
+                        <li><a href="/logout">退出</a></li>
+                    </ul>
+                </div><!--userdata-->
+            </div><!--userinfodrop-->
+        </div><!--right-->
+    </div><!--topheader-->
+
+
+    <div class="header">
+        <ul class="headermenu">
+            <li><a href="/MyPanel"><span class="icon icon-flatscreen"></span>我的面板</a></li>
+            <li><a href="/Setting" th:if="${siteid} eq 1"><span class="icon icon-pencil"></span>设置</a></li>
+            <li class="current"><a href="/Content"><span class="icon icon-chart"></span>内容</a></li>
+        </ul>
+    </div><!--header-->
+
+    <div class="vernav2 iconmenu">
+        <ul>
+            <li><a href="#formsub" class="editor">内容发布管理</a>
+                <span class="arrow"></span>
+                <ul id="formsub" style="display: block;">
+                    <li><a onclick="changeUrl('/showLists',this)">管理内容</a></li>
+                    <li><a onclick="changeUrl('/Attachmentlist',this)">附件管理</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#addons" class="addons">内容相关设置</a>
+                <span class="arrow"></span>
+                <ul id="addons">
+                    <li><a onclick="changeUrl('/siteSelect',this)">管理栏目</a></li>
+                    <li><a onclick="changeUrl('/CateLocation',this)">栏目位置列表</a></li>
+                    <!--<li><a onclick="changeUrl('/ModelManagerList',this)">模型管理</a></li>-->
+                    <!--<li><a onclick="changeUrl('/PositionManagerList',this)">推荐位管理</a></li>-->
+                </ul>
+            </li>
+        </ul>
+        <a class="togglemenu"></a>
+        <br /><br />
+    </div><!--leftmenu-->
+
+    <div class="centercontent">
+
+        <iframe id="main" name="main" style="width: 100%;"  src=""></iframe>
+
+    </div><!-- centercontent -->
+
+
+</div><!--bodywrapper-->
+<script type="text/javascript">
+    function changeUrl(url,node) {
+        document.getElementById("main").src = url;
+        var ul=document.getElementById('formsub');
+        var lis=ul.childNodes;
+        for(var i=0;i<lis.length;i++){
+            if(lis.item(i).innerHTML!=undefined){
+                lis.item(i).classList.remove("current");
+            }
+        }
+
+        var ul2=document.getElementById('addons');
+        var lis2=ul2.childNodes;
+        for(var i=0;i<lis2.length;i++){
+            if(lis2.item(i).innerHTML!=undefined){
+                lis2.item(i).classList.remove("current");
+            }
+        }
+
+        node.parentNode.classList.add("current");
+    }
+
+    function calcPageHeight(doc) {
+        var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
+        var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+        var height  = Math.max(cHeight, sHeight)
+        return height
+    }
+    //根据ID获取iframe对象
+    var ifr = document.getElementById('main')
+    ifr.onload = function() {
+        //解决打开高度太高的页面后再打开高度较小页面滚动条不收缩
+        ifr.style.height='0px';
+        var iDoc = ifr.contentDocument || ifr.document
+        var height = calcPageHeight(iDoc);
+        if(height < 650){
+            height = 650;
+        }
+        ifr.style.height = height + 'px'
+    }
+</script>
+
+
+
+</body>
+</html>

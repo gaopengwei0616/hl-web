@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/MyPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<script type="text/javascript">
+    $(function () {
+        $('#all').click(function () {
+
+            if ($(this).prop('checked')) {
+                $('#datalist :checkbox').prop('checked', true);
+            } else {
+                $('#datalist :checkbox').prop('checked', false);
+            }
+        });
+    });
+</script>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">设置</a></li>
+        <li><a href="">相关设置</a></li>
+        <li>发布点管理</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+
+    <div style="margin-bottom: 5px">
+        <input type="button" value="添加发布点" class="stdbtn btn_black" onclick="changUrl('/addEditRelePoint?type=add');">
+        <input type="button" value="发布点管理" class="stdbtn btn_black" onclick="changUrl('/RelePointManagerList');">
+    </div>
+    <div id="datalist">
+        <table cellpadding="0" cellspacing="0" border="0" class="stdtable" id="dyntable2">
+            <colgroup>
+                <col class="con0" style="width: 4%"/>
+                <col class="con1" style="width: 6%"/>
+                <col class="con0" style="width: 16%"/>
+                <col class="con1" style="width: 16%"/>
+                <col class="con0" style="width: 20%"/>
+                <col class="con1" style="width: 16%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="head0 nosort"><input type="checkbox" id="all"/></th>
+                <th class="head0">发布点ID</th>
+                <th class="head1">发布点名称</th>
+                <th class="head0">服务器地址</th>
+                <th class="head1">用户名</th>
+                <th class="head0">管理操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="list:${pageList}">
+                <td align="center"><span class="center"><input type='checkbox'/></span></td>
+                <td th:text="${list.id}"></td>
+                <td th:text="${list.name}"></td>
+                <td th:text="${list.host}"></td>
+                <td th:text="${list.username}"></td>
+                <td>
+                    <input type="button" value="修改" class="stdbtn btn_black" th:onclick="'javascript:changUrl(\'/addEditRelePoint?type=edit&relePointId='+${list.id}+'\');'">
+                    <input type="button" value="删除" class="stdbtn btn_black" th:onclick="'javascript:deleteRelePoint(\''+${list.id}+'\');'">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pages">
+        <span th:text="'显示'+${page.pageSize}+'条'"></span>
+        <span id="page_total" th:value="${page.total}" th:text="'共有'+${page.total}+'条记录'"></span>
+        <span th:value="${page.pages}" th:text="'共有'+${page.pages}+'页'"></span>
+        <span class="page" id="Page" style="float: right"></span>
+    </div>
+    <input type="hidden" id="value" th:value="${value}"/>
+    <!--以下为公共部分-->
+    <script>
+        var total = $("#page_total").attr("value");
+        P.initMathod({
+            params: {
+                elemId: '#Page',
+                total: this.total
+            }, requestFunction: function (pageIndex) {
+                if ($("#value").val() == 1) {
+                    $("#value").val(0);
+                    return;
+                }
+                var catid = $("#catid").val();
+                window.location.href = "/RelePointManagerList?pageNum=" + pageIndex;
+            }
+        });
+        function deleteRelePoint(id) {
+            if(confirm("确定删除吗")){
+                alert("删除成功");
+                $.ajax({
+                    url:"/deleteRelePointById",
+                    data:{"id":id},
+                    type:"post",
+                    dataType:"json",
+                    success:function (data) {
+                        if(data==1){
+                            alert("删除成功");
+                        }else{
+                            alert("删除失败");
+                        }
+                        window.location.reload();
+                    },error:function () {
+                        alert("error");
+                    }
+                })
+            }
+            return false;
+        }
+    </script>
+</div><!-- centercontent -->
+
+</body>
+</html>

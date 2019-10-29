@@ -1,0 +1,15 @@
+package com.yida.entity;
+
+import lombok.Data;
+
+@Data
+public class Information {
+    private int id;
+    private int catid;
+    private int posid;
+    private int modelid;
+    private int siteid;
+    private String data;
+
+
+}

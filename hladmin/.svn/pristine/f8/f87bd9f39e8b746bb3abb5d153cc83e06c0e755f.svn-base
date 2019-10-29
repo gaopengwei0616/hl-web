@@ -1,0 +1,70 @@
+package com.yida.service;
+
+import java.util.Map;
+
+/**
+ * Created by yeke on 2019/7/10.
+ * 栏目管理
+ */
+public interface LanmuguanliService {
+
+    /**
+     * 跳转栏目管理需要的数据查询
+     * @param newsId
+     * @return
+     */
+    Map<String,Object> showLanmuguanliMessage(Integer newsId);
+
+    /**
+     * 添加news数据是所需要的数据查询
+     * @param catid
+     * @return
+     */
+    Map<String,Object> addContentSearch(Integer catid);
+
+    /**
+     * 修改数据时所需奥的数据查询
+     * @param id
+     * @param catid
+     * @return
+     */
+    Map<String,Object> editContentSearch(Integer id, Integer catid);
+
+    /**
+     * 修改新闻
+     * @param title
+     * @param content
+     * @return
+     */
+    Integer updateNewsAndNewsData(Integer newsid,Integer newsDataId,String title,String content,String keywords,String url,Integer status,String description);
+
+    /**
+     * 添加新闻
+     * @param catid
+     * @param title
+     * @param url
+     * @param description
+     * @param type
+     * @param content
+     * @return
+     */
+    Integer insertNewsAndNewsData(Integer catid, String title, String url, String description, Integer type, String content,String keywords,String inputtime,Integer status);
+
+    /**
+     * 删除新闻
+     * @param id
+     * @return
+     */
+    Integer deleteNewsAndNewsData(Integer id);
+
+    /**
+     * 获取栏目列表
+     * @param siteid
+     * @return
+     */
+    Map<String,Object> catParentDirList(Integer siteid);
+
+    Integer checkNewsTitle(String title,String type,Integer newsId);
+
+    Integer getSiteByRoleId(Integer roleid);
+}

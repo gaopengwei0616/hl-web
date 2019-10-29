@@ -1,0 +1,100 @@
+package com.yida.service.impl;
+
+import com.github.pagehelper.PageInfo;
+import com.sun.corba.se.spi.ior.ObjectKey;
+import com.yida.dao.AdminDao;
+import com.yida.entity.Admin;
+import com.yida.entity.News;
+import com.yida.mapper.AdminMapper;
+import com.yida.service.AdministerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class AdministerServiceImpl implements AdministerService {
+    @Autowired
+    AdminDao adminDao;
+    @Override
+    public Map<String,Object> adminList() {
+        List<Admin> newsList = adminDao.adminList();
+        PageInfo<Admin> page = new PageInfo<Admin>(newsList);
+        Map<String,Object> map = new HashMap<>();
+        map.put("adminList",page);
+        return map;
+    }
+
+    @Override
+    public Admin findAdminById(Integer userId) {
+        return adminDao.findAdminById(userId);
+    }
+
+    @Override
+    public int deleteAdminById(Integer userId) {
+        return adminDao.deleteAdminById(userId);
+    }
+
+    @Override
+    public int insertAdmin(String username, String password, String email, String realname, Integer roleid) {
+        return adminDao.insertAdmin(username,password,email,realname,roleid);
+    }
+
+    @Override
+    public Integer updateAdmin(String username, String password, String email, String realname, Integer roleid, Integer userid) {
+        return adminDao.updateAdmin(username,password,email,realname,roleid,userid);
+    }
+
+    @Override
+    public Integer checkUserName(String username, String type,Integer userid) {
+        if(type.equals("add")){
+            Admin admin = adminDao.searchAdminByUsername(username);
+            if(admin!=null){
+                return 1;
+            }
+        }
+        if(type.equals("edit")){
+            String name = adminDao.findAdminById(userid).getUsername();
+            if(name.equals(username)){
+                return 0;
+            }
+            Admin admin = adminDao.searchAdminByUsername(username);
+            if(admin!=null){
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public Integer updateAdminByName(Admin admin) {
+        return adminDao.updateAdminByUsername(admin);
+    }
+
+    @Override
+    public Admin findAdminByName(String username) {
+        return adminDao.findAdminByName(username);
+    }
+
+    @Override
+    public Integer checkPassword(String username,String password) {
+        Admin admin = adminDao.findAdminByName(username);
+        if(admin.getPassword().equals(password)){
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
+    public Integer checkPasswordById(Integer userid, String password) {
+        Admin admin = adminDao.findAdminById(userid);
+        if(admin.getPassword().equals(password)){
+            return 0;
+        }
+        return 1;
+    }
+
+}

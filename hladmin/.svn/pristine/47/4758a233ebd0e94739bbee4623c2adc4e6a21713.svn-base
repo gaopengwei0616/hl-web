@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/MyPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">设置</a></li>
+        <li><a href="">相关设置</a></li>
+        <li>站点管理</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+
+    <div style="margin-bottom: 5px">
+        <input type="button" value="添加站点" class="stdbtn btn_black" onclick="changUrl('/addEditSite?type=add');">
+        <input type="button" value="站点管理" class="stdbtn btn_black">
+    </div>
+    <div id="datalist">
+        <table cellpadding="0" cellspacing="0" border="0" class="stdtable" id="dyntable2">
+            <colgroup>
+                <col class="con0" />
+                <col class="con1" />
+                <col class="con0" />
+                <col class="con1" />
+                <col class="con0" />
+                <col class="con1" />
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="head0">站点ID</th>
+                <th class="head1" style="width: 30%">站点名称</th>
+                <th class="head0">关键字</th>
+                <th class="head1">描述</th>
+                <th class="head0">类型</th>
+                <th class="head1" style="width: 30%">管理操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="list,listStat:${pageList}">
+                <td th:text="${list.siteid}"></td>
+                <td th:text="${list.name}"></td>
+                <td th:text="${list.keywords}"></td>
+                <td th:text="${list.description}"></td>
+                <td th:text="${list.type}"></td>
+                <td>
+                    <input type="button" value="修改" class="stdbtn btn_black" th:onclick="'javascript:changUrl(\'/addEditSite?type=edit&siteId='+${list.siteid}+'\');'">
+                    <input type="button" value="删除" class="stdbtn btn_black" th:onclick="'javascript:deleteSite(\''+${list.siteid}+'\');'"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pages">
+        <span th:text="'显示'+${page.pageSize}+'条'"></span>
+        <span id="page_total" th:value="${page.total}" th:text="'共有'+${page.total}+'条记录'"></span>
+        <span th:value="${page.pages}" th:text="'共有'+${page.pages}+'页'"></span>
+        <span class="page" id="Page" style="float: right"></span>
+    </div>
+    <input type="hidden" id="value" th:value="${value}"/>
+    <!--以下为公共部分-->
+    <script>
+        var total = $("#page_total").attr("value");
+        P.initMathod({
+            params: {
+                elemId: '#Page',
+                total: this.total
+            }, requestFunction: function (pageIndex) {
+                if ($("#value").val() == 1) {
+                    $("#value").val(0);
+                    return;
+                }
+                var catid = $("#catid").val();
+                window.location.href = "/SiteManagementList?pageNum=" + pageIndex;
+            }
+        });
+        function deleteSite(siteId) {
+            if(siteId==1){
+                alert("默认站点不能删除");
+                return false;
+            }
+            if(confirm("确定删除吗")){
+                alert("删除成功");
+                $.ajax({
+                    url:"/deleteSiteById",
+                    data:{"siteId":siteId},
+                    type:"post",
+                    dataType:"json",
+                    success:function (data) {
+                        if(data==1){
+                            alert("删除成功");
+                        }else{
+                            alert("删除失败");
+                        }
+                        window.location.reload();
+                    },error:function () {
+                        alert("error");
+                    }
+                })
+            }
+            return false;
+        }
+    </script>
+</div><!-- centercontent -->
+
+</body>
+</html>

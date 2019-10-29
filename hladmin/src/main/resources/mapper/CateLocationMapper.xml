@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yida.mapper.CateLocationMapper">
+
+    <sql id="BaseSelect">
+        id,name,description,cat_code
+    </sql>
+    <select id="cateLocationList" resultType="com.yida.entity.CateLocation">
+        SELECT <include refid="BaseSelect"/> FROM sys_catdata WHERE status = 1
+    </select>
+</mapper>
+

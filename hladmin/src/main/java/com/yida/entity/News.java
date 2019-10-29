@@ -1,0 +1,22 @@
+package com.yida.entity;
+
+import lombok.Data;
+
+@Data
+public class News {
+
+    private Integer id;
+    private Integer catid;
+    private String title;
+    private String source;
+    private String thumb;
+    private String keywords;
+    private String description;
+    private String url;
+    private Integer status;
+    private String inputtime;
+    private String updatetime;
+    private String username;
+
+
+}

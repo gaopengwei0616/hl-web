@@ -1,0 +1,161 @@
+package com.yida.service.impl;
+
+import com.github.pagehelper.PageInfo;
+import com.yida.dao.CategoryDao;
+import com.yida.dao.NewsDao;
+import com.yida.dao.NewsDataDao;
+import com.yida.dao.RoleDao;
+import com.yida.entity.*;
+import com.yida.mapper.RoleDaoMapper;
+import com.yida.service.LanmuguanliService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Administrator on 2019/7/10.
+ */
+@Service
+public class LanmuguanliServiceImpl implements LanmuguanliService{
+
+    @Autowired
+    NewsDao newsDao;
+    @Autowired
+    NewsDataDao newsDataDao;
+    @Autowired
+    CategoryDao categoryDao;
+
+    @Autowired
+    private RoleDaoMapper roleDaoMapper;
+    /**
+     * 栏目管理页面信息查询
+     * @param catid
+     * @return
+     */
+    @Override
+    public Map<String, Object> showLanmuguanliMessage(Integer catid) {
+        List<News> newsList = newsDao.newsList(catid);
+        PageInfo<News> page = new PageInfo<News>(newsList);
+        Map<String,Object> map = new HashMap<>();
+        map.put("newsList",page);
+        return map;
+    }
+
+    /**
+     * 添加新闻所需信息查询
+     * @param catid
+     * @return
+     */
+    @Override
+    public Map<String, Object> addContentSearch(Integer catid) {
+        Category category = categoryDao.getCategoryById(catid);
+        Map<String,Object> map = new HashMap<>();
+        map.put("category",category);
+        return map;
+    }
+
+    /**
+     * 修改新闻信息查询
+     * @param id
+     * @param catid
+     * @return
+     */
+    @Override
+    public Map<String, Object> editContentSearch(Integer id, Integer catid) {
+
+        NewsData newsData = newsDataDao.newsDatafindById(id);
+        Category category = categoryDao.getCategoryById(catid);
+        News news = newsDao.findNewsById(id);
+        Map<String,Object> map = new HashMap<>();
+        map.put("newsData",newsData);
+        map.put("category",category);
+        map.put("news",news);
+        return map;
+    }
+
+    /**
+     * 修改新闻数据
+     * @param title
+     * @param content
+     */
+    @Override
+    @Transactional
+    public Integer updateNewsAndNewsData(Integer newsid, Integer newsDataId, String title, String content, String keywords, String url, Integer status, String description) {
+        newsDao.updateNewsById(newsid,title,keywords,url,status,description);
+        newsDataDao.updateNewsDataById(newsDataId,content);
+        return 1;
+    }
+
+    /**
+     * 添加新闻数据
+     * @param catid
+     * @param title
+     * @param url
+     * @param description
+     * @param typeId
+     * @param content
+     */
+    @Override
+    @Transactional
+    public Integer insertNewsAndNewsData(Integer catid, String title,String url,String description,Integer typeId,String content,String keywords,String inputtime,Integer status,String thumb) {
+        Integer newsid = newsDao.insertNews(catid,title,url,"admin",description,keywords,inputtime,status,thumb);
+        int count= newsDataDao.insertNewsData(newsid,content);
+        return count;
+    }
+
+    /**
+     * 删除新闻数据
+     * @param id
+     * @return
+     */
+    @Override
+    @Transactional
+    public Integer deleteNewsAndNewsData(Integer id) {
+        newsDao.deleteNewsById(id);
+        return 1;
+    }
+
+    /**
+     * 获取栏目列表
+     * @param siteid
+     * @return
+     */
+    @Override
+    public Map<String, Object> catParentDirList(Integer siteid) {
+        List<Category> categories = categoryDao.categoryLists(siteid);
+        Map<String,Object> map = new HashMap<>();
+        map.put("categories",categories);
+        return map;
+    }
+
+    @Override
+    public Integer checkNewsTitle(String title, String type, Integer newsId) {
+        if(type.equals("add")){
+            News news = newsDao.checkNewsByTitle(title);
+            if(news!=null){
+                return 1;
+            }
+        }
+        if(type.equals("edit")){
+            String oldtitle = newsDao.findNewsById(newsId).getTitle();
+            if(oldtitle.equals(title)){
+                return 0;
+            }
+            News news = newsDao.checkNewsByTitle(title);
+            if(news!=null){
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public Integer getSiteByRoleId(Integer roleid) {
+        return roleDaoMapper.getSiteByRoleId(roleid);
+    }
+}

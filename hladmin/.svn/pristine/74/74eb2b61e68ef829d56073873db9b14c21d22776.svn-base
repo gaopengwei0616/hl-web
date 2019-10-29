@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/MyPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">设置</a></li>
+        <li><a href="">相关设置</a></li>
+        <li>站点管理</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+
+    <div style="margin-bottom: 5px">
+        <input type="button" value="添加模型" class="stdbtn btn_black" onclick="changUrl('/addEditModel?type=add');">
+        <input type="button" value="模型管理" class="stdbtn btn_black" onclick="changUrl('/ModelManagerList');">
+    </div>
+    <div id="datalist">
+        <table cellpadding="0" cellspacing="0" border="0" class="stdtable" id="dyntable2">
+            <colgroup>
+                <col class="con0" style="width: 6%"/>
+                <col class="con1" style="width: 16%"/>
+                <col class="con0" style="width: 10%"/>
+                <col class="con1" style="width: 20%"/>
+                <col class="con1" style="width: 6%"/>
+                <col class="con1" style="width: 6%"/>
+                <col class="con1" style="width: 25%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="head1">模型ID</th>
+                <th class="head0">模型名称</th>
+                <th class="head1">数据表</th>
+                <th class="head0">描述</th>
+                <th class="head0">状态</th>
+                <th class="head0">数据量</th>
+                <th class="head0">管理操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="list:${pageList}">
+                <td th:text="${list.modelid}"></td>
+                <td th:text="${list.name}"></td>
+                <td th:text="${list.tablename}"></td>
+                <td th:text="${list.description}"></td>
+                <td th:text="${list.disabled}"></td>
+                <td th:text="${list.enablesearch}"></td>
+                <td>
+                    <input type="button" value="字段管理" class="stdbtn btn_black" th:onclick="'javascript:changUrl(\'/FieldManage?modelid='+${list.modelid}+'&siteid='+${list.siteid}+'\');'">
+                    <input type="button" value="修改" class="stdbtn btn_black" th:onclick="'javascript:changUrl(\'/addEditModel?type=edit&modelid='+${list.modelid}+'\');'">
+                    <input type="button" value="禁用" class="stdbtn btn_black" th:onclick="'javascript:disableModel(\''+${list.modelid}+'\');'">
+                    <input type="button" value="删除" class="stdbtn btn_black" th:onclick="'javascript:deleteModel(\''+${list.modelid}+'\');'">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="pages">
+            <span th:text="'显示'+${page.pageSize}+'条'"></span>
+            <span id="page_total" th:value="${page.total}"
+                  th:text="'共有'+${page.total}+'条记录'"></span>
+            <span th:value="${page.pages}" th:text="'共有'+${page.pages}+'页'"></span>
+            <span class="page" id="Page" style="float: right"></span>
+        </div>
+        <input type="hidden" id="value" th:value="${value}"/>
+        <script>
+            var total = $("#page_total").attr("value");
+            P.initMathod({
+                params: {
+                    elemId: '#Page',
+                    total: this.total
+                }, requestFunction: function (pageIndex) {
+                    if ($("#value").val() == 1) {
+                        $("#value").val(0);
+                        return;
+                    }
+                    var catid = $("#catid").val();
+                    window.location.href = "/ModelManagerList?pageNum=" + pageIndex;
+                }
+            });
+
+            /**
+             * 禁用
+             * @param posid
+             * @returns {boolean}
+             */
+            function disableModel(modelid) {
+                if(confirm("确定禁用吗")){
+                    alert("禁用成功");
+                    $.ajax({
+                        url:"/disableModelById",
+                        data:{"modelid":modelid},
+                        type:"post",
+                        dataType:"json",
+                        success:function (data) {
+                            if(data==1){
+                                alert("禁用成功");
+                            }else{
+                                alert("禁用失败");
+                            }
+                            window.location.reload();
+                        },error:function () {
+                            alert("error");
+                        }
+                    })
+                }
+                return false;
+            }
+
+            /**
+             * 删除
+             * @param posid
+             * @returns {boolean}
+             */
+            function deleteModel(modelid) {
+                if(confirm("确定删除吗")){
+                    alert("删除成功");
+                    $.ajax({
+                        url:"/deleteModelById",
+                        data:{"modelid":modelid},
+                        type:"post",
+                        dataType:"json",
+                        success:function (data) {
+                            if(data==1){
+                                alert("删除成功");
+                            }else{
+                                alert("删除失败");
+                            }
+                            window.location.reload();
+                        },error:function () {
+                            alert("error");
+                        }
+                    })
+                }
+                return false;
+            }
+        </script>
+    </div>
+</div><!-- centercontent -->
+
+</body>
+</html>

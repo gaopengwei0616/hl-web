@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/reset.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+</head>
+
+
+<!-- 顶部包括标签切换 -->
+<body>
+<div class="container">
+    <div class='row'>
+        <!-- 顶部 -->
+        <div id="header">
+            <img id="logo" src="${pageContext.request.contextPath}/img/logo.png"
+                 alt="">
+            <div id="language">
+                <a href="#" class="weixin"><img
+                        src="${pageContext.request.contextPath}/img/weixin.png" alt=""
+                        style="width: 25px; height: 25px;">微信</a>&nbsp;&nbsp; <img
+                    src="${pageContext.request.contextPath}/img/sj.png" alt=""
+                    style="width: 20px; height: 20px;">&nbsp;&nbsp; <a
+                    href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a>
+                &nbsp;&nbsp; <a href="javascript:zh_tran('t');" class="zh_click"
+                                id="zh_click_t">繁体</a>
+            </div>
+            <div class="ewm">
+                <img src="${pageContext.request.contextPath}/img/ewm.jpg" alt=""
+                     style="width: 100px; height: 100px;">
+            </div>
+            <div class="lunbos">
+                <ul class="lunbo" style="z-index: -1;">
+                    <c:forEach items="${topPicList }" var="top">
+                        <li class="active item"><img src="${top.thumb }" alt="">
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+
+            <!-- 导航条标签 -->
+            <div class="navs">
+                <a class="brand" href="http://www.huilai.gov.cn/"> <img
+                        src="${pageContext.request.contextPath}/img/home.png" alt=""
+                        style="width: 50%; height: 50%">
+                </a>
+                <ul class="nav">
+                    <li class="col-lg-3 active"><a
+                            href="http://www.huilai.gov.cn/">首页</a></li>
+                    <li class="col-lg-3"><a
+                            href="http://www.huilai.gov.cn//index.php?m=link&c=index&a=list_type">政务公开</a>
+                    </li>
+                    <li class="col-lg-3"><a
+                            href="http://www.gdzwfw.gov.cn/portal/index?region=445224">政务服务</a>
+                    </li>
+                    <li class="col-lg-3"><a
+                            href="http://www.huilai.gov.cn//index.php?m=vote&c=index&siteid=1">走进惠来</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div style="width: 900px;text-align: center;margin:0 auto">
+        <div style="color: red;text-align: center;height: 60px;"><h2>${'#yw.title'}</h2></div>
+        <div style="margin-top: 100px">${'#yw.content'}</div>
+    </div>
+</div>
+
+
+<!-- 页面底部 -->
+<div class='container'>
+    <div class='row'>
+        <div id="footer">
+            <div class="copyRight">
+                <a
+                        href="http://121.43.68.40/exposure/jiucuo.html?site_code=4452240001&url=http%3A%2F%2Fwww.huilai.gov.cn%2Fweb%2Findex.action">
+                    <img src="${pageContext.request.contextPath}/img/jiucuo.png"
+                         alt="">
+                </a> <a
+                    href="http://bszs.conac.cn/sitename?method=show&id=591D17DEC1984239E053022819ACDF9E">
+                <img src="${pageContext.request.contextPath}/img/red_error.png"
+                     alt="">
+            </a>
+                <ul>
+                    <li>主办：惠来县人民政府办公室&nbsp;&nbsp;&nbsp;&nbsp;承办：惠来县信息中心&nbsp;&nbsp;&nbsp;&nbsp;制作维护：惠来县信息中心&nbsp;&nbsp;&nbsp;&nbsp;电子邮箱：huilaixx@163.com</li>
+                    <li>COPYRIGHT&nbsp;2018&nbsp;惠来县人民政府&nbsp;&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;粤ICP备09124891号&nbsp;&nbsp;&nbsp;<a
+                            href="http://www.huilai.gov.cn/index.php?m=content&c=index&a=lists&catid=3284"
+                            target="__blank">网站地图</a></li>
+                    <li>技术支持：广东易达电子科技有限公司&nbsp;4008766628</li>
+                    <li>网站标识码 4452240001&nbsp;&nbsp;&nbsp; <a
+                            href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44522402000105"
+                            style="color: black;"> <img
+                            src="${pageContext.request.contextPath}/img/guohui.png" alt=""
+                            style="float: none; vertical-align: middle;">粤公网安备
+                        44522402000105号
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- 所需要的js文件 -->
+<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/unslider.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/index.js"></script>
+</html>

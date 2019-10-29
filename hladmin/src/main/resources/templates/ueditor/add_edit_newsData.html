@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" href="layer/theme/default/layer.css?v=3.1.1" type="text/css" id="layuicss-layer"/>
+    <script type="text/javascript" src="layer/layer.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<script type="text/javascript">
+    $(function () {
+        $('#all').click(function () {
+
+            if ($(this).prop('checked')) {
+                $('#datalist :checkbox').prop('checked', true);
+            } else {
+                $('#datalist :checkbox').prop('checked', false);
+            }
+        });
+    });
+</script>
+<body>
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+    $(function () {
+        var content = $("#content").val();
+        ue.addListener("ready", function () {
+            ue.setContent(content);
+
+        });
+    });
+    $("#fromSubmit").click(function () {
+        $("#forms").submit();
+    });
+    $("#editfromSubmit").click(function () {
+        $("#editForms").submit();
+    });
+
+    function addCheckTitle() {
+        var title = $("input[name='title']").val();
+        var type = $("#type").val();
+        $.ajax({
+            url:"checkNewsTitle?title="+title+"&type="+type,
+            dataType:"json",
+            type:"get",
+            success:function (data) {
+                if(data==1){
+                    alert("标题重复，请重新输入");
+                    $("input[name='title']").val("");
+                }
+            }
+        });
+        return false;
+    }
+    function editCheckTitle() {
+        var title = $("input[name='title']").val();
+        var type = $("#type").val();
+        var newsId = $("#newsId").val();
+        $.ajax({
+            url:"checkNewsTitle?title="+title+"&type="+type+"&newsId="+newsId,
+            dataType:"json",
+            type:"get",
+            success:function (data) {
+                if(data==1){
+                    alert("标题重复，请重新输入");
+                    $("input[name='title']").val("");
+                }
+            }
+        })
+        return false;
+    }
+</script>
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">内容</a></li>
+        <li><a href="">管理内容</a></li>
+        <li><a href="">惠来新闻</a></li>
+        <li>添加内容</li>
+        <li>修改内容</li>
+    </ul>
+</div><!--pageheader-->
+<div style="margin-bottom: 5px">
+    <button class="stdbtn btn_black" onclick="changUrl('showLists');">内容管理</button>
+</div>
+<div id="contentwrapper" class="contentwrapper">
+    <input type="hidden" th:value="${type}" id="type"/>
+    <form th:if="${type} eq 'add'" action="add_news_data" class="stdform stdform2" method="post" id="froms" enctype="multipart/form-data">
+        <input type="hidden" th:value="${category.catid}" name="catid"/>
+        <p>
+            <label>栏目catid</label>
+            <span class="field" th:text="${category.name}"></span>
+        </p>
+        <p>
+            <label>标题title</label>
+            <span class="field">
+                <input type="text" name="title" class="mediuminput" id="title"/>
+                <input type="button"  class="stdbtn btn_black" value="检查重复" onclick="addCheckTitle()"/>
+            </span>
+        </p>
+        <p>
+            <label>关键词keywords</label>
+            <span class="field">
+                <input type="text" name="keywords" id="keywords" class="mediuminput"/> 多关键词之间用空格或者“,”隔开
+            </span>
+        </p>
+
+        <p>
+            <label>缩略图</label>
+            <span class="field">
+                                                选择文件: <input type="file" name="fileName" onchange="filechange(event)"/>
+    			<span th:text="${msg}"></span>
+              <img src="" id="img-change" />
+
+            </span>
+        </p>
+
+        <p>
+            <label>附件</label>
+            <span class="field">
+                                                选择文件: <input type="file1" name="fileName1" onchange="filechange(event)"/>
+    			<span th:text="${msg}"></span>
+
+            </span>
+        </p>
+
+
+        <p>
+            <label>发布时间</label>
+            <span class="field">
+                <input type="date" style="width: 150px;" name="inputtime" id="input"  class="smallinput"/>
+            </span>
+        </p>
+        <p>
+            <label>来源</label>
+            <span class="field">
+                <input type="text" name="source" id="source" class="mediuminput"/>
+            </span>
+        </p>
+
+        <p>
+            <label>状态</label>
+            <span class="field">
+                <input type="radio" name="status" checked="checked" value="99"/>发布 &nbsp; &nbsp;
+                <input type="radio" name="status" /> 无 &nbsp; &nbsp;
+            </span>
+        </p>
+        <p>
+            <label>摘要</label>
+            <span class="field">
+                <textarea cols="80" rows="5" name="description" id="description" class="mediuminput"></textarea>
+            </span>
+        </p>
+        <p>
+            <script id="container" name="content" type="text/plain">
+
+            </script>
+        </p>
+        <p class="stdformbutton">
+            <button id="fromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+
+    <form th:if="${type} eq 'edit'" action="edit_news_data" class="stdform stdform2" method="post" id="editForms">
+        <input type="hidden" th:value="${news.id}" id="newsId" name="newsid"/>
+        <input type="hidden" th:value="${newsData.content}" id="content" />
+        <input type="hidden" th:value="${newsData.id}" name="newsDataId" />
+        <p>
+            <label>栏目</label>
+            <span class="field" th:text="${category.name}"></span>
+        </p>
+        <p>
+            <label>标题title</label>
+            <span class="field">
+                <input type="text" name="title" class="mediuminput" id="title" th:value="${news.title}"/>
+                <input type="button"  class="stdbtn btn_black" value="检查重复" onclick="editCheckTitle()">
+            </span>
+        </p>
+        <p>
+            <label>关键词keywords</label>
+            <span class="field">
+                <input type="text" name="keywords" class="mediuminput" id="keywords" th:value="${news.keywords}"/> 多关键词之间用空格或者“,”隔开
+            </span>
+        </p>
+        <p>
+            <label>发布时间</label>
+            <span class="field">
+                <input type="date" name="updatetime" id="inputtime" class="smallinput" th:value="${news.inputtime}"/>
+            </span>
+        </p>
+        <p>
+            <label>来源</label>
+            <span class="field">
+                <input type="text" name="source" class="mediuminput" id="source" th:value="${news.source}"/>
+            </span>
+        </p>
+
+        <p>
+            <label>状态</label>
+            <span class="field">
+                <input type="radio" name="status" checked="checked" value="99"/>发布 &nbsp; &nbsp;
+            </span>
+        </p>
+        <p>
+            <label>摘要</label>
+            <span class="field">
+                <textarea cols="80" rows="5" name="description" id="description" class="mediuminput" th:text="${news.description}"></textarea>
+            </span>
+        </p>
+        <p>
+            <script id="container" name="content" type="text/plain">
+
+            </script>
+        </p>
+        <p class="stdformbutton">
+            <button id="editfromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+</div><!-- centercontent -->
+<script type="application/javascript">
+    /*$("#file").change(function (event) {*/
+    var filechange=function(event){
+        var files = event.target.files, file;
+        if (files && files.length > 0) {
+            // 获取目前上传的文件
+            file = files[0];// 文件大小校验的动作
+            if(file.size > 1024 * 1024 * 60) {
+                alert('图片大小不能超过 2MB!');
+                return false;
+            }
+            // 获取 window 的 URL 工具
+            var URL = window.URL || window.webkitURL;
+            // 通过 file 生成目标 url
+            var imgURL = URL.createObjectURL(file);
+            //用attr将img的src属性改成获得的url
+            $("#img-change").attr("src",imgURL);
+            // 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
+            // URL.revokeObjectURL(imgURL);
+        }
+    };
+    $("#fromSubmit").click(function () {
+        var title = $("#title").val();
+        
+        var input = $("#input").val();
+        var inputtime =$("#inputtime").val();
+        var keywords = $("#keywords").val();
+        var inputtime = $("#inputtime").val();
+        var source = $("#source").val();
+        var description = $("#description").val();
+        if(title.length==0||title=="".trim()||title==null||title==undefined){
+            layer.msg("请输入标题！");
+            return false;
+        }
+        if(keywords.length>39){
+            layer.msg("关键词过长！");
+            return false;
+        }
+      
+        
+        if(input==null||input==""){
+            layer.msg("请选择日期！");
+            return false;
+        }
+        if(source.length==0||source=="".trim()||source==null||source==undefined){
+            layer.msg("请输入信息来源！");
+            return false;
+        }
+
+        $("#froms").submit();
+    })
+    $("#editfromSubmit").click(function () {
+        var title = $("#title").val();
+        var keywords = $("#keywords").val();
+        var inputtime = $("#inputtime").val();
+        var source = $("#source").val();
+        var description = $("#description").val();
+
+        if(title.length==0||title=="".trim()||title==null||title==undefined){
+            layer.msg("请输入标题");
+            return false;
+        }
+        if(keywords.length>39){
+            layer.msg("关键词过长");
+            return false;
+        }
+        if(source.length==0||source=="".trim()||source==null||source==undefined){
+            layer.msg("请输入信息来源！");
+            return false;
+        }
+        if(inputtime==""||inputtime==null){
+            layer.msg("请选择日期");
+            return false;
+        }
+
+
+        $("#editForms").submit();
+    })
+</script>
+</body>
+</html>

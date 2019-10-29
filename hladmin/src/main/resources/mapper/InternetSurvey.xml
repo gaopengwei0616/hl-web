@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.yida.mapper.InternetSurveyMapper">
+    <resultMap id="InternetSurveyResultMap" type="com.yida.entity.InternetSurvey">
+
+        <id column="id" property="id"/>
+
+        <result column="title" property="title"/>
+
+        <result column="begin_time" property="begin_time"/>
+
+        <result column="description" property="description"/>
+
+        <result column="create_time" property="create_time"/>
+
+        <result column="end_time" property="end_time"/>
+
+    </resultMap>
+
+    <resultMap id="SurveyResultMap" type="com.yida.entity.Survey">
+
+        <id column="id" property="Id"/>
+
+        <result column="ticket" property="ticket"/>
+
+        <result column="content" property="content"/>
+
+        <result column="parent_id" property="parent_id"/>
+
+        <association property="internetSurvey" javaType="InternetSurvey">
+            <id property="id" column="id"/>
+            <result property="title" column="title"/>
+            <result property="end_time" column="end_time"/>
+            <result property="description" column="description"/>
+            <result property="create_time" column="create_time"/>
+            <result property="begin_time" column="begin_time"/>
+        </association>
+
+    </resultMap>
+
+    <resultMap id="SurveyMap" type="com.yida.entity.Survey">
+
+        <id column="id" property="Id"/>
+
+        <result column="ticket" property="ticket"/>
+
+        <result column="content" property="content"/>
+
+        <result column="selectInternetSurvey" property="parent_id"/>
+
+    </resultMap>
+
+    <delete id="deleteSurveybyid">
+		delete from survey where parent_id=#{id}
+	</delete>
+
+    <delete id="deleteInternet_SurveyByid">
+		delete from internet_survey where id=#{id}
+	</delete>
+
+    <select id="selectInternetSurvey" resultMap="InternetSurveyResultMap">
+		 select id,title,create_time,end_time,begin_time,description from internet_survey
+	</select>
+
+    <select id="selectSurveyList" resultMap="SurveyResultMap">
+		select b.id,b.title,b.begin_time,b.create_time,end_time,b.description,a.ticket,a.content,a.parent_id from survey a inner join  internet_survey b on  a.parent_id=b.id
+	</select>
+
+    <select id="selectSurveyByid" resultMap="SurveyResultMap">
+		select b.id,b.title,b.input_time,a.ticket,a.content,a.parent_id from survey a inner join  internet_survey b on  a.parent_id=b.id where b.id=#{parentid}
+	</select>
+
+    <select id="selectSurveyByparentid" resultMap="SurveyMap">
+		select id,ticket,content,parent_id from survey where parent_id=#{parentid}
+	</select>
+
+    <insert id="insertInternetSurvey"    parameterType="com.yida.entity.InternetSurvey" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+          insert into internet_survey (title,begin_time,end_time,create_time,description)VALUES(#{title},#{begin_time},#{end_time},#{create_time},#{description})
+	</insert>
+
+    <insert id="insertSurvey" parameterType="com.yida.entity.Survey" >
+          insert into survey (parent_id,content,ticket)VALUES(#{Survey.parent_id},#{Survey.content},#{Survey.ticket})
+	</insert>
+
+</mapper>

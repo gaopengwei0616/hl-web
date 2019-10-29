@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <link rel="stylesheet" href="layer/theme/default/layer.css?v=3.1.1" type="text/css" id="layuicss-layer"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">设置</a></li>
+        <li><a href="">相关设置</a></li>
+        <li><a href="">管理员管理</a></li>
+        <li>添加角色</li>
+        <li>修改角色</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+    <div style="margin-bottom: 5px">
+        <input type="button" value="添加角色" class="stdbtn btn_black"
+               onclick="changUrl('/addEditRole?type=add');">
+        <input type="button" value="角色管理" class="stdbtn btn_black"
+               onclick="changUrl('/RoleManagerList');">
+    </div>
+    <form th:if="${type} eq 'add'" class="stdform stdform2" action="insertRole" method="post" id="forms">
+        <p>
+            <label>角色名称:</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="rolename"  class="mediuminput rolename"/>
+            </span>
+        </p>
+        <p>
+            <label>角色描述：</label>
+            <span class="field"><textarea th:if="${type} eq 'add'" cols="80" rows="5" name="description"
+                                          class="mediuminput"></textarea></span>
+        </p>
+        <p>
+            <label>是否启用：</label>
+            <span class="field">
+                            	<input type="radio" name="listorder" checked="checked" value="0"/> 启用 &nbsp; &nbsp;
+                            	<input type="radio" name="listorder" value="1"/> 禁止
+                            </span>
+        </p>
+        <p>
+            <label>排序：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="disabled" class="mediuminput" value="0"/>
+            </span>
+        </p>
+
+        <p class="stdformbutton">
+            <button id="fromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+    <form th:if="${type} eq 'edit'" class="stdform stdform2" action="updateRole" method="post" id="editForms">
+        <input name="roleid" type="hidden" th:if="${type} eq 'edit'" th:value="${role.roleid}"/>
+        <p>
+            <label>角色名称:</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="rolename"  class="mediuminput rolename" th:value="${role.rolename}"/>
+            </span>
+        </p>
+
+        <p>
+            <label>角色描述：</label>
+            <span class="field"><textarea th:if="${type} eq 'edit'" cols="80" rows="5" name="description"
+                                          class="mediuminput" th:value="${role.description}"></textarea></span>
+        </p>
+        <p>
+            <label>是否启用：</label>
+            <span class="field">
+                                    <input type="radio" name="disabled" th:checked="${role.disabled == 0 }" value="0"/> 启用 &nbsp; &nbsp;
+                            	    <input type="radio" name="disabled" th:checked="${role.disabled != 0 }" value="1"/> 禁止
+
+                            </span>
+        </p>
+        <p>
+            <label>排序：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="listorder" class="mediuminput" th:value="${role.listorder}"/>
+            </span>
+        </p>
+
+        <p class="stdformbutton">
+            <button id="editfromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+
+    <script type="application/javascript">
+        $("#fromSubmit").click(function () {
+            var rolename=$(".rolename").val();
+            if(rolename.length>=16){
+                layer.msg("角色名称过长！")
+                return false;
+            }
+            if(rolename==""){
+                layer.msg("请输入角色名称！")
+                return false;
+            }
+            $("#forms").submit();
+        });
+        $("#editfromSubmit").click(function () {
+            var rolename=$(".rolename").val();
+            if(rolename.length>=16){
+                layer.msg("角色名称过长！")
+                return false;
+            }
+            if(rolename==""){
+                layer.msg("请输入角色名称！")
+                return false;
+            }
+
+            $("#editForms").submit();
+        });
+    </script>
+</div><!-- centercontent -->
+</body>
+</html>

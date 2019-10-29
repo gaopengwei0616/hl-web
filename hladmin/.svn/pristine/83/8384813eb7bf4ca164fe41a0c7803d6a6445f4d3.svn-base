@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">内容</a></li>
+        <li><a href="">内容相关设置</a></li>
+        <li><a href="">管理栏目</a></li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+        <input id="id" th:value="${xx.id}" type="hidden">
+
+        <p>
+            <label>推荐位标题：</label>
+            <span class="field" >
+            <input id="titles"  th:value="${xx.title}" placeholder="请输入标题">
+            </span>
+        </p>
+        <p>
+            <label>推荐位图片：</label>
+            <span class="field">
+                    <td><input  id="thumb" type="text" th:value="${xx.thumb}"></td>
+            </span>
+        </p>
+        <p>
+            <label>推荐时间：</label>
+            <span class="field">
+                    <td><input  id="updatetime" type="text" th:value="${xx.updatetime}"></td>
+            </span>
+        </p>
+        <p>
+            <label>描述：</label>
+            <span class="field">
+                    <td><input  id="description" type="text" th:value="${xx.description}"></td>                </tr>
+            </span>
+        </p>
+
+
+        <p class="stdformbutton">
+            <button  class="savecloses" >提交</button>
+            <button onclick="closed()">关闭</button>
+        </p>
+
+
+    <script>
+        $(function(){
+            $(".savecloses").click(
+                function saveclose() {
+                    var title=$("#titles").val();
+                    var thumb=$("#thumb").val();
+                    var updatetime=$("#updatetime").val();
+                    var description=$("#description").val();
+                    var id=$("#id").val();
+                    var let=this;
+                    $.ajax({
+                        type:'post',
+                        url:'/xgxx',
+                        data:{
+                            'id':id,
+                            'title': title,
+                            'thumb':thumb,
+                            'updatetime':updatetime,
+                            'description':description
+                        },
+                        dataType:'json',
+                        success: function (data){
+                            if (data==1) {
+                                alert("修改成功");
+                            } else {
+                                alert("修改失败");
+                            }
+                        }, error: function () {
+                            alert("error");
+                        }
+                    });
+                }
+            )
+        })
+        function closed() {
+            window.history.go(-1);
+        }
+    </script>
+
+
+</div><!-- centercontent -->
+</body>
+</html>

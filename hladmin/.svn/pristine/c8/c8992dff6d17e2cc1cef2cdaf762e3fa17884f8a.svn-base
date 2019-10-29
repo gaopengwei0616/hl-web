@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>控制台页面</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+
+    <!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="js/plugins/excanvas.min.js"></script><![endif]-->
+    <!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">内容</a></li>
+        <li><a href="">内容相关设置</a></li>
+        <li><a href="">模型管理</a></li>
+        <li>添加模型</li>
+        <li>模型管理</li>
+    </ul>
+</div><!--pageheader-->
+
+<div id="contentwrapper" class="contentwrapper">
+    <div style="margin-bottom: 5px">
+        <input type="button" value="添加模型" class="stdbtn btn_black"
+               onclick="changUrl('/addEditModel?type=add');">
+        <input type="button" value="模型管理" class="stdbtn btn_black"
+               onclick="changUrl('/ModelManagerList');">
+    </div>
+    <form th:if="${type} eq 'add'" class="stdform stdform2" action="/insertModel" method="post" id="forms">
+        <p>
+            <label>模型名称:</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="name"  class="mediuminput"/>
+            </span>
+        </p>
+
+        <p>
+            <label>模型表键名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="tablename"  class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>描述：</label>
+            <span class="field">
+                <input th:if="${type} eq 'add'" type="text" name="description"  class="mediuminput"/>
+            </span>
+        </p>
+        <p>
+            <label>可用风格：</label>
+            <span class="field">
+                <select name="selection" name="default_style" id="add_select">
+                    <option value="">请选择</option>
+                    <option value="default">默认风格</option>
+                </select>
+            </span>
+        </p>
+
+        <p>
+            <label>栏目首页模板：</label>
+            <span class="field">
+                <select name="selection" name="category_template" id="add_category">
+                </select>
+            </span>
+        </p>
+        <p>
+            <label>栏目列表页模板：</label>
+            <span class="field">
+                <select name="selection" name="list_template" id="add_list">
+                </select>
+            </span>
+        </p>
+        <p>
+            <label>内容页模板：</label>
+            <span class="field">
+                <select name="selection" name="show_template" id="add_show">
+                </select>
+            </span>
+        </p>
+
+
+        <p class="stdformbutton">
+            <button id="fromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+    <form th:if="${type} eq 'edit'" class="stdform stdform2" action="/updateModel" method="post" id="editForms">
+        <input th:if="${type} eq 'edit'" type="hidden" name="modelid"  class="mediuminput" th:value="${model.modelid}"/>
+        <p>
+            <label>模型名称:</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="name"  class="mediuminput" th:value="${model.name}"/>
+            </span>
+        </p>
+
+        <p>
+            <label>模型表键名：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="tablename"  class="mediuminput" th:value="${model.tablename}"/>
+            </span>
+        </p>
+        <p>
+            <label>描述：</label>
+            <span class="field">
+                <input th:if="${type} eq 'edit'" type="text" name="description"  class="mediuminput" th:value="${model.description}"/>
+            </span>
+        </p>
+        <p>
+            <label>可用风格：</label>
+            <span class="field">
+                <select name="selection" name="default_style" id="edit_select" th:value="${model.default_style}">
+                    <option value="">请选择</option>
+                    <option value="default">默认风格</option>
+                </select>
+            </span>
+        </p>
+
+        <p>
+            <label>栏目首页模板：</label>
+            <span class="field">
+                <input type="hidden" id="edit_hidden_category" th:value="${model.category_template}"/>
+                <select name="selection" name="category_template" id="edit_category" >
+                </select>
+            </span>
+        </p>
+        <p>
+            <label>栏目列表页模板：</label>
+            <span class="field">
+                <input type="hidden" id="edit_hidden_list" th:value="${model.list_template}"/>
+                <select name="selection" name="list_template" id="edit_list" >
+                </select>
+            </span>
+        </p>
+        <p>
+            <label>内容页模板：</label>
+            <span class="field">
+                <input type="hidden" id="edit_hidden_show" th:value="${model.show_template}"/>
+                <select name="selection" name="show_template" id="edit_show" >
+                </select>
+            </span>
+        </p>
+
+
+        <p class="stdformbutton">
+            <button id="editfromSubmit" class="radius2">提交</button>
+            <input type="reset" class="reset radius2" value="清空"/>
+        </p>
+    </form>
+
+    <script type="text/javascript">
+        $("#fromSubmit").click(function () {
+            $("#forms").submit();
+        });
+        $("#editfromSubmit").click(function () {
+            $("#editForms").submit();
+        });
+        $("#add_select").change(function () {
+           var value = $(this).val();
+           if(value=="default"){
+               var html = "";
+               html="<option value=''>请选择</option><option value='category'>文章频道页(category.html)</option><option value='category_download'>下载频道页(category_download.html)</option><option value='category_picture'>图片频道页(category_picture.html)</option>";
+               $("#add_category").html(html);
+               html="<option value=''>请选择</option><option value='list'>列表页(list.html)</option><option value='list_download'>下载列表页(list_download.html)</option><option value='list_picture'>图片列表页(list_picture.html)</option>";
+               $("#add_list").html(html);
+               html="<option value=''>请选择</option><option value='show'>文章内容页(show.html)</option><option value='show_download'>下载内容页(show_download.html)</option><option value='show_picture'>图片内容页(show_picture.html)</option>";
+               $("#add_show").html(html);
+           }else{
+               $("#add_category").empty();
+               $("#add_list").empty();
+               $("#add_show").empty();
+           }
+        });
+
+        $("#edit_select").change(function () {
+            var value = $(this).val();
+            if(value=="default"){
+                var edit_hidden_category = $("#edit_hidden_category").val();
+                var edit_hidden_list = $("#edit_hidden_list").val();
+                var edit_hidden_show = $("#edit_hidden_show").val();
+                var html = "";
+                html="<option value=''>请选择</option><option value='category'>文章频道页(category.html)</option><option value='category_download'>下载频道页(category_download.html)</option><option value='category_picture'>图片频道页(category_picture.html)</option>";
+                $("#edit_category").html(html);
+                $("#edit_category").val(edit_hidden_category);
+                html="<option value=''>请选择</option><option value='list'>列表页(list.html)</option><option value='list_download'>下载列表页(list_download.html)</option><option value='list_picture'>图片列表页(list_picture.html)</option>";
+                $("#edit_list").html(html);
+                $("#edit_list").val(edit_hidden_list);
+                html="<option value=''>请选择</option><option value='show'>文章内容页(show.html)</option><option value='show_download'>下载内容页(show_download.html)</option><option value='show_picture'>图片内容页(show_picture.html)</option>";
+                $("#edit_show").html(html);
+                $("#edit_show").val(edit_hidden_show);
+            }else{
+                $("#edit_category").empty();
+                $("#edit_list").empty();
+                $("#edit_show").empty();
+            }
+        });
+
+    </script>
+</div><!-- centercontent -->
+</body>
+</html>

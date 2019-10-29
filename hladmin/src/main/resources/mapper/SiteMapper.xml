@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yida.mapper.SiteMapper">
+    <resultMap id="SiteResultMap" type="com.yida.entity.Site">
+        <id column="siteid" property="siteid"/>
+        <result column="name" property="name" jdbcType="CHAR"/>
+        <result column="keywords" property="keywords" jdbcType="CHAR"/>
+        <result column="description" property="description" jdbcType="CHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="GetSiteList" resultMap="SiteResultMap">
+      select *  from v9_site where status=1 order by siteid ASC
+    </select>
+
+    <select id="SiteCount" resultType="int">
+        select count(*)  from v9_site where status=1
+    </select>
+
+
+    <update id="updateBySite" parameterType="com.yida.entity.Site">
+        update v9_site
+            <trim prefix="set" suffixOverrides="," suffix="where siteid=#{siteid}" >
+                <if test="name!=null and name!=''">
+                    name=#{name},
+                </if>
+                <if test="keywords!=null and keywords!=''">
+                    keywords=#{keywords},
+                </if>
+                <if test="description!=null and description!=''">
+                    description=#{description},
+                </if>
+                <if test="type!=null and type!=''">
+                    type=#{type},
+                </if>
+            </trim>
+    </update>
+
+    <update id="updateBysiteId">
+        update v9_site
+        <set>
+            status =#{status}
+        </set>
+        where siteid=#{siteid}
+    </update>
+
+    <select id="SiteBysiteId" resultType="com.yida.entity.Site">
+        select * from v9_site where siteid=#{siteid}
+    </select>
+
+    <select id="SiteBysiteType" resultMap="SiteResultMap">
+        select * from v9_site where type=#{type}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.yida.entity.Site">
+        insert into v9_site
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="siteid != null">
+                siteid,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="keywords != null">
+                keywords,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="siteid != null">
+                #{siteid,jdbcType=SMALLINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=CHAR},
+            </if>
+            <if test="keywords != null">
+                #{keywords,jdbcType=CHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=CHAR},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+        </trim>
+    </insert>
+</mapper>

@@ -1,0 +1,17 @@
+package com.yida.mapper;
+
+import com.yida.entity.Information;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface InformationMapper {
+
+    /*
+    根据posid显示信息管理
+     */
+    List<Information> xxgl(@Param("posid") int posid);
+
+}

@@ -1,0 +1,15 @@
+package com.yida.entity;
+
+import lombok.Data;
+
+/**
+ * Created by YD on 2019/7/25.
+ */
+@Data
+public class SysRole {
+    private int roleid;
+    private String name;
+    private String description;
+    private String rolename;
+
+}

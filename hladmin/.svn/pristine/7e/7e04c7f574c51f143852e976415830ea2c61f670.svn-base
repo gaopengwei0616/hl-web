@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/style.default.css" type="text/css"/>
+    <script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/MyPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+</head>
+<body>
+<input type="hidden" id="siteid" th:value="${siteid}">
+<script>
+    $(function () {
+        var siteid = $("#siteid").val();
+        $.ajax({
+            url:"/getCateList",
+            dataType:"json",
+            type:"post",
+            data:{"siteid":siteid},
+            success:function (data) {
+                var button = "<button class='stdbtn btn_black' onclick='addCategory("+siteid+")'>添加栏目</button><button class='stdbtn btn_black' onclick=changUrl('/siteSelect')>选择站点</button>";
+                $("#button").html(button);
+                var list = "";
+                for(var i in data){
+                    list+="<tr><td>"+data[i].catid+"</td><td>"+data[i].name+"</td><td>"+data[i].cat_code+"</td><td>"+data[i].description+"</td>" +
+                     "<td><button class='stdbtn btn_black' onclick='editCategory("+data[i].catid+","+siteid+")'>修改</button><button class='stdbtn btn_black' onclick='delCategory("+data[i].catid+")'>删除</button></td></tr>";
+                }
+                $("#catLocaltionList").html(list);
+            }
+        })
+    })
+    function addCategory(siteid) {
+        var url = "/addEditCategory?siteid="+siteid+"&type=add";
+        window.location.href=url;
+    }
+    function editCategory(catid,siteid) {
+        var url = "/addEditCategory?catid="+catid+"&type=edit&siteid="+siteid;
+        window.location.href=url;
+    }
+    function delCategory(catid) {
+        $.ajax({
+            url:"deleteCategory?catid="+catid,
+            dataType:"json",
+            type:"get",
+            success:function (data) {
+                if(data=!1){
+                    alert("删除失败");
+                    return;
+                }
+                alert("删除成功");
+                window.location.reload();
+            }
+        })
+    }
+</script>
+
+<div class="pageheader">
+    <ul class="breadcrumbs">
+        <li><a href="">内容</a></li>
+        <li><a href="">站点设置</a></li>
+        <li>管理栏目</li>
+    </ul>
+</div>
+<div id="contentwrapper" class="contentwrapper">
+    <div id="button"></div>
+    <table cellpadding="0" cellspacing="0" border="0" class="stdtable" id="dyntable2">
+        <thead>
+        <tr>
+            <th class="head0">ID</th>
+            <th class="head1">栏目名称</th>
+            <th class="head1">栏目Code</th>
+            <th class="head1">描述</th>
+            <th class="head0">操作</th>
+        </tr>
+        </thead>
+        <tbody id="catLocaltionList">
+
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

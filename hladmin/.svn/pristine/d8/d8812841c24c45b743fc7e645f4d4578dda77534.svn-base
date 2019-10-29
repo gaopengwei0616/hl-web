@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yida.mapper.RoleMapper">
+    <resultMap id="RoleMap" type="com.yida.entity.SysRole">
+        <id column="id" property="roleid"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="rolename" property="rolename"/>
+    </resultMap>
+
+    <select id="findRole" resultMap="RoleMap">
+        SELECT * FROM Sys_Role
+    </select>
+
+    <select id="findRoleById" resultMap="RoleMap">
+        SELECT * FROM Sys_Role WHERE id=#{roleid}
+    </select>
+
+    <delete id="deleteRoleById">
+        DELETE FROM Sys_Role WHERE id=#{roleid}
+    </delete>
+
+    <insert id="insertRole" parameterType="com.yida.entity.SysRole">
+        insert into Sys_Role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="rolename != null">
+                rolename,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="rolename != null">
+                #{rolename},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateRole" parameterType="com.yida.entity.SysRole">
+        update Sys_Role
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{roleid}" >
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description},
+            </if>
+            <if test="rolename!=null and rolename!=''">
+                rolename=#{rolename},
+            </if>
+        </trim>
+    </update>
+
+</mapper>
+

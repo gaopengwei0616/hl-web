@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yida.mapper.RoleDaoMapper">
+    <select id="getSiteByRoleId"  resultType="java.lang.Integer">
+        SELECT srs.siteid FROM sys_role sr
+        INNER JOIN sys_role_site  srs ON sr.id = srs.roleid WHERE sr.id=#{roleid}
+    </select>
+
+</mapper>
