@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <!-- 所需要的css样式 -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/more.css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        $(function () {
+            $(".weixin").mouseover(function () {
+                $(".ewm").css("display", "block");
+            });
+            $(".weixin").mouseout(function () {
+                $(".ewm").css("display", "none");
+            });
+        })
+    </script>
+</head>
+
+<body>
+<input type="hidden" id="siteid" th:value="${siteid}">
+<input type="hidden" id="parentid" th:value="${parentid}">
+<input type="hidden" id="name" th:value="${name2}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<div class="container">
+    <div class="row">
+        <div id="main">
+            <p id="msg">当前位置：
+                <a href="" style="color:black;">首页</a>&gt;走进惠来></p>
+            <div id="content">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton1(catid=1122,siteid=${siteid})}">
+                            <span class="zishu2" th:text="地理位置"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton2(catid=1123,siteid=${siteid})}">
+                            <span class="zishu2" th:text="惠来历史"></span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a th:href="@{/zjhlButton(catid=1124,siteid=${siteid})}">
+                            <span class="zishu2" th:text="基础设施"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton(catid=1125,siteid=${siteid})}">
+                            <span class="zishu2" th:text="农业工业"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton(catid=1126,siteid=${siteid})}">
+                            <span class="zishu2" th:text="名优特产"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton(catid=1127,siteid=${siteid})}">
+                            <span class="zishu2" th:text="法律法规"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton(catid=1128,siteid=${siteid})}">
+                            <span class="zishu2" th:text="行政许可"></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="local">
+                        <!--<input class="suosou" type="text" placeholder="关键字/索引号">-->
+                        <h3 style="align-content: center">惠来历史</h3>
+                        <p>
+                            惠来县境内古为百越之地。秦汉时，为南海郡博罗、揭阳辖地。晋以后至明代中期均为潮阳、海丰辖地。明嘉靖三年（1524），始析潮阳县隆井都一半和大坭、惠来、酉头3都及海丰县的龙溪都合置惠来县，因县治在惠来都，故名。嘉靖四年（1525）建城，得名惠城，因其地处葵岭东南，故又称葵阳。嘉靖三十二年（1553），又割入靖海千户所。置县后隶属潮州府管辖至清末。民国时期，先后属广东都督府、巡按使潮循道、东江行政委员公署、东区绥靖委员公署、广东省第五、第七区行政督察专员公署。1949年5月20日惠来全境解放，8月，成立惠来县人民政府。惠来县先后隶属潮梅人民行政公署、潮汕临时专员公署、潮汕区行政督察专员公署、潮汕专员公署、粤东行政公署、汕头专员公署。1958年12月10日，撤销惠来县建制，与普宁县合并。1961年3月恢复惠来县建制，隶属汕头地区行政专员公署。1983年实行市管县体制，惠来县属汕头市。1987年全县共置14个镇、3个乡、4个农林场，下辖288个村民委员会，27个居民委员会，553个自然村，总人口74.12万人。民族为汉族。方言以潮汕话为主和少数客家话。总耕地面积35.71万亩，人均0.48亩。 惠来人民具有光荣的革命传统。早在民国8年（1919）“五四”运动后，民众逐步觉醒，部分师生和有识之士行动起来，创办刊物，宣物新文化，组织工农群众开展反帝反封建斗争。民国12年（1923）受海陆丰农民运动的影响，部分农村农民自学组织农会。民国15年(1926)初，建立中共惠来支部，秋，建立中共惠来县部委会。民国16年(1927)秋，神泉农会主席掩护郭沫若乘船往香港。土地革命时期，惠来赤卫队在红军的配合下，进行大暴动，曾两次攻克惠城。民国17年（1928）春，东江特委领导人彭湃率领红四师（师长叶镛、参谋长徐向前）进攻惠城时，在东陇镇苗海村的六房公词设立攻城指挥部。随后，惠来与潮阳、普宁共建大南山苏区。以后革命低潮转入地下斗争，一直坚持到惠来解放。惠来为潮汕地区第一个解放的县，在这片土地上先后壮烈牺牲的革命同志有中共东江特委副书记方汝楫、惠来县委执委县苏维埃政府委员方凤巢、红军第二团政治部宣传队长林娥等423名。
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+</html>

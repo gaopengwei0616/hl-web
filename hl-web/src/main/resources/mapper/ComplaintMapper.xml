@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.eda.dao.ComplaintMapper">
+	<resultMap id="ComplaintResultMap" type="com.eda.pojo.Complaint">
+
+		<id column="id" property="id" />
+
+		<result column="name" property="name" />
+
+		<result column="identity_card" property="identity_card" />
+		
+		<result column="unit" property="unit" />
+		
+		<result column="address" property="address" />
+		
+		<result column="postcode" property="postcode" />
+		
+		<result column="phone" property="phone" />
+		
+		<result column="email" property="email" />
+
+		<result column="title" property="title"/>
+		
+		<result column="content" property="content"/>
+		
+		<result column="status" property="status"/>
+		
+		<result column="inputtime" property="inputtime"/>
+		
+		<result column="updatetime" property="updatetime"/>
+		
+		<result column="yjstatus" property="yjstatus"/>
+		
+	</resultMap>
+	
+	<select id="selectyijian" resultType="com.eda.pojo.Complaint">
+		SELECT id,title,DATE_FORMAT(inputtime,'%Y-%m-%d %H:%i:%s')as inputtime FROM complaint WHERE status=0 and yjstatus=0
+	</select>
+	<select id="selecttoushu" resultType="com.eda.pojo.Complaint">
+		SELECT * FROM complaint WHERE identity_card=#{identity_card} and name=#{name} and status=1
+	</select>
+	
+	
+	
+	<insert id="insertcomplaint" parameterType="com.eda.pojo.Complaint">
+	  insert into complaint
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="identity_card != null">
+                identity_card,
+            </if>
+            <if test="unit != null">
+                unit,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="postcode != null">
+                postcode,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+             <if test="content != null">
+                content,
+            </if>
+             <if test="status != null">
+                status,
+            </if>
+            <if test="inputtime != null">
+                inputtime,
+            </if>
+            <if test="updatetime != null">
+                updatetime,
+            </if>
+             <if test="yjstatus != null">
+                yjstatus,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+           <if test="name != null">
+                #{name},
+            </if>
+            <if test="identity_card != null">
+                #{identity_card},
+            </if>
+            <if test="unit != null">
+                #{unit},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="postcode != null">
+                #{postcode},
+            </if>
+            <if test="phone != null">
+                #{phone},
+            </if>
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+             <if test="content != null">
+                #{content},
+            </if>
+             <if test="status != null">
+                #{status},
+            </if>
+            <if test="inputtime != null">
+                #{inputtime},
+            </if>
+            <if test="updatetime != null">
+               #{updatetime},
+            </if>
+            
+             <if test="yjstatus != null">
+               #{yjstatus},
+            </if>
+        </trim>
+	</insert>
+	
+
+	
+</mapper>

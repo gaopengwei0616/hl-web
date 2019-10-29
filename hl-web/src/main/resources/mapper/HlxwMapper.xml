@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.eda.dao.HlxwMapper">
+	<resultMap id="HlxwResultMap" type="com.eda.pojo.Hlxw">
+
+		<id column="id" property="id" />
+
+		<result column="content" property="content"/>
+
+		<result column="copyfrom" property="copyfrom"/>
+
+		<result column="source" property="source"/>
+
+		<result column="title" property="title"/>
+		
+		<result column="description" property="description"/>
+
+		<result column="inputtime" property="createTime"/>
+
+	</resultMap>
+
+	<select id="hlxwList" resultMap="HlxwResultMap">
+		SELECT nd.content,n.source,n.title , FROM_UNIXTIME(n.inputtime,'%Y-%m-%d %H:%i:%s' ) AS inputtime FROM v9_news n left join v9_news_data nd
+		on n.id=nd.id
+		where n.id=#{id}
+		ORDER BY n.inputtime DESC
+	</select>
+	<select id="hlxw" resultMap="HlxwResultMap">
+		SELECT nd.content,n.title , FROM_UNIXTIME(n.inputtime,'%Y-%m-%d %H:%i:%s' ) AS inputtime FROM  v9_news n left join v9_news_data nd
+		on n.id=nd.id
+		where   n.id=#{id}
+	</select>
+	<select id="dzdt" resultMap="HlxwResultMap">
+		select nd.content,n.title  , FROM_UNIXTIME(n.inputtime,'%Y-%m-%d %H:%i:%s' ) AS inputtime from ${tableName} n left join ${tableName_data} nd
+		on n.id=nd.id
+		where n.id=#{id}
+	</select>
+
+</mapper>

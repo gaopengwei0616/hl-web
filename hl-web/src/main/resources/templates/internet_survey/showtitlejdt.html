@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+
+<style>
+    .brd{border:1px solid #C3D4E7;}
+    .vote_result,.tit,.vote_result .c_box{background:url(../images/vote/vote_bg.jpg) repeat-x;}
+    .vote_result{margin:20px; border:1px solid #C3D4E7; background:url(../images/vote/vote_bg2.jpg) repeat-x 0% 100%;}
+    .tit{background-position:0px 0px; height:33px; line-height:33px; overflow:hidden;}
+    .vote_result .tit span{ background:url(../images/vote/vote_bg.gif) no-repeat 0px -32px;padding-left:20px;}
+    .vote_result .tit span strong{color:#900;}
+    .vote_result .c_box{background-position:0px -46px;}
+    .vote_result .c_box table{ margin:40px 0px;}
+    .vote_result .c_box table td,.vote_result .c_box table th,.vote_result .c_box table{ border:1px solid #E7EEF5;}
+  /*  .vote_result .c_box table th{ text-align:center; font-weight:bold; color:#999; width:2em;}*/
+    .vote_result .c_box table td{ padding:10px 4px;}
+    .vote_result .c_box table td.tdcol3{width:5em; font-weight:bold; color:#1E50A0;}
+    .tp_tit{ width:30em;color:#1E50A0;}
+    .vote_result .c_box table td div{ background:#efefef; padding:4px 0px;}
+    .vote_result .c_box table td div img{ height:11px;}
+
+    .vote_listt{margin:20px;}
+    .vote_listt .tit{ border-bottom:2px solid #99B4D2; }
+    .licol2 li{float:left; width:50%;}
+    .icon3j{margin-top:20px;}
+    .icon3j li{ height:30px; line-height:30px; overflow:hidden;}
+    .icon3j li a{background:url(../images/vote/bg_member_1.gif) no-repeat 0px -128px; padding-left:20px;}
+    .icon3j li span{background:url(../images/vote/v9/icon.png) no-repeat 0 -71px #FFFFFF; padding-left:13px; width:30px; margin-left:10px;}
+
+    .tp .tp_tit{ text-align:center; width:2em;}
+    .tp td.ls{color:#1E50A0;}
+    /*.shuru_btn{text-align:center;}*/
+    .tp_btn{ background:url(../images/vote/tp_btn.jpg) no-repeat; width:136px; height:59px;margin:20px; border:none;cursor:pointer;}
+    .votesss .col-left{margin:0px; margin-right:10px;}
+    .votesss  .mg_t10{margin-top:10px;}
+    .tps .vote_result,.tps .vote_listt{margin:10px 0px;}
+
+
+
+</style>
+<!-- 顶部包括标签切换 -->
+<body>
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div class="section" th:fragment="child_news_page">
+    <div style="width: 900px;text-align: center;margin:0 auto">
+        <div class="main tps">
+            <div class="crumbs">
+            <form name="myform" id="myform" action="http://www.huilai.gov.cn/index.php?m=vote&amp;c=index&amp;a=post&amp;subjectid=7&amp;siteid=1" method="post">
+                <div class="vote_result">
+                    <div class="tit"></span><span th:text="${title}"/>__________________结束日期：<span th:text="${End_time}"></span><span class="r">总票数：<strong th:text="${sun}"></strong></div>
+                    <div class="c_box wrap">
+                        <input type="hidden" name="subjectid" value="7">
+                        <table width="100%" border="1" cellspacing="0" cellpadding="0" class="tp">
+                            <tbody>
+                            <tr th:each="InternetSurvey : ${survey}">
+                                <td class="tp_tit"><input type="radio" name="radio[]" id="radio" value="35" disabled=""></td>
+                                <td class="ls" th:text="${InternetSurvey.content}"></td>
+                                <td class="tdcol3" th:text="${InternetSurvey.percentage}">%</td>
+                                <td class="tdcol3"><font color="red" th:text="${InternetSurvey.ticket}"></font>票 </td>
+                            </tr>
+
+
+                            </tbody></table>
+
+                    </div>
+                </div>
+             <!--   <div class="shuru_btn"><button class="tp_btn" type="submit" style="display:none;"></button><a href="http://www.huilai.gov.cn/index.php?m=vote&amp;c=index&amp;a=result&amp;subjectid=7&amp;siteid=1">[查看投票结果] </a></div>
+           --> </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+<script type="application/javascript">
+   function piaoshu(){
+
+    }
+</script>
+</html>

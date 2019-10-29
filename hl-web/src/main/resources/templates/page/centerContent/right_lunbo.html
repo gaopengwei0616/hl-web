@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="news_right" style="width: 49%" th:fragment="right_lunbo">
+    <div th:if="${type} eq 0">
+        <script type="application/javascript">
+            $(function () {
+                var siteid = $("#siteid").val();
+                $.ajax({
+                    url: "/index/rightPicList",
+                    dataType: "json",
+                    type: "post",
+                    data: {"siteid": siteid},
+                    success: function (data) {
+                        var hl_news = "";
+                        var gnw_news = "";
+                        var zscd_news = "";
+                        for (var i in data.hl_news) {
+                            hl_news += "<li><a href='/childNewsPage?siteid=" + siteid + "&newsId=" + data.hl_news[i].id + "' target='_blank'> <span class='tab_span'>" + data.hl_news[i].createTime + "</span> <span class='zizhu1'>" + data.hl_news[i].title + "</span></a></li>";
+                        }
+                        for (var i in data.gnw_news) {
+                            gnw_news += "<li><a href='/childNewsPage?siteid=" + siteid + "&newsId=" + data.gnw_news[i].id + "' target='_blank'> <span class='tab_span'>" + data.gnw_news[i].createTime + "</span> <span class='zizhu1'>" + data.gnw_news[i].title + "</span></a></li>";
+                        }
+                        for (var i in data.zscd_news) {
+                            zscd_news += "<li><a href='/childNewsPage?siteid=" + siteid + "&newsId=" + data.zscd_news[i].id + "' target='_blank'> <span class='tab_span'>" + data.zscd_news[i].createTime + "</span> <span class='zizhu1'>" + data.zscd_news[i].title + "</span></a></li>";
+                        }
+                        $("#hl_news").html(hl_news);
+                        $("#gnw_news").html(gnw_news);
+                        $("#zscd_news").html(zscd_news);
+                    }
+                })
+            })
+        </script>
+    </div>
+    <div th:if="${type} eq 1">
+        <script type="application/javascript">
+            $(function () {
+                var siteid = $("#siteid").val();
+                $.ajax({
+                    url: "/index/rightPicListTo",
+                    dataType: "json",
+                    type: "post",
+                    data: {"siteid": siteid},
+                    success: function (data) {
+                        var workDynamics = "";
+                        var departmentalDocument = "";
+                        var townYardSummary = "";
+                        for (var i in data.workDynamics) {
+                            workDynamics += "<li><a href='/childNewsPage?siteid=" + siteid + "&newsId=" + data.workDynamics[i].id + "' target='_blank'> <span class='tab_span'>" + data.workDynamics[i].createTime + "</span> <span class='zizhu1'>" + data.workDynamics[i].title + "</span></a></li>";
+                        }
+                        for (var i in data.departmentalDocument) {
+                            departmentalDocument += "<li><a href='/childNewsPage?siteid=" + siteid + "&newsId=" + data.departmentalDocument[i].id + "' target='_blank'> <span class='tab_span'>" + data.departmentalDocument[i].createTime + "</span> <span class='zizhu1'>" + data.departmentalDocument[i].title + "</span></a></li>";
+                        }
+                        for (var i in data.townYardSummary) {
+                            townYardSummary += "<li><a href='/childNewsPage?siteid=" + siteid + "&newsId=" + data.townYardSummary[i].id + "' target='_blank'> <span class='tab_span'>" + data.townYardSummary[i].createTime + "</span> <span class='zizhu1'>" + data.townYardSummary[i].title + "</span></a></li>";
+                        }
+                        $("#workDynamics").html(workDynamics);
+                        $("#departmentalDocument").html(departmentalDocument);
+                        $("#townYardSummary").html(townYardSummary);
+                    }
+                })
+            })
+        </script>
+    </div>
+    <div th:if="${type} eq 2">
+        <script type="application/javascript">
+            $(function () {
+                var siteid = $("#siteid").val();
+                $.ajax({
+                    url: "/index/rightPicListTo",
+                    dataType: "json",
+                    type: "post",
+                    data: {"siteid": siteid},
+                    success: function (data) {
+                        var workDynamics = "";
+                        var departmentalDocument = "";
+                        for (var i in data.workDynamics) {
+                            workDynamics += "<li><a href='/childNewsPage?siteid=" + siteid + "&newsId=" + data.workDynamics[i].id + "' target='_blank'> <span class='tab_span'>" + data.workDynamics[i].createTime + "</span> <span class='zizhu1'>" + data.workDynamics[i].title + "</span></a></li>";
+                        }
+                        for (var i in data.departmentalDocument) {
+                            departmentalDocument += "<li><a href='/childNewsPage?siteid=" + siteid + "&newsId=" + data.departmentalDocument[i].id + "' target='_blank'> <span class='tab_span'>" + data.departmentalDocument[i].createTime + "</span> <span class='zizhu1'>" + data.departmentalDocument[i].title + "</span></a></li>";
+                        }
+                        $("#workDynamics").html(workDynamics);
+                        $("#departmentalDocument").html(departmentalDocument);
+                    }
+                })
+            })
+        </script>
+    </div>
+    <ul class="nav nav-tabs" id="myTab" style="margin-bottom: 5px;">
+        <li th:if="${type} eq 0" class="active dianji"><a href="#local">惠来新闻</a></li>
+        <li th:if="${type} eq 0" class="dianji"><a href="#international_news">国内外新闻</a></li>
+        <li th:if="${type} eq 0" class="dianji"><a href="#reprint">政声传递</a></li>
+        <li th:if="${type} eq 2" style="width: 50%" class="active dianji"><a href="#local">工作动态</a></li>
+        <li th:if="${type} eq 2" style="width: 50%" class="dianji"><a href="#international_news">部门文件</a></li>
+        <li th:if="${type} eq 1" class="active dianji"><a href="#local">工作动态</a></li>
+        <li th:if="${type} eq 1" class="dianji"><a href="#international_news">部门文件</a></li>
+        <li th:if="${type} eq 1" class="dianji"><a href="#reprint">镇场概括</a></li>
+    </ul>
+
+    <div class="tab-content" th:if="${type} eq 0">
+        <div class="tab-pane active" id="local">
+            <ul id="hl_news"></ul>
+        </div>
+        <div class="tab-pane" id="international_news">
+            <ul id="gnw_news"></ul>
+        </div>
+        <div class="tab-pane" id="reprint">
+            <ul id="zscd_news"></ul>
+        </div>
+    </div>
+
+    <div class="tab-content" th:if="${type} eq 1">
+        <div class="tab-pane active" id="local">
+            <ul id="workDynamics"></ul>
+        </div>
+        <div class="tab-pane" id="international_news">
+            <ul id="departmentalDocument"></ul>
+        </div>
+        <div class="tab-pane" id="reprint">
+            <ul id="townYardSummary"></ul>
+        </div>
+    </div>
+
+    <div class="tab-content" th:if="${type} eq 2">
+        <div class="tab-pane active" id="local">
+            <ul id="workDynamics" style="width: 100%"></ul>
+        </div>
+        <div class="tab-pane" id="international_news">
+            <ul id="departmentalDocument" style="width: 100%"></ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

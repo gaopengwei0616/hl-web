@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+
+<style>
+    .submenu .banner {
+        color: #1076B0;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 15px;
+    }
+    .tab-content thead tr {
+        height: 40px;
+        line-height: 40px;
+        background: rgb(238, 238, 238);
+        color: rgb(16, 118, 207);
+        margin-top: 5px;
+    }
+
+    .tab-content tbody tr {
+        height: 40px;
+        line-height: 40px;
+        border: 1px dashed rgb(234, 234, 234);
+    }
+
+    .tab-content tbody tr a {
+        margin-left: 2%;
+        color: black;
+    }
+
+    .tab-content tbody tr .time {
+        text-align: center;
+    }
+</style>
+<!-- 顶部包括标签切换 -->
+<body>
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div class="section" th:fragment="child_news_page">
+    <div style="width: 900px;text-align: center;margin:0 auto">
+	        <div class="row" style="text-align: center;">
+                <div id="main">
+                    <div class="submenu" id="lingyu">
+                        <p class="banner">网上调查</p>
+                    </div>
+                    <div id="content">
+                        <div class="tab-content">
+                            <div class="tab-pane" style="display:inline;">
+                                <table style="width:100%;overflow: hidden;">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:100%">调查主题</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="InternetSurvey : ${InternetSurvey}">
+                                        <td>
+                                            <a style="float: left;" target="_blank" th:href=@{/survey(parentId=${InternetSurvey.id},siteid=${siteid})}><span th:text="${InternetSurvey.title}"/>__________________结束日期：<span th:text="${InternetSurvey.end_time}"></span></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+<script>
+   
+</script>
+</html>

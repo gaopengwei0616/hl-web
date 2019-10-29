@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        $(function () {
+            $(".weixin").mouseover(function () {
+                $(".ewm").css("display", "block");
+            });
+            $(".weixin").mouseout(function () {
+                $(".ewm").css("display", "none");
+            });
+        })
+    </script>
+</head>
+<style>
+    #span {
+        display: inline-block;
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #000;
+    }
+
+    #span:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<body>
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<!-- 切换标签下面的内容 -->
+<div class='container' id="section">
+    <div class='row'>
+        <div id="main">
+            <div class="qiehuan">
+                <div>
+                    <div th:replace="page/centerContent/left_lunbo::left_lunbo"></div><!--左边轮播图-->
+                    <div th:replace="page/centerContent/right_lunbo::right_lunbo"></div><!--右边新闻-->
+                    <span id="hits">
+                        <div th:replace="page/centerContent/center_lunbo::center_lunbo"></div><!--中部轮播图-->
+                    </span>
+                </div>
+                <div class="head">
+                    <div th:replace="page/zwgk_Content::zwgk_Content"></div><!-- 政务公开内容 -->
+                    <div th:replace="page/zwgk_government::zwgk_government"></div>
+                    <div style="width: 100%; height: 90px;">
+                        <a href="http://www.gd.gov.cn/govpub/rdzt/zdlyxx/" target="_blank"
+                           style="float: left; width: 50%; height: 90px; display: inline-block;">
+                            <img src="img/zdly.jpg" style="width: 100%; height: 100%;"></a>
+                        <a href="http://www.jieyang.gov.cn/jieyang/zdly" target="_blank"
+                           style="float: left; width: 50%; height: 90px; display: inline-block;">
+                            <img src="img/zdly1.jpg" style="width: 100%; height: 100%;">
+                        </a>
+                    </div>
+                </div>
+                <div th:replace="page/zwfw_Content::zwfw_Content"></div><!-- 政务服务内容 -->
+                <div th:replace="page/walkIn_hl::walkIn_hl"></div><!-- 走进惠来内容 -->
+            </div>
+            <div th:replace="page/belowContent/centerContent::centerContent"></div><!-- 中间内容 -->
+            <div th:replace="page/belowContent/below_Content::below_Content"></div><!-- 底部内容 -->
+            <div th:replace="page/belowContent/siteSelect::siteSelect"></div><!-- 部门单位选项 -->
+        </div>
+    </div>
+    <div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</div>
+</body>
+</html>

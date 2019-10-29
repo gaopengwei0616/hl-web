@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+
+    <style type="text/css">
+        #language {
+            background-color: rgba(11, 78, 115, 0);
+            width: 300px;
+            text-align: right;
+            border-radius: 25px;
+            position: absolute;
+            right: 25px;
+            top: 21px;
+        }
+        .ewm{
+            position: absolute;
+            right: 100px;
+            top: 50px;
+            display:none;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $(".weixin").mouseover(function () {
+                $(".ewm").css("display", "block");
+            });
+            $(".weixin").mouseout(function () {
+                $(".ewm").css("display", "none");
+            });
+        })
+    </script>
+</head>
+<style>
+    #span {
+        display: inline-block;
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #000;
+    }
+
+    #span:hover {
+        text-decoration: underline;
+    }
+
+         /*中间的过度的横线*/
+     .link-top {
+         width: 100%;
+         height: 1px;
+         border-top: solid #ACC0D8 1px;
+     }
+
+    /*画一条再右边的竖线*/
+    .link-bottom {
+        width: 100%;
+        height: 1px;
+        border-bottom: dashed #ACC0D8 1px;
+    }
+    .g-list-t-jg li{
+        display: inline-block;
+        height:40px;
+        width:260px;
+        text-align: center;
+        line-height:40px;
+    }
+    .g-list-t-jg li:hover{
+        background-color:orange;
+    }
+
+</style>
+
+<body>
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<!-- 切换标签下面的内容 -->
+<div class='container' id="section">
+    <div class="wrapper">
+        <div class="inner">
+            <div class="position"><span>当前位置：</span><a href="http://157.122.241.158/">网站首页</a> &gt; 站点地图</div>
+            <h1 class="tit2" style="text-align:center;font-size:30px;color:darkred;"> 站点地图</h1>
+            <div class="link-top"></div>
+            <h1 class="tit1" style="margin-top:15px;font-size:20px;margin-left:20px;color:darkred;"> <span>政务公开</span></h1>
+            <div class="link-top"></div>
+            <div class="glbox">
+                <div class="g-pad-body" style="border:1px solid #ACC0D8;margin-top:20px;margin-bottom:20px">
+                    <ul class="g-list-t-jg">
+                        <li>
+                            <a href="/list?parentid=1&name=新闻列表&siteid=1" target="_blank">惠来新闻</a>
+                        </li>
+                        <li>
+                            <a href="/list?parentid=1&name=新闻列表&siteid=1" target="_blank">国内外新闻</a>
+                        </li>
+                        <li>
+                            <a href="/list?parentid=1&name=新闻列表&siteid=1" target="_blank">政声传递</a>
+                        </li>
+                        <div class="link-bottom"></div>
+                        <li>
+                            <a href="/zfxxgk" target="_blank">信息公开年度工作报告</a>
+                        </li>
+                        <li>
+                            <a href="/zwgkbottom?siteid=1" target="_blank">公开目录</a>
+                        </li>
+                        <li>
+                            <a href="/ysqgklc?siteid=1" target="_blank">依申请公开流程</a>
+                        </li>
+                        <div class="link-bottom"></div>
+                        <li>
+                            <a href="/yjx?siteid=1" target="_blank">公开意见箱</a>
+                        </li>
+                        <li>
+                            <a href="/ysqgk" target="_blank">依申请公开</a>
+                        </li>
+                        <li>
+                            <a href="http://157.122.241.158/refresh_category?parentid=569&name=%E6%94%BF%E5%8A%A1%E4%BA%94%E5%85%AC%E5%BC%80%E4%B8%93%E6%A0%8F&catid=912&siteid=1" target="_blank">政务五公开专栏</a>
+                        </li>
+                        <div class="link-bottom"></div>
+                        <li>
+                            <a href="/childNewsPage?siteid=1&newsId=50" target="_blank">领导信息</a>
+                        </li>
+                        <li>
+                            <a href="/zfxxgk" target="_blank">组织机构</a>
+                        </li>
+                        <li>
+                            <a href="http://gddata.gd.gov.cn/" target="_blank">部门动态</a>
+                        </li>
+                        <div class="link-bottom"></div>
+                        <li>
+                            <a href="gddata.gd.gov.cn" target="_blank">政策解读</a>
+                        </li>
+                        <li>
+                            <a href="http://gddata.gd.gov.cn/" target="_blank">数据开放</a>
+                        </li>
+                        <div class="link-bottom"></div>
+
+
+
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+            <h1 class="tit1" style="margin-top:15px;font-size:20px;margin-left:20px;color:darkred;"> <span>政务服务</span></h1>
+            <div class="link-top"></div>
+            <div class="glbox">
+                <div class="g-pad-body" style="border:1px solid #ACC0D8;margin-top:20px;margin-bottom:20px">
+                    <ul class="g-list-t-jg">
+                        <li>
+                            <a href="http://www.gdzwfw.gov.cn/portal/personal/department?region=445224" target="_blank">部门服务</a>
+                        </li>
+                        <li>
+                            <a href="http://www.gdzwfw.gov.cn/portal/legal/hot?region=445224" target="_blank">法人事项</a>
+                        </li>
+                        <li>
+                            <a href="http://www.gdzwfw.gov.cn/portal/personal/hot?region=445224" target="_blank">个人事项</a>
+                        </li>
+                        <div class="link-bottom"></div>
+                        <li>
+                            <a href="http://www.gdzwfw.gov.cn/portal/index?region=445224" target="_blank">投资审批</a>
+                        </li>
+                        <li>
+                            <a href="http://www.gdzwfw.gov.cn/portal/affairs-public-index?region=445224" target="_blank">街道办事</a>
+                        </li>
+                        <li>
+                            <a href="http://www.gdzwfw.gov.cn/xnjd/index?region=445224" target="_blank">效能监察</a>
+                        </li>
+                        <div class="link-bottom"></div>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+            <h1 class="tit1" style="margin-top:15px;font-size:20px;margin-left:20px;color:darkred;"> <span>政民互动</span></h1>
+            <div class="link-top"></div>
+            <div class="glbox">
+                <div class="g-pad-body" style="border:1px solid #ACC0D8;margin-top:20px;margin-bottom:20px">
+                    <ul class="g-list-t-jg">
+
+                        <li>
+                            <a href="http://xfw.huilai.gov.cn/" target="_blank">县长信箱</a>
+                        </li>
+                        <div class="link-bottom"></div>
+
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+            <h1 class="tit1" style="margin-top:15px;font-size:20px;margin-left:20px;color:darkred;"> <span>走进惠来</span> </h1>
+            <div class="link-top"></div>
+            <div class="glbox">
+                <div class="g-pad-body" style="border:1px solid #ACC0D8;margin-top:20px;margin-bottom:20px">
+                    <ul class="g-list-t-jg">
+                        <li><a href="/zouJinHuiLai?siteid=1">基本概况</a></li>
+                        <li><a href="/zouJinHuiLai?siteid=1">惠来旅游</a></li>
+                        <li><a href="http://www.huilai.gov.cn//index.php?m=content&amp;c=index&amp;a=zhongdianlingyu&amp;catid=3251">招商服务</a></li>
+                        <div class="link-bottom"></div>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</div>
+</body>
+</html>

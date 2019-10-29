@@ -1,0 +1,203 @@
+#sketch, #unscramble, #guild {
+     overflow: hidden;
+     margin-bottom: 10px;
+ }
+
+.sketch_text, .sketch_img {
+    float: left;
+    width: 45%;
+}
+
+#sketch p {
+    text-indent: 2em;
+}
+
+.sketch_img {
+    margin-left: 5%;
+    margin-top: 25px;
+}
+
+.title {
+    color: rgb(16, 118, 176);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.introduction {
+    color: #666566;
+}
+
+.subMenu {
+    margin: 10px;
+    text-align: center;
+}
+
+.subMenu a {
+    display: inline-block;
+    /* width: 100px; */
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    color: #666566;
+    background: rgb(224, 238, 247);
+    border: 1px solid rgb(16, 118, 176);
+    padding: 0 10px;
+}
+
+#guild .banner {
+    border-bottom: 1px solid rgb(206, 230, 248);
+    margin-bottom: 10px;
+}
+
+#guild .banner a {
+    color: black;
+}
+
+#tourism {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#tourism .banner a {
+    margin-left: 80%
+}
+
+.tourism_img, .tourism_list {
+    float: left;
+    overflow: hidden;
+}
+
+.tourism_img {
+    width: 55%;
+}
+
+.tourism_list {
+    width: 40%;
+}
+
+.tourism_list li {
+    border-bottom: 1px solid rgb(234, 234, 234);
+    height: 30px;
+    line-height: 30px;
+}
+
+.tourism_list li a, .unscramble_list li a, #unscramble .unscramble_download
+{
+    color: black;
+}
+
+.unscramble_list {
+    width: 65%
+}
+
+.unscramble_download {
+    width: 25%
+}
+
+.unscramble_list, .unscramble_download, #guild #leftsideBar, #guild #rightsideBar
+{
+    float: left;
+}
+
+.unscramble_list .banner a {
+    margin-left: 70%;
+}
+
+.unscramble_list li {
+    margin-bottom: 5px;
+}
+
+
+.unscramble_list .banner::before {
+    content: "";
+}
+
+.unscramble_download {
+    display: inline-block;
+    text-align: center;
+    height: 110px;
+    margin-left: 20px;
+    border: 1px solid rgb(26, 128, 190);
+}
+
+.zsyz_list {
+    margin: 0;
+}
+
+.zsyz_list a {
+    color: black;
+}
+
+#zsyz {
+    margin-bottom: 20px;
+}
+
+#zsyz .banner {
+    border: 0;
+}
+
+#zsyz>li {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#zsyz .zsyz_img img {
+    width: 100%;
+}
+
+#zsyz>.btn {
+    width: 100%;
+    font-size: 16px;
+    background: #1076B0;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+}
+
+#zsyz>.btn a {
+    color: white;
+}
+
+#zsyz .zsyz_list li {
+    /* overflow: hidden; */
+    margin-bottom: 5px;
+}
+
+#guild #leftsideBar {
+    width: 55%;
+}
+
+#guild #rightsideBar {
+    width: 40%;
+}
+
+.time {
+    color: rgb(197, 197, 197);
+    float: right;
+    margin-right: 2%;
+}
+
+#department li {
+    margin-bottom: 15px;
+}
+
+#department .department_subNav {
+    /* text-align: center; */
+    margin: 10px;
+}
+
+#department .department_subNav a {
+    display: inline-block;
+    background: rgb(224, 238, 247);
+    color: #666666;
+    padding: 15px;
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 35%;
+    text-align: center;
+}
+
+#rightsideBar {
+    border-left: 1px dashed rgb(234, 234, 234);
+    margin-left: 10px;
+}

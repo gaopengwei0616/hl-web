@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/zwgk.css" type="text/css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+
+</head>
+<style>
+
+</style>
+<body>
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div class="container">
+    <div class="row">
+        <h3 style="text-align: center;">依申请公开流程</h3>
+        <p style="margin-top:20px;padding:0 15px;">受理依据：<br>
+            1．按照 《中华人民共和国政府信息公开条例》 的有关规定，您可以在本栏目向政府申请公开政府信息。<br>
+            2．申请公开的信息类型：<br>
+            应主动公开而没有公开的政府信息；<br>
+            除以下内容外的其它政府信息（包括有关申请者本人的政府信息）。<br>
+            事权方面的政府信息：<br>
+            （一）本行政区域的社会经济发展战略、发展计划、工作目标及完成情况；<br>
+            （二）事关全局的重大决策；<br>
+            （三）规章、规范性文件及其他政策措施；<br>
+            （四）政府的机构设置、职能和设定依据；<br>
+            （五）政府行政审批项目；<br>
+            （六）当地重大突发事件的处理情况；<br>
+            （七）承诺办理的事项及其完成情况。<br>
+            财权方面的政府信息：<br>
+            （一）经本级人民代表大会通过的政府年度财政预算报告及其执行情况；<br>
+            （二）重要专项经费的分配使用情况，重要物资招标采购情况和重大基本建设项目招投标情况；<br>
+            （三）政府投资建设的社会公益事业情况。<br>
+            人事权方面的政府信息：<br>
+            （一）政府领导成员的履历、分工和调整变化情况；<br>
+            （二）公务员录用、选拔任用、评选先进的条件、程序及结果；<br>
+            （三）政府机构改革人员分流情况。<br>
+            其他政府信息：<br>
+            （一）行政行为的依据；<br>
+            （二）行政行为的程序；<br>
+            （三）行政行为的时限；<br>
+            （四）救济途径和时限。<br>
+            3．不予公开的政府信息：<br>
+            个人隐私；商业秘密；国家秘密；在审议、讨论过程中的政府信息；法律、法规禁止公开的其它政府信息。</p>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+</html>

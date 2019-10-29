@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.eda.dao.NewsMapper">
+	<resultMap id="NewsResultMap" type="com.eda.pojo.News">
+
+		<id column="id" property="id" />
+
+		<result column="catid" property="catid" />
+
+		<result property="thumb" column="thumb" />
+		<result column="title" property="title" />
+
+		<result column="status" property="status" />
+		<result column="source" property="source" />
+		<result column="inputtime" property="createTime" />
+
+		<result column="updatetime" property="updateTime" />
+
+	</resultMap>
+    <select id="searchNew" resultMap="NewsResultMap">
+		SELECT id,title , FROM_UNIXTIME(inputtime,'%Y-%m-%d %H:%i:%s' ) AS inputtime FROM v9_news where  (title like concat('%',#{title},'%') OR inputtime  like concat('%',#{title},'%'))
+	</select>
+	<select id="selectNews" resultMap="NewsResultMap">
+		select
+		n.id,n.catid,n.title,n.status,n.source,n.thumb, FROM_UNIXTIME(
+		n.inputtime,'%Y-%m-%d' ) AS inputtime,
+		FROM_UNIXTIME(
+		n.updatetime,'%Y-%m-%d' ) AS updatetime from
+		v9_news AS n INNER JOIN
+		v9_category As c on n.catid=c.catid and n.catid
+		=#{catId}
+		order by
+		n.inputtime desc
+		limit 0,7
+	</select>
+	<select id="selectNewsByCatCode" resultMap="NewsResultMap">
+		select
+		n.id,n.catid,n.title,n.status,n.source,n.thumb, FROM_UNIXTIME(
+		n.inputtime,'%Y-%m-%d' ) AS inputtime,
+		FROM_UNIXTIME(
+		n.updatetime,'%Y-%m-%d' ) AS updatetime from
+		v9_news AS n INNER JOIN
+		v9_category As c on n.catid=c.catid and c.cat_code=#{cat_code} AND c.siteid=#{siteId}
+		order by
+		n.inputtime desc
+		limit 0,7
+	</select>
+	<select id="selectNewsByCatCode2" resultMap="NewsResultMap">
+		select
+		n.id,n.catid,n.title,n.status,n.source,n.thumb, FROM_UNIXTIME(
+		n.inputtime,'%Y-%m-%d' ) AS inputtime,
+		FROM_UNIXTIME(
+		n.updatetime,'%Y-%m-%d' ) AS updatetime from
+		v9_news AS n INNER JOIN
+		v9_category As c on n.catid=c.catid and c.cat_code=#{cat_code} AND c.siteid=#{siteId}
+		order by
+		n.inputtime desc
+		limit 0,#{limitCount}
+	</select>
+
+
+	<resultMap id="NewsCategoryMap" type="com.eda.pojo.News">
+		<id column="id" property="id" />
+		<result column="catid" property="catid" />
+		<result column="title" property="title" />
+		<result column="source" property="source" />
+		<result column="inputtime" property="createTime" />
+		<association property="category"
+			javaType="com.eda.pojo.Category">
+			<id property="catid" column="cid" />
+			<result property="catname" column="catname" />
+			<result property="siteid" column="siteid" />
+		</association>
+	</resultMap>
+	<select id="eda" resultMap="NewsCategoryMap">
+		select c.catid AS cid,c.siteid,c.catname,
+		n.id,n.catid,n.title,n.source,FROM_UNIXTIME(n.inputtime,'%Y-%m-%d') AS inputtime
+		FROM v9_news AS n,v9_category AS c 
+		where n.catid=c.catid AND c.siteid=1 AND
+		n.catid=#{catid}
+		order by
+		n.inputtime desc
+	</select>
+	<select id="selectNewsLimit" resultMap="NewsResultMap">
+		select n.id,n.catid,n.title,n.status,n.source ,FROM_UNIXTIME( n.inputtime,'%Y-%m-%d' ) AS inputtime,
+			FROM_UNIXTIME( n.updatetime,'%Y-%m-%d' ) AS updatetime from
+		  v9_news AS n INNER JOIN v9_category As c on n.catid=c.catid and n.catid =#{catId}
+		  order by n.inputtime desc
+		  limit 0,#{limitCount}
+	</select>
+
+	<select id="getNewsById" resultMap="NewsResultMap">
+		SELECT nd.content,n.title , FROM_UNIXTIME(n.inputtime,'%Y-%m-%d %H:%i:%s' ) AS inputtime FROM v9_news n left join v9_news_data nd
+		on n.id=nd.id
+		where  n.id = #{newsid}
+	</select>
+
+	<select id="selectNewsByparentid" resultMap="NewsResultMap">
+		select n.id,n.catid,c.siteid,n.title,n.keywords, FROM_UNIXTIME(n.inputtime,'%Y-%m-%d' ) AS inputtime from v9_news as n inner join v9_category as c
+		on n.catid=c.catid
+		where c.parentid=#{catid}
+	</select>
+
+	<select id="selectNewsBycatid"  resultMap="NewsResultMap">
+		select id,catid,title,keywords,FROM_UNIXTIME(inputtime,'%Y-%m-%d %H:%i:%s' ) AS inputtime from v9_news where catid =#{catid}
+	</select>
+
+	<select id="selectNewsBycatid2"  resultMap="NewsResultMap">
+		select n.id,n.catid,c.siteid,n.title,n.keywords, FROM_UNIXTIME(n.inputtime,'%Y-%m-%d' ) AS inputtime from v9_news as n inner join v9_category as c
+		on n.catid=c.catid
+		where c.parentid=#{parentid}
+	</select>
+
+	<select id="selectByCatids" resultMap="NewsResultMap">
+		select id,catid,title,keywords,FROM_UNIXTIME(inputtime,'%Y-%m-%d %H:%i:%s' ) AS inputtime from v9_news where catid IN
+		<foreach collection="list" open="(" separator="," close=")" item="haha">
+			#{haha}
+		</foreach>
+	</select>
+
+	<select id="selectByCatid" resultMap="NewsResultMap">
+		select id,catid,title,keywords,FROM_UNIXTIME(inputtime,'%Y-%m-%d %H:%i:%s' ) AS inputtime from v9_news where catid =#{catid}
+	</select>
+
+	<select id="selectZtzlAndLimit" resultMap="NewsResultMap">
+		select id,catid,title,keywords,FROM_UNIXTIME(inputtime,'%Y-%m-%d %H:%i:%s' ) AS inputtime from v9_news where catid=#{catid}
+	</select>
+
+</mapper>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<!-- 顶部包括标签切换 -->
+<body>
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div class="section" th:fragment="child_news_page">
+    <div style="width: 900px;text-align: center;margin:0 auto">
+	        <div class="row" style="text-align: center;">
+<p style="margin-top: 20px;"><a th:href=@{/yj(siteid=${siteid})}><img alt="" src="img/yjjy.jpg" style="width: 341px; height: 55px;"></a></p>
+<p style="margin-top: 20px;"><a th:href=@{/ts(siteid=${siteid})}><img alt="" src="img/jb.jpg" style="width: 341px; height: 55px;"></a></p>
+<p style="margin-top: 20px;"><a th:href=@{/ckjy(siteid=${siteid})}><img alt="" src="img/ckyjjy.jpg" style="width: 341px; height: 55px;"></a></p>
+<p style="margin-top: 20px;"><a th:href=@{/jbbl(siteid=${siteid})}><img alt="" src="img/ckqk.jpg" style="width: 341px; height: 55px;"></a></p>
+<p style="margin-top: 20px;"><a th:href=@{/zfxxgk(siteid=${siteid})}><img alt="" src="img/wxljxggd.jpg" style="width: 341px; height: 55px;"></a></p>
+</div>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+<script>
+   
+</script>
+</html>

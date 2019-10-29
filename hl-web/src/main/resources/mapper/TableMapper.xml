@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eda.dao.TableMapper">
+
+    <insert id="insertGmsq">
+        insert into sys_table_gm(name,workUnit,idCard,postalCode,address,telephone,phone,mail,fileName,fileNumber,description,postWay,getWay,status,number)
+        values
+        (#{name},#{workUnit},#{idCard},#{postalCode},#{address},#{telephone},#{phone},#{mail},#{fileName},#{fileNumber},#{description},#{postWay},#{getWay},#{status},#{number})
+    </insert>
+    <insert id="insertOtherTable">
+        insert into sys_table(name,address,code,businessLicens,legalPerson,personCard,contacts,contactsTelephone,contactsPhone,contactsMail,fileName,fileNumber,description,postWay,getWay,type,status,number)
+        values
+        (#{name},#{address},#{code},#{businessLicens},#{legalPerson},#{personCard},#{contacts},#{contactsTelephone},#{contactsPhone},#{contactsMail},#{fileName},#{fileNumber},#{description},#{postWay},#{getWay},#{type},#{status},#{number})
+    </insert>
+</mapper>

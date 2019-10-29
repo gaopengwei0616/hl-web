@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="centerContent">
+    <div id="main_nav">
+        <table class="table">
+            <tr>
+                <th><a th:href="@{/zfxxgk_details(siteid=${siteid},catid=${catid},name='政府工作报告')}" target="_blank"> <img src="img/Presentation.png" alt=""> 政府工作报告 </a></th>
+                <th><a href="http://www.gdzwfw.gov.cn/portal/affairs-public-duty-list?region=445224" target="_blank"><img src="/img/Right.png" alt="">权责清单</a></th>
+                <th><a th:href="@{/zwgkbottom(siteid=${siteid})}" target="_blank"> <img src="img/field.png" alt=""> 重点领域</a></th>
+                <th><a href="http://zwgk.huilai.gov.cn/czContents/selectCzContent.action?dataFlag=hl" target="_blank"> <img  src="img/finance.png" alt="">财政预决算</a></th>
+                <th><a href="http://gddata.gd.gov.cn" target="_blank"> <img src="img/data.png" alt="">数据开放</a></th>
+            </tr>
+        </table>
+    </div>
+<div id="main_hot" >
+    <script type="application/javascript">
+        $(function () {
+            var siteid = $("#siteid").val();
+            $.ajax({
+                url: "/index/centerContent",
+                dataType: "json",
+                type: "post",
+                data: {"siteid": siteid},
+                success: function (data) {
+                    var announcement = "";
+                    var showVideo = "";
+                    for (var i in data.announcement) {
+                        announcement += "<li><a href='/childNewsPage?siteid="+siteid+"&newsId="+data.announcement[i].id+"' target='_blank'> " +
+                            "<span id='span'>" + data.announcement[i].title + "</span><span class='tab_span'>" + data.announcement[i].createTime + "</span></a></li>";
+                    }
+
+                    $("#hot_notice").append(announcement);
+//                    $("#hot_video").append(showVideo);
+                }
+            })
+        })
+    </script>
+    <!-- 通知公告 -->
+    <ul id="hot_notice" style="width: 30%">
+        <li class="banner"><span>通知公告</span> <a
+                onclick="more('announcement+通知公告+no')">更多</a>
+        </li>
+    </ul>
+    <!-- 展示视频 -->
+    <ul id="hot_video" style="width: 30%">
+        <li class="banner"><span>展示视频</span> <a
+                onclick="more('showVideo+视频展示+no')"
+                target="_blank">更多</a>
+        </li>
+        <li>
+            <video width="100%" height="200" controls>
+                <source src="" type="video/mp4">
+                <object data="" width="320" height="240">
+                    <embed src="" width="320" height="240">
+                </object>
+            </video>
+        </li>
+    </ul>
+    <div style="width: 30%" id="hot_right">
+        <!-- 政策解读 -->
+        <ul class="nav nav-tabs" id="hot_myTab">
+            <li class="active"><a href="http://www.gd.gov.cn/gzhd/zcjd/" target="_blank">政策解读</a></li>
+            <li><a href="/ztzl?parentid=1120&siteid=1&name=政务专题" target="_blank">政务专题</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane">
+                <img src="img/home_lunbo1.jpg" alt="">
+                <h4 style="text-align: center">习近平讲话</h4>
+            </div>
+            <div class="tab-pane">
+                <img src="img/home_lunbo2.jpg" alt="">
+                <h4 style="text-align: center">李克强讲话</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="main_lunbo">
+    <script type="application/javascript">
+        $(function () {
+            var siteid = $("#siteid").val();
+            $.ajax({
+                url: "/index/midPicList",
+                dataType: "json",
+                type: "post",
+                data: {"siteid": siteid},
+                success: function (data) {
+                    var midPicList = "";
+                    for (var i in data) {
+                        midPicList += "<li><a href='/childNewsPage?siteid="+siteid+"&newsId="+data[i].id+"' target='_blank'><img src='"+data[i].thumb+"' alt='"+data[i].title+"'></a></li>";
+                    }
+                    $("#midPicList").html(midPicList);
+                    var num111=$("#main_lunbo li").length/2*100;
+                    $("#main_lunbo ul").width(num111+'%');
+                    $("#main_lunbo li").width($('#main_lunbo').width()/2);
+                    var main_li = $("#main_lunbo li").width();
+                    // var main_limargin = parseInt($("#main_lunbo li").css("margin-right"));
+                    var i = 1;
+                    setInterval(function () {
+                        if (i == $("#main_lunbo li").length / 2 + 1) {
+                            i = 1;
+                            $("#main_lunbo ul").css('left', '0');
+                        }
+                        $("#main_lunbo ul").animate({
+                            left: -main_li * i
+                        });
+                        i++;
+                    }, 3500);
+                }
+            })
+        })
+    </script>
+    <ul id="midPicList" style=" width:800%">
+    </ul>
+</div>
+</div>
+</body>
+</html>

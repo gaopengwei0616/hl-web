@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<!-- 顶部包括标签切换 -->
+<body>
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div class="section" th:fragment="child_news_page">
+    <div style="width: 900px;text-align: center;margin:0 auto">
+	<div class="wenzi111">
+<h3 style="padding: 20px 0;text-align: center;color: #a00;">友情提示：</h3>
+<p>政府信息公开意见箱是惠来县人民政府主动听取公民、法人或者其他组织对政府信息公开工 作的意见建议、受理相关投诉举报的窗口，是社会公众监督我县各级行政机关履行政府信息公开义务的平台。为保证您对政府信息公开工作的意见建议、投诉举报能正确提交并及时处理，请仔细阅读以下提示：</p>
+<p>&nbsp;</p>
+<p>1、政府信息公开意见箱听取和收集公民、法人或者其他组织对我县政府信息公开工作提出的意见建议，受理相关投诉举报。与我县政府信息公开工作无关的内容不在收集和受理范围之内。</p>
+<p>&nbsp;</p>
+<p>2、请您按照要求填写“政府信息公开意见箱”。对内容描述尽量详尽、明确。带＊为必填或必选项，以便为您提供更多的服务。</p>
+<p>&nbsp;</p>
+<p>3、您提出的意见建议，由本机关专人负责阅览筛选、整理和归类。您的意见建议如被采纳并经您许可将会对公众公开。</p>
+<p>&nbsp;</p>
+<p>4、您提出的投诉举报，由本机关依据国家有关法律、法规和省、市有关规定进行调查核实后，将调 查处理结果通过您提供的电子邮箱予以反馈。请确保电子邮箱真实有效！</p>
+<p>&nbsp;</p>
+<p>5、由于互联网信息处理技术的固有缺陷，硬件故障或其它不可抗力导致的服务暂停不可完全避免，本系统不能保证所有政府信息公开意见建议与举报投诉100%成功提交及办理。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</div>
+<div class="anniu111">
+<p><a  th:href=@{/yijian(siteid=${siteid})}>
+<img alt="" src="img/js.jpg" style="width: 91px; height: 30px;"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a class="bbb"><img alt="" src="img/bjs.jpg" style="width: 91px; height: 30px;"></a></p>
+</div>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+<script>
+   
+</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/zwgk.css" type="text/css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+
+</head>
+<style>
+
+</style>
+<body>
+<input type="hidden" id="siteid" th:value="${siteid2}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<div class="content">
+    <style type="text/css">
+        .col-auto{
+            overflow:visible;
+        }</style>
+    <div class="container">
+        <div class="row" style="text-align: center;padding=20px 20px;">
+            <h4>请选择申请人类型：</h4>
+            <div style="margin-top:40px;">
+                <p>
+                    <a href="/ysqgk_sq_details_gm"><img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0510/20180510112503710.jpg" style="width: 215px; height: 62px;"></a></p>
+                <p>
+                    <a href="/ysqgk_sq_details_jg"><img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0510/20180510112518972.jpg" style="width: 213px; height: 62px;"></a>
+                    <a href="/ysqgk_sq_details_fr"><img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0510/20180510112530951.jpg" style="width: 215px; height: 66px;"></a>
+                    <a href="/ysqgk_sq_details_st"><img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0510/20180510112553350.jpg" style="width: 216px; height: 59px;"></a>
+                </p>
+                <p>
+                    <a href="/ysqgk_sq_details_qita"><img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0510/20180510112606618.jpg" style="width: 214px; height: 62px;"></a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+</html>

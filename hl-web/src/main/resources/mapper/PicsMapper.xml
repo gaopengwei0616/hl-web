@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.eda.dao.PicsMapper">
+	<resultMap id="PicsResultMap" type="com.eda.pojo.Pic">
+
+		<id column="id" property="id" />
+
+		<result column="thumb" property="thumb" />
+
+
+		<result column="title" property="title" />
+
+	</resultMap>
+
+	<select id="selectPics" resultMap="PicsResultMap">
+		  SELECT n.id,n.thumb,n.source,n.`title` FROM v9_news AS n,v9_category AS c
+			WHERE n.catId = #{catId} AND c.siteid=#{siteId}
+			AND n.catid=c.catid AND n.thumb != ''
+			ORDER BY n.`inputtime` DESC
+	</select>
+	<select id="selectPicsByCat_Code" resultMap="PicsResultMap">
+		SELECT n.id,n.thumb,n.source,n.`title` FROM v9_news AS n,v9_category AS c
+		WHERE c.cat_code = #{cat_code} AND c.siteid=#{siteId}
+		AND n.catid=c.catid AND n.thumb != ''
+		ORDER BY n.`inputtime` DESC
+	</select>
+	<select id="selectPicsLimit" resultMap="PicsResultMap">
+		  SELECT n.id,n.thumb,n.source,n.`title` FROM v9_news AS n,v9_category AS c
+			WHERE n.catId = #{catId} AND c.siteid=#{siteId}
+			AND n.catid=c.catid AND n.thumb != ''
+			ORDER BY n.`inputtime` DESC
+			limit 0, #{limitCount}
+	</select>
+</mapper>

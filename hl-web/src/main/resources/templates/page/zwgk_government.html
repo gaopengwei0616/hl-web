@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="zwgk_government">
+    <script type="application/javascript">
+        var siteid = $("#siteid").val();
+        //政府专栏
+        $.ajax({
+            url: "/index/governmentColumn",
+            dataType: "json",
+            type: "post",
+            data: {"siteid": siteid},
+            success: function (data) {
+                var governmentColumn = "";
+                console.log(data);
+                for (var i = 0; i < data.length; i = i + 2) {
+                    if (i < data.length - 1 && siteid != 1) {
+                        governmentColumn += "<div style='margin-left: 0;background: #fff;overflow: hidden;'>";
+                        governmentColumn += "<a style='float: left; display: inline-block;background:rgb(81, 135, 195);width: 49.5%;margin-right: 1%;' href='/zfxxgk_details?siteid=" + siteid + "&name=" + data[i].catname + "&catid="+data[i].catid+"'>" + data[i].catname + "</a>";
+                        i = i + 1;
+                        governmentColumn += "<a style='float: left; display: inline-block;background:rgb(81, 135, 195);width: 49.5%;' href='/zfxxgk_details?siteid=" + siteid + "&name=" + data[i].catname +"&catid="+data[i].catid+ "'>" + data[i].catname + "</a>";
+                        i = i - 1;
+                        governmentColumn += "</div>";
+                    }
+                    if (i < data.length && i > data.length - 2 && siteid != 1) {
+                        governmentColumn += "<div style='margin-left: 0;background: #fff;overflow: hidden;'>";
+                        governmentColumn += "<a style='float: left; display: inline-block;background:rgb(81, 135, 195);width: 49.5%;margin-right: 1%;' href='/zfxxgk_details?siteid=" + siteid + "&name=" + data[i].catname + "&catid="+data[i].catid+"'>" + data[i].catname + "</a>";
+                        governmentColumn += "</div>";
+                    }
+                    if (siteid == 1) {
+                        if(data[i].catid==570){
+                            governmentColumn += "<div><a href='http://www.jieyang.gov.cn/zfgb'>" + data[i].catname + "</a></div>";
+                            i = i - 1;
+                        }else{
+                            governmentColumn += "<div><a href='/zfxxgk_details?siteid=" + siteid + "&name=" + data[i].catname + "&catid="+data[i].catid+"'>" + data[i].catname + "</a></div>";
+                            i = i - 1;
+                        }
+                    }
+                }
+                console.log(governmentColumn);
+                $("#governmentColumn").html(governmentColumn);
+            }
+        })
+    </script>
+    <div class="btns" style="width: 29% ;font-size: 15px;" id="governmentColumn">
+    </div>
+</div>
+</body>
+</html>

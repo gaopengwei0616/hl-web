@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="main_service" th:fragment="below_Content">
+    <script type="application/javascript">
+        $(function () {
+            var siteid = $("#siteid").val();
+            $.ajax({
+                url: "/index/index_disclosure",
+                dataType: "json",
+                type: "post",
+                data: {"siteid": siteid},
+                success: function (data) {
+                    var infoDisclosure_t = "";
+                    var importantArea_t = "";
+                    var dongtaiList = "";
+                    for (var i in data.infoDisclosure) {
+                        infoDisclosure_t += "<a style='line-height: 18px;' target='_blank' href='/childNewsPage?siteid="+siteid+"&newsId="+data.infoDisclosure[i].id+"'>"+
+                            "<li><span style='float: right;color: rgb(197, 197, 197);'>"+data.infoDisclosure[i].createTime+"</span>"+
+                            "<span id='span'>"+data.infoDisclosure[i].title+"</span></li></a>";
+                    }
+                   for (var i in data.importantArea) {
+                       importantArea_t += "<a style='line-height: 18px;' target='_blank' href='/childNewsPage?siteid="+siteid+"&newsId="+data.importantArea[i].id+"'>"+
+                        "<li><span style='float: right;color: rgb(197, 197, 197);'>"+data.importantArea[i].createTime+"</span>"+
+                        "<span id='span'>"+data.importantArea[i].title+"</span></li></a>";
+
+                   }
+                    for (var i in data.dongtaiList) {
+                        dongtaiList += "<a target='_blank'  href='/childNewsPage?siteid="+siteid+"&newsId="+data.dongtaiList[i].id+"'>" +
+                            "<li style='list-style:none;line-height: 18px;'><span id='span'>"+data.dongtaiList[i].title+"</span> " +
+                            "<span style='float: right; color: rgb(197, 197, 197);'>"+data.dongtaiList[i].createTime+"</span></li></a>";
+
+                    }
+                    $("#infoDisclosure_t").html(infoDisclosure_t);
+                    $("#importantArea_t").html(importantArea_t);
+                    $("#dongtaiList").html(dongtaiList);
+                }
+            })
+        })
+    </script>
+    <ul id="main_open" style="width: 34%; margin: 0; margin-bottom: 10px;">
+        <li class="banner">政务公开</li>
+        <li>
+            <ul class="nav nav-tabs" id="open_myTab" style="margin-bottom: 0;">
+                <li class="active" style="position: relative;"><a href="#information">信息公开</a><a onclick="more('infoDisclosure+信息公开+no')" style="position: absolute; top: 8px; right: 5px; width: auto; background: rgba(0, 0, 0, 0); padding: 0; margin: 0;">更多</a></li>
+                <li style="position: relative;"><a href="#a_key">重点领域</a><a onclick="more('importantArea+重点领域+no')" style="position: absolute; top: 8px; right: 5px; width: auto; background: rgba(0, 0, 0, 0); padding: 0; margin: 0;">更多</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="information"><ul style="padding: 0; font-size: 14px;list-style: none;" id="infoDisclosure_t"></ul></div>
+                <div class="tab-pane" id="a_key"><ul style="padding: 0; font-size: 14px;list-style: none;" id="importantArea_t"></ul></div>
+            </div>
+        </li>
+        <li id="query">文件查询</li>
+        <li id="search"><input id="suosou" type="text">
+            <button onclick="search()">搜索</button>
+        </li>
+
+        <li class="subNav"><a
+                href="/zfxxgk2"
+                target="_blank">》 政府信息公开</a> <a
+                href="/ysqgk"
+                target="_blank">》 政府信息依申请公开</a></li>
+        <li class="subNav"><a
+                th:href="@{/yjx(siteid=${siteid})}"
+                target="_blank">》 政府信息公开意见箱</a> <a th:href=" @{/ysqgklc(siteid=${siteid})}"
+                target="_blank">》 依申请公开流程</a></li>
+        <li class="subNav"><a
+                href="/zfxxgk"
+                target="_blank">》 公开年报</a> <a
+                href="/zfxxgk">》
+            政府网站工作年度报表</a></li>
+        <li class="subNav"><a href="http://www.hlbdc.net/"
+                              target="_blank">》 惠来县不动产登记中心</a> <a href="http://12310.scopsr.gov.cn/">》12310举报受理系统 </a></li>
+    </ul>
+    <script type="text/javascript">
+        function search(){
+            var title=$("#suosou").val();
+            var siteid=$("#siteid").val();
+            window.location.href="/searchfile?title="+title+"&siteid="+siteid;
+        }
+    </script>
+    <ul id="online_service" style="width: 30%">
+        <li class="banner">政务服务</li>
+        <li class="hall"><a
+                href="http://www.gdzwfw.gov.cn/portal/index?region=445224"
+                target="_blank"> <img
+                src="http://www.huilai.gov.cn/img/online_service.png" alt="">
+            政务服务大厅
+        </a></li>
+        <li class="service_subNav"><a
+                href="http://www.gdzwfw.gov.cn/znkf/gdbs/customer.html?region=445224"
+                target="_blank"> <img
+                src="img/Consultation.png"
+                alt=""> <br/> 我要咨询
+        </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+                    href="http://www.gdzwfw.gov.cn/portal/gov-people-interact?region=445224"
+                    target="_blank"> <img
+                    src="img/query.png" alt="">
+                <br/> 我要查询
+            </a></li>
+        <li class="service_subNav"><a
+                href="http://www.gdzwfw.gov.cn/portal/gov-people-interact?region=445224"
+                target="_blank"> <img
+                src="img/Review.png" alt="">
+            <br/> 我要评议
+        </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+                href="http://www.gdzwfw.gov.cn/znkf/gdbs/customer.html?region=445224"
+                target="_blank"> <img
+                src="img/Complaint.png" alt="">
+            <br/> 我要投诉
+        </a></li>
+        <li class="service_menu"><img
+                src="img/personal.png" alt="">&nbsp;&nbsp;
+            <a
+                    href="http://www.gdzwfw.gov.cn/portal/personal/hot?region=445224"
+                    target="_blank">个人服务</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="img/legal.png" alt="">&nbsp;&nbsp;
+            <a href="http://www.gdzwfw.gov.cn/portal/legal/hot?region=445224"
+               target="_blank">法人服务</a></li>
+        <li class="service_menu"><img
+                src="img/department.png" alt="">&nbsp;&nbsp;
+            <a
+                    href="http://www.gdzwfw.gov.cn/portal/personal/theme?region=440000&catalogCode=001001001"
+                    target="_blank">部门服务</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="img/column.png"
+                 alt="">&nbsp;&nbsp; <a
+                    href="http://www.gdzwfw.gov.cn/portal/personal/theme?region=440000&catalogCode=001001001"
+                    target="_blank">服务专栏</a></li>
+        <li class="service_menu"><img
+                src="img/Crowd.png" alt="">&nbsp;&nbsp;
+            <a
+                    href="http://www.gdzwfw.gov.cn/portal/personal/theme?region=445224&catalogCode="
+                    target="_blank">特定人群</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="img/fu.png" alt="">&nbsp;&nbsp;
+            <a
+                    href="http://www.gdzwfw.gov.cn/portal/personal/theme?region=445224&catalogCode="
+                    target="_blank">扶贫服务</a></li>
+    </ul>
+    <ul id="service_dynamic" style="width: 30%">
+        <li class="banner"><span>部门动态</span> <a
+                onclick="more('dongtaiList+部门动态+no')">更多</a>
+        </li>
+        <li class="list">
+            <ul id="dongtaiList" style="padding-left: 0;padding-right: 7%;    font-size: 14px;">
+
+            </ul>
+        </li>
+        <li class="banner"><span>政民互动</span></li>
+        <li class="subNav"><a href="http://xfw.huilai.gov.cn"
+                              target="_blank">县长信箱</a>
+            <div
+                    style="float: left; width: 45%; height: 40px; background: rgb(222, 239, 247); color: rgb(25, 129, 190); text-align: center; margin-left: 2.5%; margin-right: 2.5%;">
+                <p style="font-size: 10px; margin: 0;">
+                    <a style="display: inline;"
+                       href="http://wx.jieyang.gov.cn/index.action" role="button"
+                       data-toggle="modal">市民服务</a>
+                </p>
+                <p style="font-size: 10px; margin: 0;">
+                    <a style="display: inline;"
+                       href="http://wx.jieyang.gov.cn/index.action">12345热线</a>
+                </p>
+            </div>
+            <a
+                    href="/xiazaiziliao_zf"
+                    class="unscramble_download" target="_blank"> <img
+                    src="img/download1.png" alt=""
+                    style="height: 70px; display: block; margin: 0 auto;">
+                <p style="margin-top: -15px;">资料下载</p>
+            </a> <a
+                    th:href="@{/internet_survey(siteid=${siteid})}"
+                    class="unsc	ramble_download" target="_blank"
+                    style="background: #fff;"> <img
+                    src="img/mail2.png" href="/internet_survey"
+                    style="height: 48px; display: block; margin: 11px auto;">
+                <p style="margin-top: -15px;" href="/internet_survey">网上调查</p>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

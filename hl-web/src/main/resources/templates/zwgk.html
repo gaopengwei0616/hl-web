@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/zwgk.css" type="text/css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        $(function () {
+            $(".weixin").mouseover(function () {
+                $(".ewm").css("display", "block");
+            });
+            $(".weixin").mouseout(function () {
+                $(".ewm").css("display", "none");
+            });
+        })
+    </script>
+</head>
+<style>
+    #span {
+        display: inline-block;
+        max-width: 320px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #000;
+    }
+
+    #span:hover {
+        text-decoration: underline;
+    }
+</style>
+<body>
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<div class="container">
+    <div class="row">
+        <div id="main">
+            <div class="head">
+                <div th:replace="page/zwgk_Content::zwgk_Content"></div><!-- 政务公开内容 -->
+            </div>
+            <ul class="subNav">
+            
+            	
+                <li class="subNav1"  id="subNav1">
+                
+                	<script type="application/javascript">
+		            	var siteid = $("#siteid").val();
+		                //政府专栏
+		                $.ajax({
+		                    url: "/index/governmentColumn",
+		                    dataType: "json",
+		                    type: "post",
+		                    data: {"siteid": siteid},
+		                    success: function (data) {
+		                        var governmentColumn = "";
+		                        console.log(data);
+		                        for (var i = 0; i < data.length; i = i + 2) {
+		                            if (i < data.length - 1 && siteid != 1) {
+		                                //governmentColumn += "<div style='margin-left: 0;background: #fff;overflow: hidden;'>";
+		                                governmentColumn += "<a  href='/zfxxgk_details?siteid=" + siteid + "&name=" + data[i].catname + "&catid="+ data[i].catid+"'>" + data[i].catname + "</a>";
+		                                i = i + 1;
+                                        governmentColumn += "<a  href='/zfxxgk_details?siteid=" + siteid + "&name=" + data[i].catname + "&catid="+ data[i].catid+"'>" + data[i].catname + "</a>";
+		                                i = i - 1;
+		                                //governmentColumn += "</div>";
+		                            }
+		                            if (i < data.length && i > data.length - 2 && siteid != 1) {
+		                                //governmentColumn += "<div style='margin-left: 0;background: #fff;overflow: hidden;'>";
+                                        governmentColumn += "<a  href='/zfxxgk_details?siteid=" + siteid + "&name=" + data[i].catname + "&catid="+ data[i].catid+"'>" + data[i].catname + "</a>";
+		                                //governmentColumn += "</div>";
+		                            }
+		                            if (siteid == 1) {
+		                                if(data[i].catid==570){
+                                            governmentColumn += "<a  href='http://www.jieyang.gov.cn/zfgb'>" + data[i].catname + "</a>";
+                                            i = i - 1;
+                                        }else{
+                                            governmentColumn += "<a  href='/zfxxgk_details?siteid=" + siteid + "&name=" + data[i].catname + "&catid="+ data[i].catid+"'>" + data[i].catname + "</a>";
+                                            i = i - 1;
+                                        }
+		                            }
+
+
+		                        }
+		                        console.log(governmentColumn);
+		                        $("#subNav1").html(governmentColumn);
+                            }
+		                })
+            	</script> 
+                	
+                
+                    <!-- <a href="http://www.huilai.gov.cn/index.php?m=content&amp;c=index&amp;a=lists&amp;catid=522&amp;id=8"
+                       target="_blank">政府工作报告</a> <a href="http://www.gddata.gov.cn/index.php/index/index.html"
+                                                     target="_blank">数据开放</a> <a
+                        href="http://zwgk.huilai.gov.cn/czContents/selectCzContent.action?dataFlag=hl" target="_blank">财政预决算</a>
+                    <a href="http://www.gd.gov.cn/govpub/szfwj/?" target="_blank">省政府文件</a> <a
+                        href="http://zwgk.jieyang.gov.cn/OpenInfoRight.action?menuCat=733&amp;depCode=007026190"
+                        target="_blank">市政府文件</a> <a
+                        href="http://hlx.huilai.gov.cn/index.php?m=content&amp;c=index&amp;a=lists&amp;catid=522#532"
+                        target="_blank">县政府文件</a> -->
+                </li>
+                
+                
+                <li class="subNav2">
+                    <a href="zfxxgk"
+                       target="_blank"><img src="img/btn1.jpg" alt=""></a>
+                    <a href="http://xxgk.jieyang.gov.cn/index.shtml?level=2&amp;regionID=7" target="_blank"><img
+                            src="img/btn2.jpg" alt=""></a>
+                    <a th:href=@{/yjx(siteid=${siteid})}
+                       target="_blank"><img src="img/btn3.jpg" alt=""></a>
+                    <a th:href=@{/ysqgklc(siteid=${siteid})}
+                       target="_blank"><img src="img/btn4.jpg" alt=""></a>
+                    <a href="zfxxgk"
+                       target="_blank"><img src="img/btn5.jpg" alt=""></a>
+                </li> 
+            </ul>
+            <div class="menu1Content">
+                <ul class="special_column">
+                    <a name="weizhi"></a>
+                    <p class="banner">
+                        <span>公开专栏</span>
+                    </p>
+                    <li>
+                        <a th:href="@{/gkzl(parentid=569,name='政务五公开专栏',siteid=${siteid})}"
+                           target="_blank">政务'五公开'专栏</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/gkzl(parentid=572,name='建议提案办理',siteid=${siteid})}"
+                           target="_blank">建议提案办理</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/zfxxgk}"
+                           target="_blank">政府信息公开指南</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/zfxxgk}"
+                           target="_blank">政府信息公开目录</a>
+                    </li>
+                    <li>
+                        <a href="http://zwgk.huilai.gov.cn/czxxLogin.jsp" target="_blank">财政预决算登录系统</a>
+                    </li>
+                </ul>
+                <ul class="notice" style="margin-left:18px;" id="dongtaiList">
+                    <li class="banner">
+                        <span>公告</span>
+                        <a onclick="more('announcement+公告+no')">更多</a>
+                    </li>
+                </ul>
+            </div>
+
+            <ul class="submenu" id="lingyu" style="margin-left: 0;">
+                <p class="banner">
+                    <a th:href="@{/zwgkbottom(siteid=${siteid})}"
+                       target="_blank">政府重点领域信息公开</a>
+                </p>
+                <div style="width:100%;height:90px;">
+                    <a href="http://www.gd.gov.cn/zwgk/zdlyxxgkzl/" target="_blank"
+                       style="float:left;width:49%;height:90px;display:inline-block;margin: 0;padding-left: 1%;">
+                        <img src="img/zdly.jpg" style="width:100%;height:100%;">
+                    </a>
+                    <a href="http://www.jieyang.gov.cn/jieyang/zdly" target="_blank"
+                       style="float:left;width:49%;height:90px;display:inline-block;margin: 0;padding-right: 1%;">
+                        <img src="img/zdly1.jpg" style="width:100%;height:100%;">
+                    </a>
+                </div>
+                <li id="zwgkList">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+<script type="application/javascript">
+    $(function () {
+        var siteid = $("#siteid").val();
+        $.ajax({
+            url: "/getDongTaiList",
+            dataType: "json",
+            type: "get",
+            data: {"siteid": siteid},
+            success: function (data) {
+                var dongtaiList = "";
+                for (var i in data) {
+                    dongtaiList += "<a target='_blank'  href='/childNewsPage?siteid=" + siteid + "&newsId=" + data[i].id + "'>" +
+                        "<li style='list-style:none;line-height: 18px;'><span class='zishu2'>" + data[i].title + "</span> " +
+                        "<span style='float: right; color: rgb(197, 197, 197);'>" + data[i].createTime + "</span></li></a>";
+
+                }
+                $("#dongtaiList").append(dongtaiList);
+                $(".zishu2").each(function () {
+                    var maxwidth = 40;
+                    if ($(this).text().length >= maxwidth) {
+                        $(this).text($(this).text().substring(0, maxwidth));
+                        $(this).text($(this).text() + "...");
+                    }
+                });
+            }
+        })
+
+        $.ajax({
+            url:"/zwgkList",
+            dataType:"json",
+            type:"get",
+            success:function (data) {
+                var html = "";
+                for(var i in data){
+                	if(data[i].catname=="减税降费"){
+                		html+="<a href='http://www.gd-n-tax.gov.cn/gdsw/zdly/ztzl.shtml' target='_blank'>"+data[i].catname+"</a>";
+                	}else{
+                		html+="<a href='/gkzl?parentid="+data[i].catid+"&name="+data[i].catname+"&siteid="+siteid+"' target='_blank'>"+data[i].catname+"</a>";
+                	}
+                }
+                $("#zwgkList").append(html);
+            }
+        })
+    })
+</script>
+</body>
+</html>

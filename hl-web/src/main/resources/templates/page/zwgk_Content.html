@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="zwgk_Content">
+    <script type="application/javascript">
+        $(function () {
+            var siteid = $("#siteid").val();
+            //县领导
+            $.ajax({
+                url: "/index/hl_leader",
+                dataType: "json",
+                type: "post",
+                data: {"siteid": siteid},
+                success: function (data) {
+                    var leader = "";
+                    var deputy_leader = "";
+                    if(data.leader[0]!=undefined){
+                        leader+= "<div class='tou' style='width: 70px; height: 90px; margin: 0 auto;'><img src='/image/"+data.leader[0].thumb+"' alt=''></div>" +
+                            "<p class='name'><a href='/childNewsPage?siteid="+siteid+"&newsId="+data.leader[0].id+"' target='_blank'>" + data.leader[0].title + "</a></p>";
+                    }
+
+                    for (var i in data.deputy_leader) {
+                        deputy_leader += "<div><a href='/childNewsPage?siteid="+siteid+"&newsId="+data.deputy_leader[i].id+"' target='_blank'>"+data.deputy_leader[i].title+"</a></div>";
+                    }
+                    $("#leader").html(leader);
+                    $("#deputy_leader").append(deputy_leader);
+                }
+            })
+
+            //政府信息公开
+            $.ajax({
+                url: "/index/info_disclosure",
+                dataType: "json",
+                type: "post",
+                data: {"siteid": siteid},
+                success: function (data) {
+                    if(data==""){
+                        return false;
+                    }
+                    var infoDisclosure= "";
+                    var importantArea = "";
+                    for(var i in data.infoDisclosure){
+                        infoDisclosure += "<li><a href='/childNewsPage?siteid="+siteid+"&newsId="+data.infoDisclosure[i].id+"' target='_blank'><span id='span'>"+data.infoDisclosure[i].title+"</span><span class='right'>"+data.infoDisclosure[i].createTime+"</span></a></li>";
+                    }
+                    for(var i in data.importantArea){
+                        importantArea += "<li><a href='/childNewsPage?siteid="+siteid+"&newsId="+data.importantArea[i].id+"' target='_blank'><span id='span'>"+data.importantArea[i].title+"</span><span class='right'>"+data.importantArea[i].createTime+"</span></a></li>"
+                    }
+                    $("#infoDisclosure").append(infoDisclosure);
+                    $("#importantArea").append(importantArea);
+                }
+            })
+        })
+    </script>
+    <div class="special_img">
+        <p>领导</p>
+        <div class="lingd" th:if="${type} eq 0">
+            <span>县长</span>
+            <div id="leader">
+
+            </div>
+            <div class="fu" id="deputy_leader">
+                <p>副县长</p>
+            </div>
+        </div>
+        <div class="lingd" th:if="${type} eq 1">
+            <span>镇长</span>
+            <div id="leader">
+
+            </div>
+            <div class="fu" id="deputy_leader">
+                <p>副镇长</p>
+            </div>
+        </div>
+        <div class="lingd" th:if="${type} eq 2">
+            <span>局长</span>
+            <div id="leader">
+
+            </div>
+            <div class="fu" id="deputy_leader">
+                <p>副局长</p>
+            </div>
+        </div>
+    </div>
+    <div class="right_list">
+        <ul class="info_list" id="infoDisclosure">
+            <li class="banner" style="margin-bottom: 0 !important;"><span>信息公开</span>
+                <a onclick="more('infoDisclosure+信息公开+yes')"
+                   target="_blank">更多</a></li>
+        </ul>
+        <ul class="field_list" id="importantArea" th:if="${type } != 1">
+            <li class="banner"
+                style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                <span>重点领域</span>
+                <a onclick="more('importantArea+重点领域+yes')"
+                   target="_blank">更多</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

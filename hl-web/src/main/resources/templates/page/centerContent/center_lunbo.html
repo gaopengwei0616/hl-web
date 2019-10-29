@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="bar_graph" th:fragment="center_lunbo">
+        <script type="application/javascript">
+            $(function () {
+                var siteid = $("#siteid").val();
+                <!-- 中间轮播图 -->
+                $.ajax({
+                    url: "/index/centerPicList",
+                    dataType: "json",
+                    type: "post",
+                    data: {"siteid": siteid},
+                    success: function (data) {
+                        var html = "";
+                        for(var i in data){
+                            html += "<li><a href='/childNewsPage?siteid="+siteid+"&newsId="+data[i].id+"' target='_blank'> <img src='/image/"+data[i].thumb+"' alt=''></a></li>"
+                        }
+                        $("#centerPicList").html(html);
+                        var bar_height = $("#bar_graph li").height();
+                        var j = 1;
+                        setInterval(function () {
+                            if (j == $("#bar_graph li").length) {
+                                j = 0;
+                                $("#bar_graph ul").css('top', '0');
+                            }
+                            $("#bar_graph ul").animate({
+                                top: -bar_height * j
+                            });
+                            j++;
+                        }, 3500);
+                    }
+                })
+            });
+        </script>
+        <ul id="centerPicList">
+        </ul>
+    </div>
+</body>
+</html>

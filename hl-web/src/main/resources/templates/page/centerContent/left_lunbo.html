@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="news_left" style="width: 50%" th:fragment="left_lunbo">
+    <script type="application/javascript">
+        $(function () {
+            var siteid = $("#siteid").val();
+            $.ajax({
+                url: "/index/leftPicList",
+                dataType: "json",
+                type: "post",
+                data: {"siteid": siteid},
+                success: function (data) {
+                    var html_ol = "";
+                    var html = "";
+                    for (var i in data) {
+                        if (i == 0) {
+                            html_ol += "<li data-target='#myCarousel' class='active' data-slide-to='" + i + "'></li>";
+                            html += "<div class='active item'>";
+                        } else {
+                            html_ol += "<li data-target='#myCarousel' data-slide-to='" + i + "'></li>";
+                            html += "<div class='item'>";
+                        }
+                        html += "<a href='/childNewsPage?siteid="+siteid+"&newsId=" + data[i].id + "'><img src='/image/" + data[i].thumb + "' alt=''/>" +
+                            "<li class='lunbo_title'>" + data[i].title + "</li></a></div>";
+                    }
+                    $("#leftPicList_ol").html(html_ol);
+                    $("#leftPicList").html(html);
+                }
+            })
+        })
+    </script>
+    <div id="myCarousel" class="carousel slide">
+        <ol class="carousel-indicators" id="leftPicList_ol"></ol>
+        <div class="carousel-inner" id="leftPicList"></div>
+        <!-- 轮播图左右按钮 -->
+        <a class="carousel-control left" data-slide="prevd">&lsaquo;</a>
+        <a class="carousel-control right" data-slide="next">&rsaquo;</a>
+    </div>
+</div>
+</div>
+</body>
+</html>

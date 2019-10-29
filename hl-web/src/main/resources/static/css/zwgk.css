@@ -1,0 +1,236 @@
+.head,
+.menu1Content {
+    overflow: hidden;
+}
+
+.head .special_img,
+.head .right_list,
+.menu1Content .special_column,
+.menu1Content .notice {
+    float: left;
+}
+
+.special_img,
+.menu1Content .special_column {
+    width: 32%;
+}
+
+.special_img > .lingd {
+    border: 1px solid rgb(192, 192, 192);
+    position: relative;
+    padding: 20px 10px 10px;
+}
+
+.special_img > .lingd > span {
+    display: block;
+    border-left: 4px solid rgb(16, 118, 207);
+    background: #fff;
+    position: absolute;
+    left: 10px;
+    top: -7px;
+    padding: 0 10px;
+    font-weight: bold;
+    color: #136FA2;
+}
+
+.special_img > p {
+    color: #1076B0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.special_img .name {
+    text-align: center;
+    line-height: 30px;
+}
+
+.special_img > .lingd > .fu {
+    overflow: hidden;
+}
+
+.special_img > .lingd > .fu > p {
+    border-left: 4px solid rgb(16, 118, 207);
+    color: #136FA2;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.lingd > .fu > div {
+    width: 25%;
+    float: left;
+    height: 25px;
+    line-height: 25px;
+}
+
+.right_list,
+.menu1Content .notice {
+    width: 66%;
+}
+
+.right_list .info_list,
+.right_list .field_list {
+    margin-bottom: 15px;
+}
+
+.right_list .banner,
+.menu1Content .notice .banner {
+    border-bottom: 1px solid #1076B0;
+    margin-bottom: 15px;
+}
+
+.head .right_list .banner a,
+.menu1Content .notice .banner a {
+    margin-right: 5%;
+    float: right;
+}
+
+.submenu .banner {
+    color: #1076B0;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.head .right_list a,
+.menu1Content a {
+    color: black;
+}
+
+.banner span {
+    color: #1076B0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.right_list .banner::before,
+.menu1Content .notice .banner::before {
+    content: "";
+}
+
+.right_list li {
+    margin: 5px 0;
+}
+
+.menu1Content .notice li {
+    margin: 9px 0;
+}
+
+.right_list li::before,
+.menu1Content .notice li::before {
+    content: "> ";
+    color: rgb(197, 197, 197);
+}
+
+.right {
+    float: right;
+    margin-right: 2%;
+    color: rgb(197, 197, 197);
+}
+
+.subNav {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.subNav > .subNav1 a {
+    display: inline-block;
+    background: rgb(81, 135, 195);
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    width: 30%;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 1.53%;
+    margin-top: 10px;
+}
+
+.subNav > .subNav2 a {
+    display: inline-block;
+    height: 38px;
+    width: 18%;
+    margin: 15px 0.83%;
+}
+
+.subNav > .subNav2 img {
+    width: 100%;
+    height: 100%;
+}
+
+.menu1Content {
+    padding: 5px 0;
+    border-bottom: rgb(0, 162, 232) solid 3px;
+    border-top: rgb(0, 162, 232) solid 3px;
+}
+
+.menu1Content ul {
+    margin: 0;
+}
+
+.menu1Content .special_column li a {
+    color: #1076B0;
+}
+
+.menu1Content .special_column li {
+    font-weight: bold;
+    height: 36px;
+    line-height: 36px;
+    background: rgb(224, 238, 247);
+    margin-bottom: 10px;
+}
+
+.menu1Content .special_column li::before {
+    display: inline-block;
+    content: "> ";
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    color: #fff;
+    background: #1076B0;
+    font-size: 30px;
+}
+
+. {
+    text-align: center;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.submenu li {
+    overflow: hidden;
+}
+
+.submenu li a {
+    display: inline-block;
+    float: left;
+    background: rgb(200, 231, 249);
+    height: 36px;
+    line-height: 36px;
+    width: 17.7%;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 1%;
+    margin-top: 10px;
+    text-align: center;
+    border: 1px solid #1076B0;
+}
+
+.special_img img {
+    width: 100%;
+    height: 100%;
+}
+
+.special_img > .lingd > .tuo {
+    width: 70px;
+    height: 90px;
+    margin: 0 auto;
+}
+
+.submenu .kong {
+    opacity: 0;
+    cursor: default;
+}

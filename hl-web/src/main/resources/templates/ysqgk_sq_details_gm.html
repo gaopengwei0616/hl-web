@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/zwgk.css" type="text/css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+
+
+</head>
+<style>
+
+</style>
+<body>
+<input type="hidden" id="siteid" th:value="${siteid2}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<div class="container">
+    <link href="http://www.huilai.gov.cn/statics/css/table_form.css" rel="stylesheet" type="text/css">
+    <link href="http://www.huilai.gov.cn/statics/css/dialog.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://www.huilai.gov.cn/statics/js/dialog.js"></script>
+    <div class="box">    <h5 style="margin-left:160px;">公开申请表</h5>    <div class="content"><form method="post" action="/ysqgk_sq_details_gm_sq" name="myform" id="myform"><table class="table_form" width="100%" cellspacing="0"><tbody> <tr>      <th width="80"> <font color="red">*</font> 姓名  </th>      <td> <input type="hidden" name="number" id="number" value=0><input type="text"  name="name" id="name" size="50" value="" class="input-text">  </td>    </tr><tr>      <th width="80"> <font color="red">*</font> 工作单位  </th>      <td><input type="text" name="workUnit" id="workUnit" size="50" value="" class="input-text">  </td>    </tr><tr>      <th width="80"> <font color="red">*</font> 身份证号码  </th>      <td><input type="text" name="idCard" id="idCard" size="50" value="" class="input-text">  </td>    </tr><tr>      <th width="80"> <font color="red">*</font> 邮政编码  </th>      <td><input type="text" name="postalCode" id="postalCode" size="50" value="" class="input-text">  </td>    </tr><tr>      <th width="80"> <font color="red">*</font> 通信地址  </th>      <td><input type="text" name="address" id="address" size="50" value="" class="input-text">  </td>    </tr><tr>      <th width="80"> <font color="red">*</font> 联系电话  </th>      <td><input type="text" name="telephone" id="telephone" size="50" value="" class="input-text">  </td>    </tr><tr>      <th width="80"> <font color="red">*</font> 手机号码  </th>      <td><input type="text" name="phone" id="phone" value="" size="" class="input-text">  </td>    </tr><tr>      <th width="80"> <font color="red">*</font> 电子邮箱  </th>      <td><input type="text" name="mail" id="mail" size="50" value="" class="input-text"> </td>    </tr><tr>      <th width="80"> 文件名称  </th>      <td><textarea name="fileName" id="fileName" style="width:100%%;height:25px;"></textarea>  </td>    </tr><tr>      <th width="80"> 文号  </th>      <td><textarea name="fileNumber" id="fileNumber" style="width:100%%;height:25px;"></textarea>  </td>    </tr><tr>      <th width="80"> <font color="red">*</font> 其他描述  </th>      <td><input type="text" name="description" id="description" size="50" value="" class="input-text">  </td>    </tr><tr>      <th width="80"> <font color="red">*</font> 提供政府信息的指定方式（单选）  </th>      <td><label class="ib" style="width: auto;"><input type="radio" name="postWay" id="afa_电子邮件" value="电子邮件"> 电子邮件</label><label class="ib" style="width: auto;"><input type="radio" name="postWay" id="afa_纸质" value="纸质"> 纸质</label>  </td>    </tr><tr>      <th width="80"> <font color="red">*</font>  获取政府信息的方式（单选）  </th>      <td><label class="ib" style="width: auto;"><input type="radio" name="getWay" id="fangshi_网上获取" value="网上获取"> 网上获取</label><label class="ib" style="width: auto;"><input type="radio" name="getWay" id="fangshi_邮寄" value="邮寄"> 邮寄</label><label class="ib" style="width: auto;"><input type="radio" name="getWay" id="fangshi_自行领取" value="自行领取"> 自行领取</label><label class="ib" style="width: auto;"><input type="radio" name="getWay" id="fangshi_当场查阅、抄录" value="当场查阅、抄录"> 当场查阅、抄录</label>  </td>    </tr><tr><td></td><td><div class="submit ib"><input type="submit" name="submit" id="submit" value=" 提交 "></div> </td></tr></tbody></table></form>    </div></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#submit").click(function(){
+            if($("#name").val()=="")
+            {
+                alert("姓名不能为空");
+                return false;
+            }
+            if($("#workUnit").val()=="")
+            {
+                alert("工作单位不能为空");
+                return false;
+            }
+            if($("#postalCode").val()=="")
+            {
+                alert("邮政编码不能为空");
+                return false;
+            }
+            if($("#address").val()=="")
+            {
+                alert("通信地址不能为空");
+                return false;
+            }
+
+            if ($("#telephone").val()==""){
+                alert("联系电话不能为空");
+                return false
+            }
+            if ($("#fileName").val()==""){
+                alert("文件名不能为空");
+                return false
+            }
+            if ($("#fileNumber").val()==""){
+                alert("文号不能为空");
+                return false
+            }
+            if ($("#description").val()==""){
+                alert("描述不能为空");
+                return false
+            }
+
+
+
+            if($("#mail").val()=="")
+            {
+                alert("邮箱不能为空");
+                return false;
+            }
+            var mail=$("#mail").val();
+            if(!mail.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/))
+            {
+                alert("格式不正确！请重新输入");
+                $("#mail").focus();
+            }
+            //
+
+            if ($("#phone").val()==""){
+                alert("手机号不能为空");
+                return false;
+            }
+            var phone=$("#phone").val();
+            if (!phone.match(/^(((13[0-9]{1})|1)+\d{8})$/)){
+                alert("手机格式不正确");
+                $("#phone").focus();
+            }
+            //
+            if ($("#idCard").val()==""){
+                alert("身份证不能为空");
+                return false;
+            }
+            var idCard=$("#idCard").val();
+            if (!idCard.match(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/)){
+                alert("身份证格式不正确");
+                $("#idCard").focus();
+            }
+        });
+
+    })
+</script>
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+</html>

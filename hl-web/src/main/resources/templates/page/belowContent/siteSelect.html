@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="friendLink" style="width: 100%; height: 60px;" th:fragment="siteSelect">
+    <script type="application/javascript">
+        $(function () {
+            var siteid = $("#siteid").val();
+            $.ajax({
+                url: "/index/siteSelect?type=1",
+                dataType: "json",
+                type: "get",
+                data: {"siteid": siteid},
+                success: function (data) {
+                    var jiedao = "";
+                    for (var i in data) {
+                        jiedao += "<option value='/?siteid=" + data[i].siteid + "'>" + data[i].name + "</option>";
+                    }
+                    $("#jiedao").append(jiedao);
+                    $("#jiedao").val("/?siteid="+siteid);//政府站点下拉选项
+                    if($("#jiedao").val()==null){
+                    	$("#jiedao").val("1");
+                    }
+                }
+            })
+            $.ajax({
+                url: "/index/siteSelect?type=2",
+                dataType: "json",
+                type: "get",
+                data: {"siteid": siteid},
+                success: function (data) {
+                    var zhengfu = "";
+                    for (var i in data) {
+                        zhengfu += "<option value='/?siteid=" + data[i].siteid + "'>" + data[i].name + "</option>";
+                    }
+                    $("#zhengfu").append(zhengfu);
+                    $("#zhengfu").val("/?siteid="+siteid);//政府站点下拉选项
+                    if($("#zhengfu").val()==null){
+                    	$("#zhengfu").val("1");
+                    }
+                }
+            })
+            
+        })
+
+    </script>
+    <div class="friendLink_title">网站导航</div>
+    <select name="" onchange="javascript:window.open(this.options [this.selectedIndex].value);this.selectedIndex=0">
+        <option value="">揭阳市、县、区网站</option>
+        <option value="http://www.jieyang.gov.cn/">揭阳市人民政府</option>
+        <option value="http://www.jyrongcheng.gov.cn/">榕城区人民政府</option>
+        <option value="http://www.jiedong.gov.cn">揭东区人民政府</option>
+        <option value="http://www.jiexi.gov.cn/index.html">揭西县人民政府</option>
+        <option value="http://www.puning.gov.cn/pngov/web/index.action">普宁市人民政府</option>
+        <option value="http://www.dnsqq.gov.cn/web/index.action">大南山华侨管理区政府网</option>
+    </select>
+    <select onchange="javascript:window.open(this.options [this.selectedIndex].value);this.selectedIndex=0" id="zhengfu">
+    <option value="1">政府组成部门</option>
+        <option value="/?siteid=1">默认站点</option>
+    </select>
+    <select onchange="javascript:window.open(this.options [this.selectedIndex].value);this.selectedIndex=0" id="jiedao">
+    <option value='1'>镇、街道、场</option>
+    </select>
+    <select onchange="javascript:window.open(this.options [this.selectedIndex].value);this.selectedIndex=0" >
+    <option value='1'>其他部门</option>
+    <option value='http://hlrd.huilai.gov.cn/web/index.action'>惠来县人大</option>
+    <option value='http://lzw.huilai.gov.cn/'>中共惠来县纪委监察委</option>
+    <option value='http://www.hlbdc.net/'>惠来县不动产登记中心</option>
+     <option value='http://wmw.huilai.gov.cn/'>惠来文明网</option>
+    </select>
+</div>
+</body>
+</html>

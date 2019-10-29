@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/zwgk.css" type="text/css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+
+</head>
+<style>
+
+</style>
+<body>
+<input type="hidden" id="siteid" th:value="${siteid2}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<div class="container">
+    <div class="row">
+        <div class="wenzi111">
+            <h3 style="padding: 20px 0;text-align: center;color: #a00;">温馨提示</h3>
+            <p>为了保证您的申请能正确提交并被及时处理，请仔细阅读以下提示：</p>
+            <p>&nbsp;</p>
+            <p>一、公民、法人或者其他组织根据自身生产、生活、科研特殊需要，向本机关申请获取相关政府信息时，请提供与自身特殊需要的关联性证明。如果您需要申请减免费用（仅供公民申请），请提供减免费用的证明。</p>
+            <p>&nbsp;</p>
+            <p>二、依申请提出的政府信息，必须是本行政机关制作、保存的完整的政府信息，本行政机关不对信息进行加工、统计、研究、分析、汇总或者重新制作等处理。</p>
+            <p>&nbsp;</p>
+            <p>三、举报、投诉、咨询、意见建议等事项不属于依申请公开政府信息范围，请通过省政府门户网站“ 网上信访”、“ 投诉举报”等栏目提交相关事项或者反映情况。</p>
+            <p>&nbsp;</p>
+            <p>四、请您正确选择“申请人身份”提交申请，避免提交后，因填写不规范影响到您的申请，如属机构、企业或者社团组织等申请的，不应以“经办人、委托人”等个人名义选择“公民”身份提出申请。</p>
+            <p>&nbsp;</p>
+            <p>五、如本系统无法满足您的申请需求，请您通过书面或其他方式提出申请。</p>
+            <p>&nbsp;</p>
+            <p>六、请您按照要求填写申请表。申请人身份、联系方式等事项必须真实有效，对申请获取信息的描述尽量详尽、明确，带*为必填/必选项。以便您及时收到反馈信息。 <span color="red">我们会为您的个人资料保密！</span></p>
+            <p>&nbsp;</p>
+        </div>
+        <div class="anniu111">
+            <p>
+                <a href="/ysqgk_sq_details">
+                    <img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0511/20180511094436290.jpg" style="width: 101px; height: 40px;">
+                </a>
+                <a href="javascript:history.back();">
+                    <img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0511/20180511094446726.jpg" style="width: 100px; height: 38px;">
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+</html>

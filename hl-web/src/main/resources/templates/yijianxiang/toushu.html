@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>惠来县人民政府门户网站</title>
+
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- 所需要的js文件 -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/unslider.min.js"></script>
+<script src="js/index.js"></script>
+</head>
+<!-- 顶部包括标签切换 -->
+<body>
+	<div th:replace="page/header::header"></div>
+	<!--首页轮播图-->
+<input type="hidden" id="siteid" th:value="${siteid}">
+
+	<div class="section" th:fragment="child_news_page">
+		<div style="width: 900px; text-align: center; margin: 0 auto">
+
+			<div class="row">
+				<div class="box">
+					<h3>投诉举报</h3>
+					<div class="content">
+						<form method="post"
+							action="/tsform"
+							name="myform" id="myform">
+							<table class="table_form" width="100%" cellspacing="0" style="right:200px;">
+								<tbody>
+									<tr>
+										<th width="80"><font color="red">*</font> 姓名</th>
+										<td><input type="text" name="name"
+											id="xingming" size="50" value="" class="input-text">
+										</td>
+									</tr>
+									<tr>
+										<th width="80"><font color="red">*</font> 身份证号码</th>
+										<td><input type="text" name="identity_card"
+											id="shengfenz" size="50" value="" class="input-text">
+										</td>
+									</tr>
+									<tr>
+										<th width="80"><font color="red">*</font> 单位</th>
+										<td><input type="text" name="unit" id="danwei"
+											size="50" value="" class="input-text"></td>
+									</tr>
+									<tr>
+										<th width="80"><font color="red">*</font> 地址</th>
+										<td><input type="text" name="address" id="dizhi"
+											size="50" value="" class="input-text"></td>
+									</tr>
+									<tr>
+										<th width="80"><font color="red">*</font> 邮编</th>
+										<td><input type="text" name="postcode" id="youbian"
+											size="50" value="" class="input-text"></td>
+									</tr>
+									<tr>
+										<th width="80"><font color="red">*</font> 联系电话</th>
+										<td><input type="text" name="phone"
+											id="lianxidianhua" size="50" value="" class="input-text">
+										</td>
+									</tr>
+									<tr>
+										<th width="80"><font color="red">*</font> 电子邮箱</th>
+										<td><input type="text" name="email"
+											id="dianziyouxiang" size="50" value="" class="input-text">
+										</td>
+									</tr>
+									<tr>
+										<th width="80"><font color="red">*</font> 标题</th>
+										<td><input type="text" name="title" id="biaoti"
+											size="50" value="" class="input-text"></td>
+									</tr>
+									<tr>
+										<th width="80">内容</th>
+										<td><textarea name="content" id="neirong"
+												style="width: 100%%; height: 46px;"></textarea></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td><div class="submit ib">
+												<input type="submit" name="dosubmit" id="dosubmit"
+													value=" 提交 ">
+											</div></td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
+					</div>
+				</div>
+				<script>
+					$(".box>h5").text('投诉举报');
+					$(".box>.content label").css('width', 'auto');
+					var count=[[${count}]];
+					if(count!=0){
+						alert("添加成功");
+					}else{
+						alert("请联系管理员及时修复");
+					}
+				</script>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="page/footer::footer"></div>
+	<!-- 页面底部 -->
+</body>
+<script>
+	
+</script>
+</html>
+

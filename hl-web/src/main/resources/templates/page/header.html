@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container" th:fragment="header">
+    <script type="application/javascript">
+        $(function () {
+            var siteid = $("#siteid").val();
+            $.ajax({
+                url:"/index/topPicList",
+                dataType:"json",
+                type:"post",
+                data:{"siteid":siteid},
+                success:function (data) {
+                    var html = "";
+                    for(var i in data){
+                        html+="<li class='active item'>"
+                            +"<input type='hidden' value='"+data[i].id+"'>"
+                            +"<img src='/image/"+data[i].thumb+"' alt='' /></li>";
+                    }
+                    $("#topPicList").html(html);
+                }
+            })
+        })
+
+        function index() {
+            var siteid = $("#siteid").val();
+            window.location.href="/index?siteid="+siteid;
+        }
+        function zhengwugongkai() {
+            var siteid = $("#siteid").val();
+            window.location.href="/zhengWuGongKai?siteid="+siteid;
+        }
+        function zouJinHuiLai() {
+            var siteid = $("#siteid").val();
+            window.location.href="/zouJinHuiLai?siteid="+siteid;
+        }
+    </script>
+    <div class='row'>
+        <!-- 顶部 -->
+        <div id="header">
+            <img id="logo" src="img/logo.png" alt="">
+            <div id="language">
+                <a href="#" class="weixin"><img src="img/weixin.png" alt=""
+                                                style="width: 25px; height: 25px;">微信</a><img src="img/sj.png" alt=""
+                                                                                              style="width: 20px; height: 20px;">
+                &nbsp;&nbsp;<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a>
+                &nbsp;&nbsp;<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁体</a>
+            </div>
+            <div class="ewm">
+                <img src="img/ewm.jpg" alt="" style="width: 100px; height: 100px;">
+            </div>
+            <div class="lunbos">
+                <ul class="lunbo" id="topPicList" style="z-index: -1;">
+                </ul>
+            </div>
+
+            <!-- 导航条标签 -->
+            <div class="navs">
+                <a class="brand" href="http://localhost:8082/"><img src="img/home.png" alt=""
+                                                                       style="width: 50%; height: 50%"></a>
+                <ul class="nav">
+                    <li class="col-lg-3 active"><a href="#" onclick="index()">首页</a></li>
+                    <li class="col-lg-3"><a href="#" onclick="zhengwugongkai()">政务公开</a></li>
+                    <li class="col-lg-3"><a href="http://www.gdzwfw.gov.cn/portal/index?region=445224">政务服务</a></li>
+                    <li class="col-lg-3"><a  href="#" onclick="zouJinHuiLai()">走进惠来</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

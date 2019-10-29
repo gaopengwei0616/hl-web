@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <!-- 所需要的css样式 -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/more.css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        $(function () {
+            $(".weixin").mouseover(function () {
+                $(".ewm").css("display", "block");
+            });
+            $(".weixin").mouseout(function () {
+                $(".ewm").css("display", "none");
+            });
+        })
+    </script>
+</head>
+
+<body>
+<input type="hidden" id="siteid" th:value="${siteid}">
+<input type="hidden" id="parentid" th:value="${parentid}">
+<input type="hidden" id="name" th:value="${name2}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<div class="container">
+    <div class="row">
+        <div id="main">
+            <p id="msg">当前位置：
+                <a href="" style="color:black;">首页</a>&gt;走进惠来></p>
+            <div id="content">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton1(catid=1122,siteid=${siteid})}">
+                            <span class="zishu2" th:text="地理位置"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton2(catid=1123,siteid=${siteid})}">
+                            <span class="zishu2" th:text="惠来历史"></span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a th:href="@{/zjhlButton(catid=1124,siteid=${siteid})}">
+                            <span class="zishu2" th:text="基础设施"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton(catid=1125,siteid=${siteid})}">
+                            <span class="zishu2" th:text="农业工业"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton(catid=1126,siteid=${siteid})}">
+                            <span class="zishu2" th:text="名优特产"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton(catid=1127,siteid=${siteid})}">
+                            <span class="zishu2" th:text="法律法规"></span>
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a th:href="@{/zjhlButton(catid=1128,siteid=${siteid})}">
+                            <span class="zishu2" th:text="行政许可"></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="local">
+                        <!--<input class="suosou" type="text" placeholder="关键字/索引号">-->
+                        <h3 style="align-content: center">地理位置</h3>
+                        <p>
+                            惠来县地处广东省东南部，位于东经北纬22°53′30″～23°11′10″，115°54′55″～116°34′10″之间，东连潮阳，西接陆丰，北邻普宁，南濒南海。县境东西相距67公里，南北相距33.5公里，全县陆地面积1253平方公里。 惠来县地处大南山南麓，枕山面海。东西直线距离67公里，以县治惠城为界，东部南北直线距离在11公里～17公里之间，西部南北直线距离在18公里～33公里之间。北部为山区，东南部和西南部为丘陵地带，中南部多为平原台地，中部至东部沿海多为沙滩地，西南部沿海多为海、河塭地。海岸线岬角发育，曲折多湾。地势北高南低。西部高于东部。北南倾斜度较大，境内最高峰犁头山东海拔822.7米，最低地带神泉镇，平均高程不足3米。全境基本属滨海丘陵类型，总面积约为187.95万亩。 大南山脉盘绕绵延在普宁、惠来、潮南3县（市、区）之间，从西至东横贯惠来县境整个北部。县内最高山峰犁头山东,海拔822.7米，位于青坑林场北部。高程在500米以上的山地面积约为1.04万亩，占全县面积0.55%。除北部山区的中低丘陵以外，县境东西均为丘陵地带。东部为南山岭丘陵带，属大南山南伸余脉，绵延于华湖镇、前詹镇、周田镇，由关门山经塔兜山向南直趋海滨；西部为三清岭丘陵带，包括东港镇、鳌江镇、大南山华侨管理区、葵潭农场、东埔农场大部分区域。由凤地山、五龙顶、三清山组成一条西东走向的矮山岭，而后南折双梅山，绵延至海滨。丘陵总面积约为100.51万亩，占全县总面积53.49%。 平原、阶地主要分布于惠来县境中南部。以总铺洋为主的龙江中下游沉积地带，为县内最大平原。其次为东陇洋和华陇洋，两洋相连，处雷岭河和盐岭河下游。西部平原地有鳌江下游的鸟坑洋、龙舟洋以及葵潭盆地。东部较大成片平原地为京陇洋，处关门山以东学地溪等小溪河下游。平原、阶地总面积约为46.05万亩，占全县总面积24.5%。沙滩地分布于仙庵、靖海、周田、前詹、神泉、溪西等镇沿海地带，面积约为11.46万亩，占全县总面积6.1%。海、河塭地主要分布于鳌江、岐石两镇海边，面积约为10.34万亩，占全县总面积5.5%。
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+</html>

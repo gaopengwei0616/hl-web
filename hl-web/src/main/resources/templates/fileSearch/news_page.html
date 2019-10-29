@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<!-- 顶部包括标签切换 -->
+<body>
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+
+
+<input type="hidden" id="siteid" th:value="${siteid}">
+<div class="section" th:fragment="child_news_page">
+    <div style="width: 900px;text-align: center;margin:0 auto">
+	            <div style="color: black;text-align: center;height: 60px;">
+	            <h4 th:text="${newscontent.title}"></h4>
+	            <p th:text="${newscontent.createTime}"style="text-align: center;"></p>
+	        </div>
+	         <div style="margin-top: 5px"  th:text="${newscontent.content}"></div> 
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+<script>
+   
+</script>
+</html>

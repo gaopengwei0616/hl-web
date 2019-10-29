@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eda.dao.GongkaiMapper">
+    <resultMap id="GongkaiResultMap" type="com.eda.pojo.Gongkai">
+        <id column="id" property="id"></id>
+        <result column="catid" property="catid"></result>
+        <result column="title" property="title"></result>
+        <result column="url" property="url"></result>
+        <result column="inputtime" property="createtime"></result>
+        <result column="keywords" property="keywords"></result>
+    </resultMap>
+    <select id="selectByCatid" resultMap="GongkaiResultMap">
+        select id,title,url,keywords, FROM_UNIXTIME(inputtime,'%Y-%m-%d' ) AS inputtime from v9_news where catid = #{catid} order by inputtime desc
+    </select>
+
+    <select id="selectZdlyByParentId" resultMap="GongkaiResultMap">
+        SELECT id,title,FROM_UNIXTIME(
+        inputtime,'%Y-%m-%d' ) AS inputtime,
+        keywords FROM v9_news WHERE catid IN (SELECT catid FROM v9_category WHERE parentid=#{catid})
+    </select>
+
+    <select id="selectZdlyByCatid" resultMap="GongkaiResultMap">
+        SELECT id,title,FROM_UNIXTIME(
+        inputtime,'%Y-%m-%d' ) AS inputtime,
+        keywords FROM v9_news WHERE catid=#{catid}
+    </select>
+</mapper>

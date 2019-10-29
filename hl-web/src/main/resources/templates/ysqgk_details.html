@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/zwgk.css" type="text/css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+
+</head>
+<style>
+
+</style>
+<body>
+<input type="hidden" id="siteid" th:value="${siteid2}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<div class="content">
+    <style type="text/css">
+        .col-auto{
+            overflow:visible;
+        }
+        .wenzi111{
+            background: #f8f8f8;
+            border-top: 1px solid #ddd;
+            padding: 20px 20px 40px;
+        }
+        .wenzi111 p{
+            font-size: 14px;
+            text-indent: 28px;
+            line-height: 180%;
+        }
+        .anniu111{
+            background:#EDF0F5;
+        }
+        .anniu111 p{
+            margin-top:10px;
+            text-align:center;
+        }</style>
+    <div class="container">
+        <div class="row" style="text-align: center;">
+            <div class="wenzi111">
+                <p style="text-align: justify;">您好！欢迎使用广东省惠来县人民政府信息依申请公开系统。您可以根据自身生产、生活、科研等特殊需要，通过本系统向广东省惠来县人民政府各部门各直属机构申请获取相关政府信息。本系统向您提供在线身份验证、提交申请表、提交成功短信接收、查询办理进度、查看电子反馈文书等辅助功能。</p>
+                <p style="text-align: justify;">为保证您及时获取所需政府信息，提高效率，请您在正式提交政府信息公开申请之前，通过下面的“主动公开政府信息检索”进行查询。</p>
+                <p style="text-align: justify;">由于互联网信息处理技术的固有缺陷，硬件故障或其它不可抗力导致的服务暂停不可完全避免，本系统不能保证所有网上申请100%成功提交及办理。</p>
+                <p style="text-align: justify;">本系统目前处于试运行阶段，仅向广东省户籍的公民开放申请功能，非广东省户籍的公民可通过书面方式提出申请 （下载申请表格）,采用书面方式申请的,应当在信封的显著位置标注:“政府信息公开申请”字样 。如对已提交的申请进行查询，请使用“我想查看处理状态”。谢谢您的支持和配合。</p>
+            </div>
+            <div class="anniu111">
+                <p><a href="/ysqgk_sq"><img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0510/20180510094203935.jpg" style="width: 341px; height: 63px;"></a></p>
+                <p><a href="/ysqgk_check"><img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0510/20180510094217589.jpg" style="width: 342px; height: 56px;"></a></p>
+                <p><a href="zfxxgk_details?siteid=1&name=政府工作报告&catid=567"><img alt="" src="http://hlx.huilai.gov.cn/uploadfile/2018/0510/20180510094232394.jpg" style="width: 344px; height: 60px;"></a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+</html>

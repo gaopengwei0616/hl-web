@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.eda.dao.CategoryMapper">
+	<resultMap id="CategoryResultMap" type="com.eda.pojo.Category">
+
+		<id column="catid" property="catid" />
+
+		<result column="siteid" property="siteid" />
+
+		<result column="catname" property="catname" />
+
+		<result column="image" property="image" />
+
+		<result column="url" property="url" />
+		
+		<result column="letter" property="letter" />
+
+		<result column="parentid" property="parentid"/>
+		<result column="cat_code" property="cat_code"/>
+
+
+	</resultMap>
+	
+	<select id="selectCategoryId" resultMap="CategoryResultMap">
+		SELECT * FROM v9_category WHERE siteid=#{siteId} and cat_code =#{cat_code}
+	</select>
+	
+	<select id="selectByParentId" resultMap="CategoryResultMap">
+		SELECT * FROM v9_category WHERE parentid=#{parentid}
+	</select>
+
+	<select id="selectCategoryByCode" resultMap="CategoryResultMap">
+		SELECT * FROM v9_category WHERE cat_code=#{cat_code} AND siteid=#{siteid}
+		 AND catname !='政府专栏'
+	</select>
+
+	<select id="selectAllByParentId99" resultMap="CategoryResultMap">
+		SELECT * FROM v9_category WHERE parentid = 99
+	</select>
+	
+	<select id="selectCategoryByXzzl" resultMap="CategoryResultMap">
+		select * from v9_category where siteid=#{siteId} and catname='下载资料'
+	</select>
+	
+	<select id="selectCategoryForId" resultType="int">
+		select catid from v9_category where siteid=#{siteId} and catname='下载资料'
+	</select>
+
+	<select id="selectZtzl" resultMap="CategoryResultMap">
+		select catid,siteid,parentid,catname,image,url from v9_category where parentid=#{parentid}
+	</select>
+
+	<select id="selectZtzl2" resultMap="CategoryResultMap">
+		select catid,siteid,parentid,catname,image,url from v9_category where catid=#{catid}
+	</select>
+
+	<select id="selectCatid" resultType="int">
+		select catid from v9_category where siteid=#{siteid} and catname like '%公开%年%报%'
+	</select>
+
+</mapper>

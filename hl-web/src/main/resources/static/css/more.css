@@ -1,0 +1,64 @@
+#content > #myTab,
+#content > #tab-content {
+    float: left;
+}
+
+#myTab {
+    width: 20%;
+    border: 1px solid rgb(234, 234, 234);
+    text-align: center;
+    background: rgb(242, 242, 242);
+}
+
+#myTab > li {
+    float: none;
+}
+
+#myTab > li a {
+    border: 0;
+    color: black;
+}
+
+#myTab > .active a {
+    background: rgb(242, 242, 242);
+    color: rgb(16, 118, 207);
+}
+
+.tab-content {
+    width: 70%;
+}
+
+.tab-content > div {
+    margin-left: 5%;
+    border: 1px solid rgb(234, 234, 234);
+}
+
+.tab-content input {
+    background: rgb(242, 242, 242);
+    width: 80%;
+    height: 30px;
+    margin: 15px;
+}
+
+.tab-content thead tr {
+    height: 40px;
+    line-height: 40px;
+    background: rgb(238, 238, 238);
+    color: rgb(16, 118, 207);
+    margin-top: 5px;
+}
+
+.tab-content tbody tr {
+    height: 40px;
+    line-height: 40px;
+    border: 1px dashed rgb(234, 234, 234);
+}
+
+.tab-content tbody tr a {
+    margin-left: 2%;
+    color: black;
+}
+
+.tab-content tbody tr .time {
+    text-align: center;
+}

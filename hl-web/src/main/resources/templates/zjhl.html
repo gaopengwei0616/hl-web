@@ -1,0 +1,222 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>惠来县人民政府门户网站</title>
+<link rel="stylesheet" href="css/index.css" type="text/css">
+<link rel="stylesheet" href="css/zjhl.css" type="text/css">
+<link rel="stylesheet" href="css/reset.css" type="text/css">
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<!-- 所需要的js文件 -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/index.js"></script>
+
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>惠来县人民政府门户网站</title>
+<script>
+	$(function() {
+		$(".weixin").mouseover(function() {
+			$(".ewm").css("display", "block");
+		});
+		$(".weixin").mouseout(function() {
+			$(".ewm").css("display", "none");
+		});
+	})
+</script>
+</head>
+<body>
+	<input type="hidden" id="siteid" th:value="${siteid}">
+	<div th:replace="page/header::header"></div>
+	<!--首页轮播图-->
+	<div class="container">
+		<div class="row">
+			<div id="main">
+				<div id="sketch">
+					<ul class="sketch_text">
+						<li class="title">惠来概况</li>
+						<li class="introduction"><span style="font-size: 14px">惠来位于粤东沿海，东连汕头市，西接陆丰市，北邻普宁市，南濒南中国海，是揭阳市重要的沿海县和海上交通门户。境内地势北高南低，属滨海丘陵地形，大南山横贯县境北部。全境地处北回归线以南，属亚热带季风气候，高温湿润，四季如春，日照充足，雨量充沛，年平均气温22℃左右，年平均降雨量1800多毫米。<br>
+								惠来置县于明嘉靖三年（1524年），因县治设于惠来都，故名。城处葵岭东南，故雅称葵阳。置县以来，一直为潮汕政区辖县。1992年后，隶属揭阳市。全县陆地面积1253平方公里，海域面积7689平方公里，海岸线长109.5公里。现辖14个镇、3个农林场，设揭阳（惠来）沿海经济开发试验区。<br>
+								全县现有户籍总人口133万人，旅居国外侨胞和港澳台同胞20多万人。先后获得“全国水产品百强县”、“国家商品粮生产基地县”、“中国荔枝之乡”、“中国能源工业大县”等荣誉称号。
+						</span></li>
+						<br />
+						<li class="introduction">
+							<p>
+								<span style="font-family: 宋体; font-size: 16px;">&nbsp;惠来县地处粤东沿海，背倚大南山，面濒南海。陆地面积1253平方公里，海域面积<span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">7689</span>平方公里，海岸线长
+								</span><span style="font-family: 宋体;">82公里，是揭阳市唯一的沿海县和海上交通门户。惠来县现辖</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">14</span><span
+									style="font-family: 宋体;">个镇，县政府驻地惠城镇。置县于明嘉靖三年</span><span
+									style="font-family: 宋体;">(公元</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">1523</span><span
+									style="font-family: 宋体;">年</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">)</span><span
+									style="font-family: 宋体;">，迄今</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">479</span><span
+									style="font-family: 宋体;">年。旅居港澳台和海外侨胞</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">20</span><span
+									style="font-family: 宋体;">多万人，是广东省著名侨乡。 &nbsp;</span>
+							</p>
+							<p>
+								<span style="font-family: 宋体; font-size: 16px;">&nbsp;惠来全境居北回归线以南，属亚热带季风气候区，日照充足，雨量充沛，自然资源丰富。已探明的矿产资源</span><span
+									style="font-family: 宋体;">20多种，其中花岗岩总储量</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">1500</span><span
+									style="font-family: 宋体;">万立方米，高岭土总储量</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">5000</span><span
+									style="font-family: 宋体;">万吨，稀有金属锆英石储量</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">1.2</span><span
+									style="font-family: 宋体;">万吨。水力、风力资源丰富。有水库，山塘</span><span
+									style="font-family: 宋体;">200多座，总库容量近</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">4</span><span
+									style="font-family: 宋体;">亿立方米，蕴藏发电能力达</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">5.29</span><span
+									style="font-family: 宋体;">万千瓦，有水力发电站</span><span
+									style="font-family: 宋体;">48座，总装机容量</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">1.28</span><span
+									style="font-family: 宋体;">万千瓦。全县可建风电场面积</span><span
+									style="font-family: &amp; quot;Times New Roman&amp;quot;;">30</span><span
+									style="font-family: 宋体;">平方公里，被定为“国家乘风计划”的海湾石风电场首期工程</span>
+							</p>
+							<p>
+								<span style="font-family: 宋体; font-size: 16px;">2000年投产以来取得较好效益。特色农业发展较好，荔枝种植面积达<span
+									style="font-size: 16px; font-family: &amp; quot;Times New Roman&amp;quot;;">1.6</span>万公顷，产量近
+								</span><span style="font-family: 宋体;">4万吨；龙虾、鲍鱼、石斑鱼、海胆等名珍海鲜产量也较高。</span>
+							</p>
+							<p>
+								<span style="font-family: 宋体; font-size: 16px;">&nbsp;</span>
+							</p>
+							<p>
+								<br />
+							</p>
+						</li>
+
+
+						<li class="subMenu"><a th:href="@{/zjhlButton1(siteid=${siteid})}"> <span
+                class="" th:text="地理位置"></span> </ a>&nbsp; <a
+                th:href="@{/zjhlButton2(siteid=${siteid})}"> <span class="" th:text="惠来历史"></span>
+        </ a>&nbsp; <a th:href="@{/zjhlButton(catid=1130,siteid=${siteid})}"> <span
+                class="" th:text="基础设施"></span> </ a>&nbsp; <a
+                th:href="@{/zjhlButton(catid=1131,siteid=${siteid})}"> <span class=""
+                                                                             th:text="农业工业"></span> </ a>
+            <a th:href="@{/zjhlButton(catid=1132,siteid=${siteid})}">
+                <span class="" th:text="名优特产"></span> </ a> <a
+                    th:href="@{/zjhlButton(catid=1133,siteid=${siteid})}"> <span class=""
+                                                                                 th:text="法律法规"></span> </ a>&nbsp; <a
+                    th:href="@{/zjhlButton(catid=1134,siteid=${siteid})}"> <span class=""
+                                                                                 th:text="行政许可"></span> </ a> </li>
+					</ul>
+					<div class="sketch_img">
+						<img src="img/惠来概况.png" alt=""
+							style="width: 447px; height: 333px;">
+					</div>
+				</div>
+				<div id="guild">
+					<div id="leftsideBar">
+						<div id="tourism">
+							<p class="banner">
+								<span class="title">旅游信息</span> <a
+									onclick="more('travelInformation+旅游信息+no')">更多</a>
+							</p>
+							<div class="tourism_img">
+								<img src="img/旅游信息.png" alt="">
+							</div>
+							<ul class="tourism_list" id="travelInformation"></ul>
+						</div>
+						<div id="unscramble">
+							<ul class="unscramble_list" id="policyAnalyzing">
+								<li class="banner"><span class="title">政策解读</span> <a
+									onclick="more('policyAnalyzing+政策解读+no')">更多</a></li>
+
+							</ul>
+						</div>
+					</div>
+					<div id="rightsideBar">
+						<ul id="zsyz">
+							<li class="banner"><span class="title">招商动态</span><a
+								onclick="more('investmentDynamics+招商动态+no')">更多</a></li>
+							<li class="zsyz_img"><img src="img/招商引资.png" alt=""></li>
+							<li>
+								<ul class="zsyz_list" id="investmentDynamics"></ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="page/footer::footer"></div>
+	<!-- 页面底部 -->
+</body>
+<script>
+	//招商动态
+	$(function() {
+		var siteid = $("#siteid").val();
+		$
+				.ajax({
+					url : "/investmentDynamics",
+					dataType : "json",
+					type : "get",
+					data : {
+						"siteid" : siteid
+					},
+					success : function(data) {
+						var html = "";
+						for ( var i in data) {
+							html += "<li><a style='overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical;' target='_Blank' href='/childNewsPage?siteid="
+									+ siteid
+									+ "&newsId="
+									+ data[i].id
+									+ "'>"
+									+ data[i].title + "</a></li>";
+						}
+						$("#investmentDynamics").append(html);
+					}
+				});
+		//旅游信息
+		$
+				.ajax({
+					url : "/travelInformation",
+					dataType : "json",
+					type : "get",
+					data : {
+						"siteid" : siteid
+					},
+					success : function(data) {
+						var html = "";
+						for ( var i in data) {
+							html += "<li><a style='overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical;' target='_Blank' href='/childNewsPage?siteid="
+									+ siteid
+									+ "&newsId="
+									+ data[i].id
+									+ "'>"
+									+ data[i].title + "</li>";
+						}
+						$("#travelInformation").append(html);
+					}
+				});
+		//政策解读
+		$
+				.ajax({
+					url : "/policyAnalyzing",
+					dataType : "json",
+					type : "get",
+					data : {
+						"siteid" : siteid
+					},
+					success : function(data) {
+						var html = "";
+						for ( var i in data) {
+							html += "<li ><a style='overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical;' target='_Blank' href='/childNewsPage?siteid="
+									+ siteid
+									+ "&newsId="
+									+ data[i].id
+									+ "'>"
+									+ data[i].title + "</a></li>";
+						}
+						$("#policyAnalyzing").append(html);
+					}
+				});
+	})
+</script>
+</html>

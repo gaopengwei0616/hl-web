@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/zwgk.css" type="text/css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <script src="js/index.js"></script>
+
+</head>
+<style>
+
+</style>
+<body>
+<input type="hidden" id="siteid" th:value="${siteid2}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<div class="content">
+    <div class="row" style="text-align: center;">
+        <div class="box">
+            <h5>请输入您提交投诉举报时系统所反馈的查询编号以及您的姓名。</h5>
+            <div class="content">
+                <form method="post" action="" name="myform" id="myform">
+                    <table class="table_form" width="100%" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <th width="80">
+                                    <span color="red">*</span>
+                                </th>
+                                <td>
+                                    请输入公民/法人身份证号码<input type="text" name="info[asfga]" id="asfga" size="50" value="" class="input-text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th width="80">
+                                    <font color="red">*</font>
+                                </th>
+                                <td>
+                                    申请编码<input type="text" name="info[asgag]" id="asgag" size="50" value="" class="input-text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div class="submit ib"><input type="submit" name="dosubmit" id="dosubmit" value=" 提交 ">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+</html>

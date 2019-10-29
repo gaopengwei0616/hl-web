@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="zwfw_Content">
+    <script type="application/javascript">
+        $(function () {
+            var siteid = $("#siteid").val();
+            //个人服务
+            $.ajax({
+                url: "/index/zwfwService",
+                dataType: "json",
+                type: "post",
+                data: {"siteid": siteid},
+                success: function (data) {
+                    var personalService = "";
+                    var corporateService = "";
+                    for(var i in data.personalService){
+                        personalService+= "<a href='/childNewsPage?siteid="+siteid+"&newsId="+data.personalService[i].id+"' target='_blank'>"+data.personalService[i].title+"</a>";
+                    }
+                    for(var i in data.corporateService){
+                        corporateService+= "<a href='/childNewsPage?siteid="+siteid+"&newsId="+data.corporateService[i].id+"' target='_blank'>"+data.corporateService[i].title+"</a>";
+                    }
+                    personalService+="<a href='http://www.gdzwfw.gov.cn/portal/personal/hot?region=445224' target='_blank'>更多事项</a></li>";
+                    corporateService+="<a href='http://www.gdzwfw.gov.cn/portal/legal/hot?region=445224' target='_blank'>更多事项</a></li>"
+                    $("#personalService").html(personalService);
+                    $("#corporateService").html(corporateService);
+                }
+            })
+        })
+    </script>
+    <div class="work_left">
+        <div class="menu">
+            <ul class="nav nav-tabs" id="myTab" style="margin-bottom: 5px;">
+                <li class="active"><a href="#personal">个人服务</a></li>
+                <li><a href="#legal_person">法人服务</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="personal">
+                    <ul>
+                        <li id="personalService"></li>
+                    </ul>
+                </div>
+                <div class="tab-pane" id="legal_person">
+                    <ul>
+                        <li id="corporateService"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>惠来县人民政府门户网站</title>
+    <!-- 所需要的css样式 -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/more.css">
+    <!-- 所需要的js文件 -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        $(function () {
+            $(".weixin").mouseover(function () {
+                $(".ewm").css("display", "block");
+            });
+            $(".weixin").mouseout(function () {
+                $(".ewm").css("display", "none");
+            });
+        })
+    </script>
+</head>
+
+<body>
+<input type="hidden" id="siteid" th:value="${siteid2}">
+<input type="hidden" id="parentid" th:value="${parentid}">
+<input type="hidden" id="name" th:value="${name2}">
+<div th:replace="page/header::header"></div><!--首页轮播图-->
+<div class="container">
+    <div class="row">
+        <div id="main">
+            <p id="msg">当前位置：
+                <a href="" style="color:black;">首页</a>&gt;政务公开><span th:text="${name2}"></span></p>
+                <input type="hidden" th:value="${siteid2}" id="siteid">
+            <div id="content">
+                <ul class="nav nav-tabs" id="myTab">
+
+                    <li class="active">
+                        <a href="">
+                            <span class="zishu2" >下载资料</span>
+                        </a>
+                    </li>
+
+                    <!--<tr th:each="data:${categoryList}">
+                        <li class="active">
+                            <a th:href="@{/zfxxgk_details_refresh(siteid=${siteid2},name=${name2},catid=${data.catid})}">
+                                <span class="zishu2" th:text="${data.catname}"></span>
+                            </a>
+                        </li>
+                    </tr>-->
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="local">
+                        <!--<input class="suosou" type="text" placeholder="关键字/索引号">-->
+                        <table style="width:100%">
+                            <thead>
+                            <tr>
+                                <th><span id="title1" th:text="${name}"></span></th>
+                                <th>发布时间</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table">
+                                <tr th:each="data:${newList}">
+                                    <td>
+                                        <a th:href="@{/childNewsPage(siteid=${siteid2},newsId=${data.id})}"target="_blank">
+                                            <span class="zishu2" th:text="${data.title}"></span>
+                                        </a>
+                                    </td>
+                                    <td class="time" th:text="${data.createTime}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $('#myTab li').click(function () {
+
+            var let=this;
+
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+            var index = $("#myTab li").index(this) + 1;
+            $('.information .tab-pane').removeClass('active');
+            $('.information .tab-pane').eq(index).addClass('active');
+
+        });
+        if (GetQueryString('id') == 1) {
+            $('#myTab li').removeClass('active');
+            $('#myTab li').eq(1).addClass('active');
+            $('.tab-content .tab-pane').removeClass('active');
+            $('.tab-content .tab-pane').eq(1).addClass('active');
+        } else if (GetQueryString('id') == 2) {
+            $('#myTab li').removeClass('active');
+            $('#myTab li').eq(2).addClass('active');
+            $('.tab-content .tab-pane').removeClass('active');
+            $('.tab-content .tab-pane').eq(2).addClass('active');
+        }
+    })
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    };
+
+    $('.suosou').bind('keypress', function (event) {
+        if (event.keyCode == "13") {
+            sousuo = $('.tab-content>.active .suosou').val();
+            window.open('http://www.huilai.gov.cn//index.php?m=search&c=index&a=init&typeid=1&siteid=1&q=' + sousuo + '&page=1');
+        }
+    });
+
+</script>
+<div th:replace="page/footer::footer"></div><!-- 页面底部 -->
+</body>
+</html>
